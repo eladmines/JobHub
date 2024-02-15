@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <span class="title"><h1>{% block title %} The Home Page of FlaskApp {% endblock %}</h1></span>
+    <div class="content">
+        <p id="demo"></p>
+       <script>
+         fetch('templates/jobsdb.json')
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+       </script>
+    </div>
+{% endblock %}
