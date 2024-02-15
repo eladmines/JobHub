@@ -5,8 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from config import switch, logging
 import time
 from constants import url
-
-from data.companiesData.companies import companies
+from data.modules.companyElementsScraping import companyScrapingDetails
+from data.companiesData.companies import companyScrapingDetails,companies
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(options=options)
 
@@ -19,27 +19,24 @@ def getSourceCode(link):
 def getJobsLinks(company):
     dataList=[]
     wait = WebDriverWait(driver, 10)
-    for company in companies:
-        elements = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,"css-19uc56f")))
+    elements = wait.until(EC.presence_of_all_elements_located((company[0].tagScrapingElement,company[0].nameScrapingElement)))
     for elem in elements:
-        dataList.append(elem.get_attribute("href"))
+        dataList.append(elem.get_attribute(company[0].attribute))
     return dataList
-"""""
-def getJobsList(hrefList):
-    getData()
-    for jobLink in hrefList:
+
+def getJobsList(hrefLinks,company):
+    for jobLink in hrefLinks:
         getSourceCode(jobLink)
-        print(jobLink)
-"""  
+        wait = WebDriverWait(driver, 10)
+        title=wait.until(EC.presence_of_element_located((companies[0].jobTitleTag, companies[0].jobTitleVal))).text
+  
     
 getSourceCode(url)
 hrefLinks=getJobsLinks(companies)
-print(hrefLinks)
+getJobsList(hrefLinks,companies)
 
 
 """""
-
-
 def getsSourceCode():
     options = webdriver.ChromeOptions()
     # Add the 'excludeSwitches' option to disable logging

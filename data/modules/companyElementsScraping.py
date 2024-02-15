@@ -1,5 +1,5 @@
 class companyScrapingDetails:
-     def __init__(self,nameScrapingElement,tagScrapingElement,attribute):
+     def __init__(self,nameScrapingElement,tagScrapingElement,attribute,jobTitleVal,jobTitleTag):
         # First three is for scraping jobs links from the main jobs page.
         #  Name of the element identifier
         self.nameScrapingElement=nameScrapingElement
@@ -7,4 +7,5 @@ class companyScrapingDetails:
         self.tagScrapingElement=tagScrapingElement
         # The information we want to scrape
         self.attribute=attribute
-
+        self.jobTitleTag=jobTitleTag
+        self.jobTitleVal=jobTitleVal
