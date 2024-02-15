@@ -6,34 +6,35 @@ from config import switch, logging
 import time
 from constants import url
 
-from companiesData.kla import jobsLinkClassName
-
+from data.companiesData.companies import companies
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(options=options)
+
 def getSourceCode(link):
     # Add the 'excludeSwitches' option to disable logging
     options.add_experimental_option(switch , logging)
     driver.get(link)
 
 
-def getJobsLinks(jobsLinkClassName):
-    hrefList=[]
+def getJobsLinks(company):
+    dataList=[]
     wait = WebDriverWait(driver, 10)
-    jobsLinks = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,jobsLinkClassName)))
-    for jobLink in jobsLinks:
-        hrefList.append(jobLink.get_attribute("href"))
-    return hrefList
-
-def getJobInfo(hrefList):
+    for company in companies:
+        elements = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME,"css-19uc56f")))
+    for elem in elements:
+        dataList.append(elem.get_attribute("href"))
+    return dataList
+"""""
+def getJobsList(hrefList):
+    getData()
     for jobLink in hrefList:
         getSourceCode(jobLink)
         print(jobLink)
-    
+"""  
     
 getSourceCode(url)
-
-hrefLink = getJobsLinks(jobsLinkClassName)
-getJobInfo(hrefLink)
+hrefLinks=getJobsLinks(companies)
+print(hrefLinks)
 
 
 """""
