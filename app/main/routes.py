@@ -1,7 +1,7 @@
 
 from flask import Blueprint, render_template, redirect,request
 import psycopg2
-from app.app import app
+
 
 main_bp = Blueprint("main_bp", __name__ , template_folder='main')
 DATABASE_URL="postgres://njbfbloq:O2eskQEEPaRKJX16XXKYi18WdeslSXx7@snuffleupagus.db.elephantsql.com/njbfbloq"

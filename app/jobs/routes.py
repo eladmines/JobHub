@@ -4,7 +4,7 @@ from config import DATABASE_URL
 from ..models.job import Job
 from dbCommands import getAllJobsDBCommand
 import psycopg2
-from app.app import app
+
 
 def openConnection():
     try:

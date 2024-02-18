@@ -1,5 +1,4 @@
 from flask import  render_template, redirect
-from app.app import app
 from app.companies import companies_bp
 
 
