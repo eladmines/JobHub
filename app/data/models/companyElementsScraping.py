@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 from app.models.job import Job
 from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
-
+from selenium.common.exceptions import TimeoutException
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(options=options)
 
@@ -39,19 +39,29 @@ class MicrosoftScrapingDetails(companyScrapingDetails):
          elements= WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.tagScrapingElement,self.nameScrapingElement)))
          seeDetails = elements.find_element(By.TAG_NAME, self.attribute)
          seeDetails.click()
-         title = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobTitleTag,self.jobTitleVal)))
-         location = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobLocationTag,self.jobLocationVal)))
-         description = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobDescriotionTag,self.jobDescriotionVal)))
-         qual = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobQualificationTag,self.jobQualificationVal)))
-         date = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobDateTag,self.jobDateVal)))
-         li_elements = qual.find_elements(By.TAG_NAME, 'li')
-         qualifications = []
-         for li_element in li_elements:
-            qualifications.append(li_element.text+'\n')
+         title = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobTitleTag,self.jobTitleVal))).text
+         location = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobLocationTag,self.jobLocationVal))).text
+         description = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobDescriotionTag,self.jobDescriotionVal))).text
+         try:
+             qual = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobQualificationTag,self.jobQualificationVal)))
+         except TimeoutException:
+            print("TimeoutException: Timed out waiting for element to be present.")
+            qual=None
+            pass
+         date = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobDateTag,self.jobDateVal))).text
+         if qual is not None:
+            li_elements = qual.find_elements(By.TAG_NAME, 'li')
+            qualifications = []
+            for li_element in li_elements:
+               qualifications.append(li_element.text+'\n')
+         else:
+            qualifications=None
          link = driver.current_url
          job = Job(1,title,location,description,qualifications,"Microsoft","image link",date,link)
          driver.back()
+         print(job.location)
          jobs.append(job)
       return jobs
+   
    
  
