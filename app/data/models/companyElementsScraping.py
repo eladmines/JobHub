@@ -14,7 +14,7 @@ class companyScrapingDetails(ABC):
       def getJobsElements(self):
            pass
 
-i=0
+
 
 class MicrosoftScrapingDetails(companyScrapingDetails):
    def __init__(self,tagScrapingElement,nameScrapingElement,attribute,jobTitleTag,jobTitleVal,jobLocationTag,jobLocationVal,jobDescriotionTag,jobDescriotionVal,jobQualificationTag,jobQualificationVal,jobDateTag,jobDateVal):
@@ -36,7 +36,7 @@ class MicrosoftScrapingDetails(companyScrapingDetails):
    def CreateJobsList(self):
       jobs=[]
       for i in range(6):
-         elements= WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.tagScrapingElement,self.nameScrapingElement)))
+         elements= WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.tagScrapingElement,f'[data-list-index="{i}"]')))
          seeDetails = elements.find_element(By.TAG_NAME, self.attribute)
          seeDetails.click()
          title = WebDriverWait(driver, 10).until(EC.presence_of_element_located((self.jobTitleTag,self.jobTitleVal))).text
@@ -57,7 +57,7 @@ class MicrosoftScrapingDetails(companyScrapingDetails):
          else:
             qualifications=None
          link = driver.current_url
-         job = Job(1,title,location,description,qualifications,"Microsoft","image link",date,link)
+         job = Job(title,location,description,qualifications,"Microsoft","image link",date,link)
          driver.back()
          print(job.location)
          jobs.append(job)

@@ -27,9 +27,10 @@ def sendJobsToDB(jobs):
         return None
     else:
         curs=conn.cursor()
-        curs.execute(INSERT_ROOMS, (jobs[0].title, jobs[0].location, jobs[0].description, jobs[0].qualifications, jobs[0].date,jobs[0].link,"Microsoft","link image"))
-        #curs.execute(CREATE_JOBS_TABLE)
-        conn.commit()
+        for job in jobs:
+            curs.execute(INSERT_ROOMS, (job.title, job.location, job.description, job.qualifications, job.date,job.link,"Microsoft","link image"))
+            #curs.execute(CREATE_JOBS_TABLE)
+            conn.commit()
         
 if __name__ == "__main__":
     getSourceCode(url)
