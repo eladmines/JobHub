@@ -132,30 +132,19 @@
   </div>
 </div>
 
+
+
 <script defer>
-  
-  var data = JSON.parse(('{{jobs|safe}}'))
-  console.log(data)
-  
-
-  
-
-  
-
-  
-  
+var data = JSON.parse(('{{jobs|safe}}'))
+console.log(data) 
 function deployJobsContainer(data){
-
   var i=0
   while(i< data.length){
       buildJobContainer(data,i)
   i++
   }
 }
-
 deployJobsContainer(data)
-
-
 </script>
 
 {% endblock %}

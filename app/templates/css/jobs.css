@@ -9,6 +9,7 @@ html {
 body {
 	height:100%;
 	width:100%;
+  background-color: #cecece;
 }
 
 .wrapper {
@@ -37,12 +38,13 @@ body {
 
 .job-container{
   position: relative;
-  border-style: inset;
-  border-width:1px;
   height:30%;
   width:100%;
   display: flex;
-
+  box-shadow: 0 0 20px 8px #e9e8e8;
+  border-radius: 20px;
+  background: #f2f2f2;
+  margin-bottom:20px;
   
 }
 
@@ -82,8 +84,8 @@ body {
 
 .image-container img{
   position: relative;
-  width:100px;
-  height: 50px;;
+  width:50%;
+  height: 50%;
   left: 25%;
   top:30%;
 }
@@ -238,5 +240,49 @@ body {
  
   float:right;
   
+}
+
+
+
+
+/* card */
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;900&display=swap');
+
+body {
+  background: #f2f2f2;
+}
+
+.container-c  {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  
+  height:100%;
+  width: 600px;
+  background: #f2f2f2;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 20px 8px #d0d0d0;
+}
+
+.content {
+  position: relative;
+  top: 50%;
+  transform: translatey(-50%);
+  text-align: justify;
+  color: black;
+  padding: 40px;
+  font-family: 'Merriweather', serif;
+}
+
+h1 {
+  font-weight: 900;
+  text-align: center;
+}
+
+h3 {
+  font-weight: 300;
 }
 
