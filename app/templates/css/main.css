@@ -14,16 +14,18 @@ html, body {
 #pie-chart-container {
 
     position: relative;
-
+    font-family: "Open Sans", sans-serif;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   width:100%;
   float:Right;
-  height:70%;
+  height:65%;
+  margin-bottom: 4%;
 
 
 }
 #container-data-analyize{
+    margin-top:1%;
    float: right;
    display: block;
    width: 15%;
@@ -37,6 +39,7 @@ html, body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     width:100%;
     float:Right;
+    height:25%;
 
  
    
@@ -60,6 +63,7 @@ h1 {
 }
 
 #left-container{
+    margin-top:1%;
     position: relative;
     width:14%;
 
@@ -68,16 +72,294 @@ h1 {
     
 }
 
-#interesting-job-container{
+
+#relevant-jobs-container{
     position: relative;
     width:100%;
-    height:30%;
+    height:37%;
     position: relative;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    width:100%;
     float:Right;
+    margin-bottom:1%;
+}
+
+
+#mylast-application-container{
+    position: relative;
+    width:100%;
+    height:20%;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    float:Right;
+    margin-bottom:1%;
+}
+
+
+
+#your-data{
+    position: relative;
+    width:59%;
+    height:20%;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    float:Right;
+    margin-bottom:1%;
+
+}
+
+#your-data-left{
+    position: relative;
+    width:40%;
+    height:20%;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    float:Right;
+    margin-bottom:1%;
+    margin-right:1%;
+
+    font-family: "Open Sans", sans-serif;
+}
+
+#applications-numbers{
+    position: relative;
+    width:100%;
+    height:30%;
+    
+   
+}
+
+#applications-numbers-text{
+    position: relative;
+    width:90%;
+    height:100%;
+   
+    font-family: "Open Sans", sans-serif;
+    font-size: 7pt;
+    float:right;
+    text-align: left;
+    padding-top: 2%;
+}
+
+#applications-numbers-img{
+    position: relative;
+    width:10%;
+    height:100%;
+  
+    display: inline-block;
+}
+
+#applications-numbers-img img{
+    position: relative;
+    width:40%;
+    height:40%;
+    margin:10%
+}
+
+#numbers-container{
+    position: relative;
+    width:100%;
+    height:10%;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    float:Right;
+ 
+}
+
+
+#companies-numbers-container{
+    position: relative;
+   
+    width:30%;
+    height:100%;
+
+}
+
+.value{
+    position: relative;
+    font-size: 100%;
+}
+
+#menu-container{
+        
+        position: relative;
+        width:100%;
+        height:80%;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        float:Right;
+        margin-bottom:1%;
+    
+        
+    
+    
+}
+
+#QA{
+    margin-top:4%;
+    position: relative;
+    width:100%;
+    height:10%;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    float:Right;
+    margin-bottom:1%;
 
     
 
+
 }
+
+#profile-menu-container{
+    position: relative;
+    width: 100%;
+    height:15%;
+   
+}
+
+#image-profile-menu-container{
+    position: relative;
+    width: 100%;
+    height:55%;
+   
+}
+
+
+#image-profile-menu-container img{
+    position: relative;
+    left:40%;
+    width:20%;
+    height:80%;
+}
+
+#username-profile-menu-container{
+    text-align: center;
+    position: relative;
+    font-size:10pt;
+    font-family: "Open Sans", sans-serif;
+    width:100%;
+    height:20%;
+    
+}
+
+#buttons-menu-container{
+    position: relative;
+    width: 100%;
+    height:85%;
+   
+}
+
+.button {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    height:10%;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width:100%;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom:1%;
+  }
+
+.button4 {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+  }
+  
+  .button4:hover {background-color: #e7e7e7;}
+  
+  .button5 {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+  }
+
+  #image-mylast-application-container{
+    position: relative;
+    width:10%;
+    height:100%;
+
+    display: inline-block;
+  }
+
+
+  #image-mylast-application-container{
+    position: relative;
+    width:20%;
+    height:100%;
+   
+    display: inline-block;
+  }
+
+  
+  #image-mylast-application-container img{
+    position: relative;
+    width:100%;
+    height:30%;
+    top:25%;
+    
+    float:right;
+  }
+  
+  #desc-mylast-application-container{
+    position: relative;
+    width:78%;
+    height:100%;
+    margin-right:1%;
+    display: inline-block;
+  }
+
+  #title-desc-mylast-application-container{
+    position: relative;
+    width:100%;
+    height:20%;
+    margin-top:1%;
+    float:left;
+    font-family: "Open Sans", sans-serif;
+    
+  }
+
+  #description-desc-mylast-application-container{
+    position: relative;
+    width:100%;
+    height:60%;
+    font-size: 10pt;
+    float:right;
+    font-family: "Open Sans", sans-serif;
+    overflow: auto;
+    background-color: #04AA6D;
+  }
+
+  #details-description-desc-mylast-application-container{
+    position: relative;
+    width:100%;
+    height:10%;
+    font-size: 10pt;
+    float:right;
+    font-family: "Open Sans", sans-serif;
+    overflow: auto;
+    background-color: red;
+  }
+
+  #location-details-description-desc-mylast-application-container{
+    position: relative;
+    width:20%;
+    height:100%;
+    font-size: 10pt;
+    float:right;
+    font-family: "Open Sans", sans-serif;
+    overflow: auto;
+    background-color: yellow;
+  }

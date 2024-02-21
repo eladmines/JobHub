@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+
 
 {% block content %}
 <!DOCTYPE html>
@@ -8,28 +8,125 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <title>Page Title</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <link rel="stylesheet" href="">
 <body>
   <div id="left-container">
-   
+    <div id="menu-container"> 
+      <div id="profile-menu-container">
+        <div id="image-profile-menu-container">
+              <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png">
+        </div>
+        <div id="username-profile-menu-container">
+          <span>Welcome back ,Elad Mines</span>
+        </div>
+       </div>
+       <div id="buttons-menu-container">
+        <button class="button button4">My applications</button>
+        <button class="button button4">My saves</button>
+        <button class="button button4">Jobs</button>
+        <button class="button button4">Companies</button>
+        <button class="button button4">My saves</button>
+        <button class="button button4">My saves</button>
+        <button class="button button4">My saves</button>
+        <button class="button button4">My saves</button>
+        <button class="button button4">My saves</button>
+       
+       </div>
+      </div>
+      <div id="QA"> 
+      
+      </div>
+      
+    </div>
+
+    
   </div>
     <div id="middle-container">
-      <div id="interesting-job-container"> 
-        <canvas style="width:100%;height:100%;">dddd</canvas>
+      <div id="your-data"> 
+       
       </div>
+
+      <div id="your-data-left"> 
+        <div id="applications-numbers">
+         
+          <div id="applications-numbers-img">
+           <img src="https://png.pngtree.com/png-vector/20230307/ourmid/pngtree-morning-vector-icon-design-illustration-png-image_6636868.png">
+          </div>
+          <div id="applications-numbers-text">
+           
+            you have been applied 15 jobs today.
+            
+          </div>
+
+        </div>
+
+        <div id="applications-numbers">
+         
+          <div id="applications-numbers-img">
+           <img src="https://static.thenounproject.com/png/2017216-200.png">
+          </div>
+          <div id="applications-numbers-text">
+           
+              you have 20 active applications right now.
+            
+          </div>
+
+        </div>
+
+        <div id="applications-numbers">
+         
+          <div id="applications-numbers-img">
+           <img src="https://static.thenounproject.com/png/2017216-200.png">
+          </div>
+          <div id="applications-numbers-text">
+           
+              Til now ,you have 20 applications.
+            
+          </div>
+
+        </div>
+       
+      </div>
+      <div id="relevant-jobs-container"> 
+       
+      </div>
+      <div id="mylast-application-container"> 
+        <div id="image-mylast-application-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/PaloAltoNetworks_2020_Logo.svg/2560px-PaloAltoNetworks_2020_Logo.svg.png">
+        </div>
+        <div id="desc-mylast-application-container">
+          <div id="title-desc-mylast-application-container">
+              Software engineer C++ , Team Leader
+          </div>
+          <div id="description-desc-mylast-application-container">
+            Software Engineer responsibilities include gathering user requirements, defining system functionality and writing code in various languages, like Java, Ruby on Rails or .NET programming languages (e.g. C++ or JScript.NET.) Our ideal candidates are familiar with the software development life cycle (SDLC) from preliminary system analysis to tests and deployment.
+
+            Ultimately, the role of the Software Engineer is to build high-quality, innovative and fully performing software that complies with coding standards and technical design.
+          </div>
+          <div id="details-description-desc-mylast-application-container">
+              <div id="location-details-description-desc-mylast-application-container">
+                
+              </div>
+          </div>
+        </div>
+      </div>
+
+    <div id="numbers-container"> 
+       
+        
+    </div>
+    
     </div>
     <div id="container-data-analyize">
         <div id="pie-chart-container">
-            <h1>Pie Chart for Web Development</h1>
+            <h1>Your Applications</h1>
             <div>
               <canvas id="pie-chart"></canvas>
             </div>
         </div>
         <div id="bar-chart-container">
-         
             <canvas id="myChart" style="width:100%;height:100%;"></canvas>
-          
-           
         </div>
     </div> 
 
@@ -43,7 +140,7 @@
     new Chart(document.getElementById('pie-chart'), {
       type: 'pie',
       data: {
-        labels: ["HTML", "CSS", "JavaScript", "PHP", "MySql"],
+        labels: ["Google", "Microsoft", "Amazon", "CheckPoint", "Nvidia"],
         datasets: [{
           backgroundColor: ["#e63946", "#254BDD",
             "#ffbe0b", "#1d3557", "#326998"
@@ -60,7 +157,7 @@
       }
     });
 
-    var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+    var xValues = ["March", "April", "May", "June", "July"];
 var yValues = [55, 49, 44, 24, 15];
 var barColors = ["red", "green","blue","orange","brown"];
 
@@ -81,6 +178,9 @@ new Chart("myChart", {
     }
   }
 });
+
+
+
   </script>
 
 {% endblock %}
