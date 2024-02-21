@@ -74,6 +74,7 @@ h1 {
 
 
 #relevant-jobs-container{
+    overflow-y: scroll;
     position: relative;
     width:100%;
     height:37%;
@@ -124,42 +125,14 @@ h1 {
     font-family: "Open Sans", sans-serif;
 }
 
-#applications-numbers{
-    position: relative;
-    width:100%;
-    height:30%;
+#details-container{
+    font-size: 10pt;
     
-   
 }
 
-#applications-numbers-text{
-    position: relative;
-    width:90%;
-    height:100%;
-   
-    font-family: "Open Sans", sans-serif;
-    font-size: 7pt;
-    float:right;
-    text-align: left;
-    padding-top: 2%;
-}
 
-#applications-numbers-img{
-    position: relative;
-    width:10%;
-    height:100%;
-  
-    display: inline-block;
-}
 
-#applications-numbers-img img{
-    position: relative;
-    width:40%;
-    height:40%;
-    margin:10%
-}
-
-#numbers-container{
+#companies-container{
     position: relative;
     width:100%;
     height:10%;
@@ -170,6 +143,25 @@ h1 {
  
 }
 
+.image-companies-container{
+    position: relative;
+    width:15%;
+    height:100%;
+    display: inline-block;
+
+}
+
+.image-companies-container img{
+    position: relative;
+    width:40%;
+    height:60%;
+}
+
+#logo-companies-container{
+    align-items: center;
+    position: relative;
+    left:10%;
+}
 
 #companies-numbers-container{
     position: relative;
@@ -334,12 +326,12 @@ h1 {
   #description-desc-mylast-application-container{
     position: relative;
     width:100%;
-    height:60%;
+    height:50%;
     font-size: 10pt;
     float:right;
     font-family: "Open Sans", sans-serif;
     overflow: auto;
-    background-color: #04AA6D;
+ 
   }
 
   #details-description-desc-mylast-application-container{
@@ -349,8 +341,8 @@ h1 {
     font-size: 10pt;
     float:right;
     font-family: "Open Sans", sans-serif;
-    overflow: auto;
-    background-color: red;
+
+
   }
 
   #location-details-description-desc-mylast-application-container{
@@ -360,6 +352,150 @@ h1 {
     font-size: 10pt;
     float:right;
     font-family: "Open Sans", sans-serif;
-    overflow: auto;
-    background-color: yellow;
+  
+
   }
+
+  #location-details-description-desc-mylast-application-container img{
+    position: relative;
+    width:100%;
+    height:100%;
+    
+  }
+
+  
+
+
+#img-location-details-description-desc-mylast-application-container{
+    position: relative;
+    width:10%;
+    height:100%;
+    
+    float:left;
+   
+    
+}
+
+#text-location-details-description-desc-mylast-application-container{
+    position: relative;
+    width:85%;
+    height:100%;
+    font-size: 8pt;
+    float:right;
+    color:#9c9c9c;
+   
+
+}
+  #views-details-description-desc-mylast-application-container{
+    position: relative;
+    width:20%;
+    height:100%;
+    font-size: 10pt;
+    float:right;
+    font-family: "Open Sans", sans-serif;
+ 
+   
+  }
+
+  #seemore-details-description-desc-mylast-application-container{
+    position: relative;
+    width:20%;
+    height:100%;
+    font-size: 10pt;
+    float:right;
+    font-family: "Open Sans", sans-serif;
+ 
+   
+  }
+
+
+  #customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #f1f6ff;
+
+  }
+
+  .line-details-container{
+    position: relative;
+    font-size: 8pt;
+    width:100%;
+    height:20%;
+    
+  }
+
+  .image-line-details-container{
+    position: relative;
+    
+    width:10%;
+    height:100%;
+    display: inline-block;
+    
+  }
+
+  
+  .image-line-details-container img{
+    position: relative;
+    width:30%;
+    height:30%;
+    left:25%;
+  }
+
+  .text-line-details-container{
+    position: relative;
+    width:90%;
+    height:100%;
+    float:right;
+    
+  }
+
+  .welcomeback-text-line-details-container{
+    position: relative;
+    width:100%;
+    height:100%;
+    float:right;
+
+    margin-bottom: 1%;
+    
+  }
+
+  #newest-mylast-application-container{
+    width: 100%;
+    height:10%;
+
+
+  }
+
+  #newest-mylast-application-container span{
+    font-family: "Open Sans", sans-serif;
+    color:#9c9c9c;
+    font-size: 8pt;
+  }
+
+  #title-companies-container{
+    position: relative;
+
+    width:100%;
+    height:20%;
+  }
+#title-companies-container{
+    font-family: "Open Sans", sans-serif;
+    color:#9c9c9c;
+    font-size: 7pt;
+}
