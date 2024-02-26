@@ -3,27 +3,10 @@ from jobs import jobs_bp
 from config import DATABASE_URL
 from models.job import Job
 from .dbCommands import getAllJobsDBCommand
+from dbConnections import openConnection, closeConnection
 import psycopg2
 import json
 
-def openConnection():
-    try:
-        conn = psycopg2.connect(DATABASE_URL)
-    except psycopg2.OperationalError as e:
-        print('Unable to connect!\n{0}'.format(e))  
-        # Return None or raise an exception here based on your requirement
-        return None
-    else:
-        print("Succesful") 
-        return conn
-
-def closeConnection(con):
-    try:
-        con.close()
-    except Exception as e:
-        print('Error closing connection: {0}'.format(e))
-    finally:
-        print('Connection closed.') 
 
 def getAllJobs(con,curs):
     curs.execute(getAllJobsDBCommand)
