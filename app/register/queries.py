@@ -1,9 +1,20 @@
 
-def generate_insert_query(data):
-    insert_query = "INSERT INTO users (firstName, lastName, email, password, role, company) " \
-                   "VALUES (%s, %s, %s, %s, %s, %s)"
+from dbConnections import openConnection, closeConnection
 
-    # Assuming 'data' is a dictionary with the necessary keys
-    values = (data.get('firstname'), data.get('lastname'), data.get('email'),
-              data.get('password'), data.get('role'), data.get('company'))
+def generate_insert_query(data):
+     con=openConnection()
+     curs=con.cursor()
+     print("type:",type( data['lastName']))
+     print("type:",type( data['lastName']))
+     print("type:",type( data['email']))
+     print("type:",type(  data['inputPassword']))
+     print("type:",type(  data['role']))
+     print("type:",type(  data['company']))
+     insertUser = "INSERT INTO users (firstName, lastName, email, password, role, company) " \
+                   "VALUES (%s, %s, %s, %s, %s, %s);"
+     values=(data['firstName'], data['lastName'], data['email'],
+              data['inputPassword'], data['role'], data['company'])
+     curs.execute(insertUser,values)
+     con.commit()
+
     

@@ -1,6 +1,7 @@
 
 from flask import Blueprint, render_template, redirect,request, jsonify
 import psycopg2
+from register.queries import generate_insert_query
 
 
 
@@ -16,7 +17,7 @@ def handle_post_request():
     # Access data from the POST request
     data = request.get_json()
     # Your logic for handling the POST request data goes here
-    
+    generate_insert_query(data)
     # Return a response if needed
     response_data = {"message": "Data received successfully!"}
     
