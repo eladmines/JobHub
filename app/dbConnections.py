@@ -8,7 +8,6 @@ def openConnection():
         # Return None or raise an exception here based on your requirement
         return None
     else:
-        print("Succesful") 
         return conn
 
 def closeConnection(con):
