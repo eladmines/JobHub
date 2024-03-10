@@ -68,7 +68,7 @@ function sendDetails(detailsArr){
     if(response.ok) {  
         response.json() 
         .then(function(response) {
-            console.log(response)
+           alert("Email address is already in use")
         });
     }
     else {

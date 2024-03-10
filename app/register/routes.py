@@ -12,5 +12,5 @@ def index():
 @register_bp.route("/register", methods=["POST"])
 def handle_post_request():
     data = request.get_json()
-    uniqueUser=generate_insert_query(data)
-    return jsonify(uniqueUser)
+    uniqueEmail=generate_insert_query(data)
+    return jsonify(uniqueEmail)
