@@ -1,3 +1,16 @@
+
+
+function emailValidation(){
+    var email = document.getElementById("InputEmail").value
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(emailRegex.test(email)){
+        return sendDetails();
+    }
+    else{
+        alert("Your email is not valid")
+    }
+}
+
 function sendDetails(){
     var firstName = document.getElementById("FirstName").value
     var lastName = document.getElementById("LastName").value
