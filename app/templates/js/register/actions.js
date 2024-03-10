@@ -55,7 +55,6 @@ function checkEmptyInputs(detailsArr){
 }
 
 function sendDetails(detailsArr){
-    alert("sdfsd")
     fetch('/register', {
     method: 'POST',
     headers: {
