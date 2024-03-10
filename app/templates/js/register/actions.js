@@ -1,17 +1,45 @@
-
-
-function emailValidation(){
+function inputsValidiation(){
+    
+    var firstName = document.getElementById("FirstName").value
+    var lastName = document.getElementById("LastName").value
     var email = document.getElementById("InputEmail").value
+    var inputPassword = document.getElementById("InputPassword").value
+    var role = document.getElementById("Role").value
+    var company = document.getElementById("Company").value
+    var res = checkEmptyInputs(firstName,lastName,email,inputPassword,role,company)
+    
+    if(!res){
+        alert("Empty inputs");
+        return;
+    } 
+    res = emailValidation(email)
+    if(!res){
+        alert("Your email is not valid");
+        return;
+    }
+    sendDetails(firstName,lastName,email,inputPassword,role,company)
+    
+}
+
+function emailValidation(email){
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if(emailRegex.test(email)){
-        return sendDetails();
+        return true;
     }
     else{
-        alert("Your email is not valid")
+        return false;
     }
 }
 
-function sendDetails(){
+function checkEmptyInputs(firstName,lastName,email,inputPassword,role,company){
+   
+    if(firstName && lastName && email && inputPassword && role && company){
+        return true;
+    }
+    return false;
+}
+
+function sendDetails(firstName,lastName,email,inputPassword,role,company){
     var firstName = document.getElementById("FirstName").value
     var lastName = document.getElementById("LastName").value
     var email = document.getElementById("InputEmail").value
