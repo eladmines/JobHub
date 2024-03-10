@@ -64,11 +64,13 @@ function sendDetails(detailsArr){
     
 })
 .then(function (response){ 
-
+    
     if(response.ok) {  
         response.json() 
         .then(function(response) {
-           alert("Email address is already in use")
+            if(response){
+                window.location.href = '\\';
+            }
         });
     }
     else {
