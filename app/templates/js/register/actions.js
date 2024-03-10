@@ -1,12 +1,18 @@
 function inputsValidiation(){
     
-    var firstName = document.getElementById("FirstName").value
-    var lastName = document.getElementById("LastName").value
-    var email = document.getElementById("InputEmail").value
-    var inputPassword = document.getElementById("InputPassword").value
-    var role = document.getElementById("Role").value
-    var company = document.getElementById("Company").value
-    var res = checkEmptyInputs(firstName,lastName,email,inputPassword,role,company)
+    var firstName = document.getElementById("FirstName")
+    var lastName = document.getElementById("LastName")
+    var email = document.getElementById("InputEmail")
+    var inputPassword = document.getElementById("InputPassword")
+    var repeatPassword = document.getElementById("RepeatPassword")
+    var role = document.getElementById("Role")
+    var company = document.getElementById("Company")
+    var detailsArr=[firstName,lastName,email,inputPassword,repeatPassword,role,company]
+    for(var i=0;i<detailsArr.length;i++)
+    {
+        detailsArr[i].style.borderColor = "grey";
+    }
+    var res = checkEmptyInputs(detailsArr)
     
     if(!res){
         alert("Empty inputs");
@@ -17,13 +23,13 @@ function inputsValidiation(){
         alert("Your email is not valid");
         return;
     }
-    sendDetails(firstName,lastName,email,inputPassword,role,company)
+    sendDetails(detailsArr)
     
 }
 
 function emailValidation(email){
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(emailRegex.test(email)){
+    if(emailRegex.test(email.value)){
         return true;
     }
     else{
@@ -31,28 +37,31 @@ function emailValidation(email){
     }
 }
 
-function checkEmptyInputs(firstName,lastName,email,inputPassword,role,company){
+function checkEmptyInputs(detailsArr){
    
-    if(firstName && lastName && email && inputPassword && role && company){
-        return true;
+   var i=0, count=0;
+   for(;i<detailsArr.length;i++){
+    
+    if(!detailsArr[i].value){
+        detailsArr[i].style.borderColor = "red";
+        count++;
     }
-    return false;
+   }
+   
+   if(count == 0){
+        return true;
+   }
+   return false;
 }
 
-function sendDetails(firstName,lastName,email,inputPassword,role,company){
-    var firstName = document.getElementById("FirstName").value
-    var lastName = document.getElementById("LastName").value
-    var email = document.getElementById("InputEmail").value
-    var inputPassword = document.getElementById("InputPassword").value
-    var role = document.getElementById("Role").value
-    var company = document.getElementById("Company").value
-    
+function sendDetails(detailsArr){
+    alert("sdfsd")
     fetch('/register', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
     }, 
-    body: JSON.stringify({firstName: firstName,lastName:lastName,email:email,inputPassword:inputPassword,role:role,company:company}),
+    body: JSON.stringify({firstName: detailsArr[0].value,lastName:detailsArr[1].value,email:detailsArr[2].value,inputPassword:detailsArr[3].value,role:detailsArr[4].value,company:detailsArr[5].value,company:detailsArr[6].value}),
     
 })
 .then(function (response){ 
