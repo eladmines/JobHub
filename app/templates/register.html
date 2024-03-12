@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -73,7 +71,7 @@
                                             id="Company" placeholder="Company">
                                     </div>
                                 </div>
-                                <input value="Register Account" type="submit" href="" class="btn btn-primary btn-user btn-block" onclick= inputsValidiation()>
+                                <input id="registerBtn" value="Register Account" type="submit" href="" class="btn btn-primary btn-user btn-block" onclick=initArgs()>
                     
                                 <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
@@ -95,17 +93,13 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-
-
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/register/actions.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/loginAndRegister/register/actions.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/loginAndRegister/loginAndRegisterActions.js')}}"></script>
 </body>
-
 </html>
+

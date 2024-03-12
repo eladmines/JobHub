@@ -1,31 +1,23 @@
-function inputsValidiation(){
-    
-    var firstName = document.getElementById("FirstName")
-    var lastName = document.getElementById("LastName")
-    var email = document.getElementById("InputEmail")
-    var inputPassword = document.getElementById("InputPassword")
-    var repeatPassword = document.getElementById("RepeatPassword")
-    var role = document.getElementById("Role")
-    var company = document.getElementById("Company")
-    var detailsArr=[firstName,lastName,email,inputPassword,repeatPassword,role,company]
+
+function inputsValidiation(detailsArr){
     for(var i=0;i<detailsArr.length;i++)
     {
         detailsArr[i].style.borderColor = "grey";
     }
     var res = checkEmptyInputs(detailsArr)
-    
     if(!res){
         alert("Empty inputs");
         return;
     } 
-    res = emailValidation(email)
+    res = emailValidation(detailsArr[2])
     if(!res){
         alert("Your email is not valid");
         return;
     }
     sendDetails(detailsArr)
-    
 }
+
+
 
 function emailValidation(email){
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,7 +30,6 @@ function emailValidation(email){
 }
 
 function checkEmptyInputs(detailsArr){
-   
    var i=0, count=0;
    for(;i<detailsArr.length;i++){
     
