@@ -9,4 +9,3 @@ function initArgs(){
     var detailsArr=[email,firstName,lastName,inputPassword,repeatPassword,role,company]
     inputsValidiation(detailsArr)
 }
-

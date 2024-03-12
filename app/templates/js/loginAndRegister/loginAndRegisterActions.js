@@ -14,10 +14,23 @@ function inputsValidiation(detailsArr){
         alert("Your email is not valid");
         return;
     }
+    if(window.location.href.includes("register")){
+        res = checkPasswords(detailsArr[3],detailsArr[4])
+        if(!res){
+            alert("Check your password");
+            return;
+        }
+    }
     sendDetails(detailsArr)
 }
 
 
+function checkPasswords(pass1,pass2){
+    if(pass1==pass2){
+        return true;
+    }
+    return false;
+}
 
 function emailValidation(email){
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,6 +41,7 @@ function emailValidation(email){
         return false;
     }
 }
+
 
 function checkEmptyInputs(detailsArr){
    var i=0, count=0;
