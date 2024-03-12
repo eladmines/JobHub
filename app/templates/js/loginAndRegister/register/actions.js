@@ -6,7 +6,7 @@ function initArgs(){
     var repeatPassword = document.getElementById("RepeatPassword")
     var role = document.getElementById("Role")
     var company = document.getElementById("Company")
-    var detailsArr=[firstName,lastName,email,inputPassword,repeatPassword,role,company]
+    var detailsArr=[email,firstName,lastName,inputPassword,repeatPassword,role,company]
     inputsValidiation(detailsArr)
 }
 

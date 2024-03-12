@@ -9,7 +9,7 @@ function inputsValidiation(detailsArr){
         alert("Empty inputs");
         return;
     } 
-    res = emailValidation(detailsArr[2])
+    res = emailValidation(detailsArr[0])
     if(!res){
         alert("Your email is not valid");
         return;
@@ -70,7 +70,10 @@ function sendDetails(detailsArr){
         response.json() 
         .then(function(response) {
             if(response){
+                window.location.href = '\\jobs';
+            }else{
                 window.location.href = '\\';
+                alert("Wrong username\\password")
             }
         });
     }
