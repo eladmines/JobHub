@@ -1,6 +1,6 @@
 function initArgs(){
-var username = document.getElementById("username")
-var password = document.getElementById("password")
-var detailsArr=[username,password]
-inputsValidiation(detailsArr)
+    var username = document.getElementById("InputEmail")
+    var password = document.getElementById("InputPassword")
+    var detailsArr=[username,password]
+    inputsValidiation(detailsArr)
 }

@@ -46,12 +46,22 @@ function checkEmptyInputs(detailsArr){
 }
 
 function sendDetails(detailsArr){
-    fetch('/register', {
+    var currentURL = window.location.href;  
+    var page,detailsDict;
+    if(currentURL.includes("register")){
+        page="/register";
+        detailsDict={firstName: detailsArr[0].value,lastName:detailsArr[1].value,email:detailsArr[2].value,inputPassword:detailsArr[3].value,role:detailsArr[4].value,company:detailsArr[5].value,company:detailsArr[6].value};
+    }
+    else{
+        page="/";
+        detailsDict={email:detailsArr[0].value, password:detailsArr[1].value}
+    }
+    fetch(page, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
     }, 
-    body: JSON.stringify({firstName: detailsArr[0].value,lastName:detailsArr[1].value,email:detailsArr[2].value,inputPassword:detailsArr[3].value,role:detailsArr[4].value,company:detailsArr[5].value,company:detailsArr[6].value}),
+    body: JSON.stringify(detailsDict),
     
 })
 .then(function (response){ 

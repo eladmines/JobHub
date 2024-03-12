@@ -32,12 +32,12 @@
                                     </div>
                                     <form class="user">
                                         <div class="form-group">
-                                            <input id="email" type="email" class="form-control form-control-user"
+                                            <input id="InputEmail" type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input id="password" type="password" class="form-control form-control-user"
+                                            <input id="InputPassword" type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
@@ -47,7 +47,8 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block" onclick=initArgs()>
+                                        
+                                        <a type="submit" class="btn btn-primary btn-user btn-block" onclick=initArgs()>
                                             Login
                                         </a>
                                         <hr>
@@ -78,6 +79,7 @@
     <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/loginAndRegister/login/actions.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/loginAndRegister/loginAndRegisterActions.js')}}"></script>
 </body>
 
 </html>
