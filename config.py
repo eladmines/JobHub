@@ -1,5 +1,6 @@
-import psycopg2
-DATABASE_URL="postgres://njbfbloq:O2eskQEEPaRKJX16XXKYi18WdeslSXx7@snuffleupagus.db.elephantsql.com/njbfbloq"
-USER=""
-PASSWORD=""
-DB=""
+ENDPOINT ="database-1.czkaa4kseikm.us-east-1.rds.amazonaws.com" 
+DATABASE = "postgres"
+USERNAME="jobby"
+PASSWORD="12345678"
+PORT="5432"
+DATABASE_URL = f"host='{ENDPOINT}' dbname='{DATABASE}' user='{USERNAME}' password='{PASSWORD}' port='{PORT}'"
