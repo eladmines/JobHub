@@ -9,7 +9,6 @@ def checkLoginDetails(data):
      curs=con.cursor()
      try:
           values=(data['email'],data['password'])
-          print(values)
           curs.execute(CHECK_EMAIL_EXISTS,(values[0],values[1]))
           exists = curs.fetchone()[0]
           if (exists == True):

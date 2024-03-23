@@ -52,16 +52,17 @@ function checkEmptyInputs(detailsArr){
         count++;
     }
    }
-   
    if(count == 0){
         return true;
    }
    return false;
 }
 
+
 function sendDetails(detailsArr){
     var currentURL = window.location.href;  
     var page,detailsDict;
+    
     if(currentURL.includes("register")){
         page="/register";
         detailsDict={firstName: detailsArr[0].value,lastName:detailsArr[1].value,email:detailsArr[2].value,inputPassword:detailsArr[3].value,role:detailsArr[4].value,company:detailsArr[5].value,company:detailsArr[6].value};
@@ -76,15 +77,14 @@ function sendDetails(detailsArr){
         'Content-Type': 'application/json',
     }, 
     body: JSON.stringify(detailsDict),
-    
 })
 .then(function (response){ 
-    
     if(response.ok) {  
         response.json() 
         .then(function(response) {
             if(response){
-                window.location.href = '\\jobs';
+                document.cookie = "username=" +  detailsArr[0].value;
+                window.location.href = '\\main';
             }else{
                 window.location.href = '\\';
                 alert("Wrong username\\password")
@@ -97,4 +97,5 @@ function sendDetails(detailsArr){
 })
 .catch(function(error) {
     console.log(error);
-})};
+})
+};

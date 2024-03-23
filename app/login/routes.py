@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, redirect,request, jsonify
+from flask import Blueprint, render_template, redirect,request, jsonify, redirect, url_for, make_response
 import psycopg2
 from login.queries import checkLoginDetails
 
@@ -15,5 +15,4 @@ def index():
 def handle_post_request():
     data = request.get_json()
     loginDetails=checkLoginDetails(data)
-    print(loginDetails)
     return jsonify(loginDetails)
