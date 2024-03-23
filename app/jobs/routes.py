@@ -19,7 +19,6 @@ def getAllJobs(con,curs):
         Jobs.append(job)
         rowCounter = rowCounter + 1
         row = curs.fetchone()
-        
     return Jobs
 
 @jobs_bp.route("/jobs")
@@ -34,17 +33,19 @@ def create():
         job["title"]=job["title"].replace("'"," ")
         job["description"]=job["description"].replace("'"," ")
         job["description"]=job["description"].replace("\n","<br>")
+        job["description"]=job["description"].replace('\"',"")
         job["qualifications"]=job["qualifications"].replace("'"," ")
         job["qualifications"]=job["qualifications"].replace("\n","<br>")
         job["qualifications"]=job["qualifications"].replace("\\","")
         job["qualifications"]=job["qualifications"].replace('{"'," ")
         job["qualifications"]=job["qualifications"].replace('"}'," ")
         job["qualifications"]=job["qualifications"].replace('"'," ")
+        
         jobsList.append(job)
-    
         
     jobs = json.dumps(jobsList)
     
+    print(jobs)
     return render_template('jobs.html', jobs=jobs)  
     #closeConnection(con)
     
