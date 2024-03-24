@@ -1,6 +1,6 @@
 
 from dbConnections import openConnection, closeConnection
-INSERT_USER = "INSERT INTO users (firstName, lastName, email, password, role, company) " \
+INSERT_USER = "INSERT INTO users (email,firstName,lastName,password, role, company) " \
                     "VALUES (%s, %s, %s, %s, %s, %s)"
                     
 CHECK_EMAIL_EXISTS = "SELECT EXISTS (SELECT 1 FROM users WHERE email=%s)"
@@ -12,6 +12,7 @@ def generate_insert_query(data):
      try:
           values=(data['firstName'], data['lastName'], data['email'],
           data['inputPassword'], data['role'], data['company'])
+          print(data)
           curs.execute(CHECK_EMAIL_EXISTS,(values[2],))
           exists = curs.fetchone()[0]
           if (exists == False):
