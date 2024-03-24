@@ -1,7 +1,7 @@
 
 from flask import Blueprint, render_template, redirect,request, jsonify, redirect, url_for, make_response
 import psycopg2
-from login.queries import checkLoginDetails
+from login.queries import CHECK_EMAIL_EXISTS
 
 
 
