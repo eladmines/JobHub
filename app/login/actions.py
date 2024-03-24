@@ -1,5 +1,5 @@
 from dbConnections import openConnection, closeConnection     
-from queries import CHECK_EMAIL_EXISTS
+from login.queries import CHECK_EMAIL_EXISTS
 def checkLoginDetails(data):
      con=openConnection()
      curs=con.cursor()

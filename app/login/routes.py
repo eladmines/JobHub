@@ -1,8 +1,7 @@
 
 from flask import Blueprint, render_template, redirect,request, jsonify, redirect, url_for, make_response
 import psycopg2
-from login.queries import CHECK_EMAIL_EXISTS
-
+from login.actions import checkLoginDetails
 
 
 login_bp = Blueprint("login_bp", __name__ , template_folder='login')
