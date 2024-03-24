@@ -1,7 +1,11 @@
-let cookies = document.cookie;
-if(cookies){
-    console.log(cookies)
+function checkCookies(){
+    let cookies = document.cookie;
+    if(cookies){
+        console.log(cookies)
+    }
+    else{
+        window.location.href = '\\';
+    }
 }
-else{
-    window.location.href = '\\';
-}
+
+checkCookies()
