@@ -16,7 +16,7 @@ function inputsValidiation(detailsArr){
     }
     if(window.location.href.includes("register")){
         res = checkPasswords(detailsArr[3],detailsArr[4])
-        if(!res){
+        if(res){
             alert("Check your password");
             return;
         }

@@ -1,6 +1,4 @@
 
-    
-    console.log(data) 
     function deployJobsContainer(data){
       var i=0
       while(i< data.length){
