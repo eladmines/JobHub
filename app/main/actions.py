@@ -6,8 +6,9 @@ def getUserData(data):
      curs=con.cursor()
      try:
           print(data)
-          res = curs.execute("SELECT * FROM users WHERE email=%s",(data,))
+          res = curs.execute(GET_USER_DETAILS,(data,))
           res = curs.fetchone()
+          con=closeConnection()
           return res
      except Exception as e:
           print(f"Error: {e}")
