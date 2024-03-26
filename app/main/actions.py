@@ -8,7 +8,7 @@ def getUserData(data):
           print(data)
           res = curs.execute(GET_USER_DETAILS,(data,))
           res = curs.fetchone()
-          con=closeConnection()
+          closeConnection(con)
           return res
      except Exception as e:
           print(f"Error: {e}")
