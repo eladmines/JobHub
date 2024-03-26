@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template,request, jsonify
+from flask import Blueprint, render_template,request, jsonify,json
 import psycopg2
 from main.actions import getUserData
 from main.queries import GET_USER_DETAILS
