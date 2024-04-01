@@ -38,7 +38,7 @@
         date.innerHTML="Posted:"
         date.className="float-right"
         location.className="h6"
-        location.innerHTML="Hadera"
+        location.innerHTML=arr[i].location
         company.innerHTML=arr[i].company+", "
         company.className="float-right mr-2"
         cardContent.className="collapse show"
