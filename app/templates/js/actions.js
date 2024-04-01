@@ -7,9 +7,10 @@
       }
     }
     deployJobsContainer(data)
-    console.log(data)
+   
     function buildJobContainer(arr,i)
     {
+        console.log(arr[0])
         // Elements initialization
         var card = document.createElement('div')
         var cardHeader = document.createElement('div')
@@ -30,12 +31,12 @@
         card.style.textOverflow = 'ellipsis';
         cardHeader.className="d-block card-header py-3"
         a.innerHTML=arr[i].title
-        a.href="#collapseCardExample"
-        a.setAttribute('data-toggle', 'collapse');
+        a.href=arr[i].link
+        //a.setAttribute('data-toggle', 'collapse');
         a.setAttribute('role', 'button');
         a.setAttribute('aria-expanded', 'true');
         a.setAttribute('aria-controls', 'collapseCardExample');
-        date.innerHTML="Posted:"
+        date.innerHTML="Posted:"+arr[i].date
         date.className="float-right"
         location.className="h6"
         location.innerHTML=arr[i].location
@@ -47,6 +48,7 @@
         descriptionContainer.className="card-body"
         qualificationsContainer.innerHTML="Qualifications:<br>"+arr[i].qualifications
         descriptionContainer.innerHTML="Description:<br>"+ arr[i].description
+
         //Elements connections 
         cardContent.appendChild(descriptionContainer)
         cardContent.appendChild(qualificationsContainer)
