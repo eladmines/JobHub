@@ -59,7 +59,6 @@ class MicrosoftScrapingDetails(companyScrapingDetails):
          link = driver.current_url
          job = Job(title,location,description,qualifications,date,link,"Microsoft","image link")
          driver.back()
-         print(job.company)
          jobs.append(job)
       return jobs
    
