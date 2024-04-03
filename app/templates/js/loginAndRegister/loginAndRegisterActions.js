@@ -21,7 +21,8 @@ function inputsValidiation(detailsArr){
             return;
         }
     }
-    sendDetails(detailsArr)
+    var currentURL = window.location.href;  
+    sendDetails(detailsArr,currentURL)
 }
 
 
@@ -42,7 +43,6 @@ function emailValidation(email){
     }
 }
 
-
 function checkEmptyInputs(detailsArr){
    var i=0, count=0;
    for(;i<detailsArr.length;i++){
@@ -58,14 +58,11 @@ function checkEmptyInputs(detailsArr){
    return false;
 }
 
-
-function sendDetails(detailsArr){
-    var currentURL = window.location.href;  
+function sendDetails(detailsArr,currentURL){
     var page,detailsDict;
-    
     if(currentURL.includes("register")){
         page="/register";
-        detailsDict={firstName: detailsArr[0].value,lastName:detailsArr[1].value,email:detailsArr[2].value,inputPassword:detailsArr[3].value,role:detailsArr[4].value,company:detailsArr[5].value,company:detailsArr[6].value};
+        detailsDict={email: detailsArr[0].value,firstName:detailsArr[1].value,lastName:detailsArr[2].value,inputPassword:detailsArr[3].value,role:detailsArr[5].value,company:detailsArr[6].value};
     }
     else{
         page="/";
@@ -83,7 +80,7 @@ function sendDetails(detailsArr){
         response.json() 
         .then(function(response) {
             if(response){
-                document.cookie = "username=" +  detailsArr[0].value;
+                document.cookie = detailsArr[0].value;
                 window.location.href = '\\main';
             }else{
                 window.location.href = '\\';
