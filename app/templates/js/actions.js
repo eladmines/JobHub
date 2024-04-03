@@ -16,10 +16,12 @@
         var cardHeader = document.createElement('div')
         var titleContainer = document.createElement('div')
         var locationContainer = document.createElement('div')
+        var divButtons = document.createElement('div')
         var date=document.createElement('span')
         var a = document.createElement('a')
         var locationContainer = document.createElement('div')
         var location=document.createElement('span')
+        var saveJobButton=document.createElement('a')
         var company=document.createElement('span')
         var cardContent = document.createElement('div')
         var qualificationsContainer = document.createElement('div')
@@ -30,6 +32,8 @@
         card.style.overflow = "scroll"; 
         card.style.textOverflow = 'ellipsis';
         cardHeader.className="d-block card-header py-3"
+        saveJobButton.innerHTML="save"
+        saveJobButton.href="#"
         a.innerHTML=arr[i].title
         a.href=arr[i].link
         //a.setAttribute('data-toggle', 'collapse');
@@ -55,6 +59,8 @@
         cardHeader.appendChild(titleContainer)
         cardHeader.appendChild(locationContainer)
         locationContainer.appendChild(location)
+        cardHeader.appendChild(divButtons)
+        divButtons.appendChild(saveJobButton)
         titleContainer.appendChild(a)
         titleContainer.appendChild(date)
         titleContainer.appendChild(company)
