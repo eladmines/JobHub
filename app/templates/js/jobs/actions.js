@@ -34,6 +34,7 @@
         cardHeader.className="d-block card-header py-3"
         saveJobButton.innerHTML="save"
         saveJobButton.href="#"
+        saveJobButton.setAttribute('data-info',arr[i].link)
         a.innerHTML=arr[i].title
         a.href=arr[i].link
         //a.setAttribute('data-toggle', 'collapse');
@@ -68,3 +69,35 @@
         card.appendChild(cardContent)
         document.getElementById("content").appendChild(card)
     }
+
+
+    function saveJob(data){
+        fetch('/jobs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }, 
+        body: JSON.stringify(data),
+    })
+    .then(function (response){ 
+        if(response.ok) {  
+            response.json() 
+            .then(function(response) {
+                if(response){
+                    document.cookie = detailsArr[0].value;
+                    window.location.href = '\\main';
+                }else{
+                    window.location.href = '\\';
+                    alert("Wrong username\\password")
+                }
+            });
+        }
+        else {
+            throw Error('Something went wrong');
+        }
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
+    };
+    
