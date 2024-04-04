@@ -5,7 +5,6 @@ def saveJob(data):
      con=openConnection()
      curs=con.cursor()
      try:
-          print(data[1])
           curs.execute(SAVE_JOB,(data[1],data[0]))
           con.commit() 
      except Exception as e:
