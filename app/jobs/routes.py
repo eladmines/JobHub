@@ -1,32 +1,14 @@
-from flask import  render_template, redirect, jsonify
 from jobs import jobs_bp
-from config import DATABASE_URL
-from models.job import Job
-from .dbCommands import getAllJobsDBCommand
+from flask import  render_template, redirect, jsonify,request
 from dbConnections import openConnection, closeConnection
-import psycopg2
 import json
-
-
-def getAllJobs(con,curs):
-    curs.execute(getAllJobsDBCommand)
-    con.commit()
-    rowCounter=0
-    Jobs=[]
-    row = curs.fetchone()
-    while row is not None:
-        job = Job(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7])
-        Jobs.append(job)
-        rowCounter = rowCounter + 1
-        row = curs.fetchone()
-    return Jobs
+from jobs.actions import saveJob,getAllJobs
 
 @jobs_bp.route("/jobs")
 def create():
     con=openConnection()
     curs=con.cursor()
     Jobs = getAllJobs(con,curs)
-    
     jobsList =[]
     for job in Jobs:
         job = vars(job)
@@ -40,12 +22,14 @@ def create():
         job["qualifications"]=job["qualifications"].replace('{"'," ")
         job["qualifications"]=job["qualifications"].replace('"}'," ")
         job["qualifications"]=job["qualifications"].replace('"'," ")
-        
         jobsList.append(job)
-        
     jobs = json.dumps(jobsList)
-    
-    print(jobs)
+    closeConnection(con)
     return render_template('jobs.html', jobs=jobs)  
-    #closeConnection(con)
     
+@jobs_bp.route("/jobs", methods=["POST"])
+def handle_post_request():
+    data = request.get_json()
+    arrData=data.split(',',1)
+    saveJob(arrData[0], arrData[1])
+    return data
