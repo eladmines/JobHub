@@ -38,8 +38,8 @@ async function fetchData() {
 (async () => {
     try {
         details = await fetchData();
-        document.getElementById("name").innerText=details[0]
-        document.getElementById("role").innerText=details[4]
+        document.getElementById("name").innerText=details[1]
+        document.getElementById("role").innerText=details[5]
     } catch (error) {
         console.error('Error', error);
     }
