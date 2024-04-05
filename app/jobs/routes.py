@@ -5,7 +5,7 @@ import json
 from jobs.actions import saveJob,getAllJobs
 
 @jobs_bp.route("/jobs")
-def create():
+def jobsInit():
     con=openConnection()
     curs=con.cursor()
     Jobs = getAllJobs(con,curs)
