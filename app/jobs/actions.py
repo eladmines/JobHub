@@ -16,7 +16,6 @@ def getAllJobs(con,curs):
         row = curs.fetchone()
     return Jobs
 
-
 def saveJob(email,data):
      con=openConnection()
      curs=con.cursor()
