@@ -1,0 +1,1 @@
+GET_SAVED_JOBS="SELECT array_column FROM users WHERE email=%s"
