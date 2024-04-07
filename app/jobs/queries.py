@@ -4,4 +4,4 @@ GET_ALL_JOBS = """SELECT * FROM jobs"""
 
 GET_USER="SELECT * FROM users WHERE email=%s"
 
-SAVE_JOB="UPDATE users SET array_column = array_column || ARRAY[%s] WHERE email  = %s"
+SAVE_JOB="UPDATE users SET array_column = array_column || ARRAY[%s]::JSONB[] WHERE email  = %s"
