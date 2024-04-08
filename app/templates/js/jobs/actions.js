@@ -10,7 +10,7 @@
    
     function buildJobContainer(arr,i)
     {
-        console.log(arr[0])
+        console.log(typeof(arr))
         // Elements initialization
         var card = document.createElement('div')
         var cardHeader = document.createElement('div')
@@ -34,6 +34,8 @@
         cardHeader.className="d-block card-header py-3"
         saveJobButton.innerHTML="save"
         saveJobButton.href="#"
+        var data = [document.cookie, JSON.stringify(arr[i]) ]
+        saveJobButton.setAttribute("onclick", "saveJob('" + data + "')")
         saveJobButton.setAttribute('data-info',arr[i].link)
         a.innerHTML=arr[i].title
         a.href=arr[i].link

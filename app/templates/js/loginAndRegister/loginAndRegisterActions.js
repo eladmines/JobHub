@@ -79,6 +79,7 @@ function sendDetails(detailsArr,currentURL){
     if(response.ok) {  
         response.json() 
         .then(function(response) {
+            
             if(response){
                 document.cookie = detailsArr[0].value;
                 window.location.href = '\\main';
