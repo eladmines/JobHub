@@ -1,6 +1,4 @@
-function showEmail(){
-    alert(document.cookie)
-}
+import {Job} from '../models/job.js'
 
 function sendCookie(){
     fetch('/savedjobs', {
@@ -17,8 +15,7 @@ function sendCookie(){
             if(response){
                 deployJobsContainer(response)
             }else{
-                window.location.href = '\\';
-                alert("Wrong username\\password")
+                
             }
         });
     }
@@ -41,11 +38,9 @@ function deployJobsContainer(data){
 
  
   function buildJobContainer(arr,i)
-  {
-    console.log("eladelad")
-    
-    job=JSON.parse(arr[i])
-    console.log("blabla", dict["title"])
+  { 
+    var job=JSON.parse(arr[i])
+    job = new Job(job["title"],job["location"],job["description"],job["qualifications"],job["company"],job["image"],job["date"],job["link"])
       // Elements initialization
       var card = document.createElement('div')
       var cardHeader = document.createElement('div')
@@ -72,26 +67,25 @@ function deployJobsContainer(data){
       saveJobButton.href="#"
       var data = [document.cookie, JSON.stringify(arr[i]) ]
       saveJobButton.setAttribute("onclick", "saveJob('" + data + "')")
-      alert(arr[i])
-      saveJobButton.setAttribute('data-info',arr[i].link)
-      a.innerHTML=arr[i].title
-      a.href=arr[i].link
+      saveJobButton.setAttribute('data-info',job.link)
+      a.innerHTML=job.title
+      a.href=job.link
       //a.setAttribute('data-toggle', 'collapse');
       a.setAttribute('role', 'button');
       a.setAttribute('aria-expanded', 'true');
       a.setAttribute('aria-controls', 'collapseCardExample');
-      date.innerHTML="Posted:"+arr[i].date
+      date.innerHTML="Posted:"+job.date
       date.className="float-right"
       location.className="h6"
-      location.innerHTML=arr[i].location
-      company.innerHTML=arr[i].company+", "
+      location.innerHTML=job.location
+      company.innerHTML=job.company+", "
       company.className="float-right mr-2"
       cardContent.className="collapse show"
       cardContent.id="collapseCardExample"
       qualificationsContainer.className="card-body"
       descriptionContainer.className="card-body"
-      qualificationsContainer.innerHTML="Qualifications:<br>"+arr[i].qualifications
-      descriptionContainer.innerHTML="Description:<br>"+ arr[i].description
+      qualificationsContainer.innerHTML="Qualifications:<br>"+job.qualifications
+      descriptionContainer.innerHTML="Description:<br>"+ job.description
       
       //Elements connections 
       cardContent.appendChild(descriptionContainer)
@@ -108,6 +102,5 @@ function deployJobsContainer(data){
       card.appendChild(cardContent)
       document.getElementById("content").appendChild(card)
   }
-
 
 sendCookie()
