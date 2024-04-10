@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, redirect,request, jsonify
+from flask import Blueprint, render_template,request
 from savedjobs.actions import getSavedJobs
 
 savedjobs_bp = Blueprint("savedjobs_bp", __name__ , template_folder='savedjobs')
@@ -11,5 +11,4 @@ def index():
 def handle_post_request():
     data = request.get_json()
     savedJobs=getSavedJobs(data)
-    ##print("ppppppppppppp",savedJobs[2],"xxxxxxxxxxxxxxx")
     return savedJobs
