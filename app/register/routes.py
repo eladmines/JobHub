@@ -1,6 +1,5 @@
 
-from flask import Blueprint, render_template, redirect,request, jsonify
-import psycopg2
+from flask import Blueprint, render_template,request, jsonify
 from register.queries import generate_insert_query
 
 register_bp = Blueprint("register_bp", __name__ , template_folder='register')
