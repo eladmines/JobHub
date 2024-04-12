@@ -1,6 +1,4 @@
-import {Job} from '../../models/job.js'
-import {deployJobsContainer} from '../actions.js'
-  function saveJob(data){
+function saveJob(data){
       fetch('/jobs', {
       method: 'POST',
       headers: {
@@ -13,11 +11,9 @@ import {deployJobsContainer} from '../actions.js'
           response.json() 
           .then(function(response) {
               if(response){
-                  document.cookie = detailsArr[0].value;
-                  window.location.href = '\\main';
+                  alert("Job has been saved")
               }else{
-                  window.location.href = '\\';
-                  alert("Wrong username\\password")
+                alert("Something went wrong, try again")
               }
           });
       }
@@ -30,5 +26,7 @@ import {deployJobsContainer} from '../actions.js'
   })
   };
   
+export {saveJob}
 
-  deployJobsContainer(data)
+
+
