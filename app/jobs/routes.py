@@ -30,6 +30,5 @@ def jobsInit():
 @jobs_bp.route("/jobs", methods=["POST"])
 def handle_post_request():
     data = request.get_json()
-    arrData=data.split(',',1)
-    saveJob(arrData[0], arrData[1])
+    saveJob(data[0], data[1])
     return data
