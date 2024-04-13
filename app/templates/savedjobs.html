@@ -33,7 +33,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Jobs</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Saved Jobs</h1>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -85,10 +85,10 @@
     <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
     <script type="module" src="{{ url_for('static', filename='js/jobs&savedjobs/savedJobs/actions.js')}}"></script>
+    
 </body>
 </html>
 
 <script defer>
-    var data = JSON.parse(('{{jobs|safe}}'))
-    deployJobsContainer(data)
+    
 </script>{% endblock %}
