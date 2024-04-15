@@ -5,7 +5,7 @@ def getSavedJobs(data):
      con=openConnection()
      curs=con.cursor()
      try:
-          curs.execute(GET_SAVED_JOBS,(data,))
+          curs.execute(GET_SAVED_JOBS,(data['sentData'],))
           data = curs.fetchone()[0]
           return data
      except Exception as e:
