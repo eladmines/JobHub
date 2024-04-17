@@ -1,30 +1,35 @@
 import {deployJobsContainer} from '../actions.js'
-function sendCookie(){
-    fetch('/savedjobs', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    }, 
-    body: JSON.stringify(document.cookie),
-})
-.then(function (response){ 
-    if(response.ok) {  
-        response.json() 
-        .then(function(response) {
-            if(response){
-                deployJobsContainer(response)
-            }else{
-                
-            }
-        });
+import {sendData} from '../../actions.js'
+
+function failFunc(){
+    alert("Error, try again");
+}
+async function getSavedJobs() {
+    try {
+        var res = await sendData("/savedjobs", document.cookie, 'get saved jobs');
+        if (res === false) {
+            failFunc();
+        } else {
+            deployJobsContainer(res);
+        }
+    } catch (error) {
+        console.error('An error occurred during the sendData operation:', error);
+        // Handle the error or rethrow it to propagate
     }
-    else {
-        throw Error('Something went wrong');
-    }
-})
-.catch(function(error) {
-    console.log(error);
-})
 };
 
-sendCookie()
+export async function removeSavedJob() {
+    alert("remove")
+    try {
+        var res = await sendData("/savedjobs", document.cookie, 'remove saved job');
+        if (res === false) {
+            failFunc();
+        } else {
+            deployJobsContainer(res);
+        }
+    } catch (error) {
+        console.error('An error occurred during the sendData operation:', error);
+        // Handle the error or rethrow it to propagate
+    }
+};
+getSavedJobs()
