@@ -1,5 +1,5 @@
 from dbConnections import openConnection, closeConnection     
-from savedjobs.queries import GET_SAVED_JOBS
+from savedjobs.queries import GET_SAVED_JOBS,REMOVE_SAVED_JOB
 
 def getSavedJobs(data):
      con=openConnection()
@@ -13,11 +13,11 @@ def getSavedJobs(data):
           # Rollback changes in case of an error
           con.rollback() 
 
-def getSavedJobs(data):
+def removeSavedJob(data):
      con=openConnection()
      curs=con.cursor()
      try:
-          curs.execute(GET_SAVED_JOBS,(data['sentData'],))
+          curs.execute(REMOVE_SAVED_JOB)
           data = curs.fetchone()[0]
           return data
      except Exception as e:
