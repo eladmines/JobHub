@@ -18,12 +18,21 @@ def removeSavedJob(data):
      con=openConnection()
      curs=con.cursor()
      try:
-          curs.execute(GET_SAVED_JOBS,(data['sentData'],))
-          data = curs.fetchone()[0]
-          data = list(data)
-          for item in data:
+          curs.execute(GET_SAVED_JOBS,(data['sentData'][0],))
+          savedJobs = curs.fetchone()[0]
+          link = data['sentData'][2]
+          savedJobs = list(savedJobs)
+          for item in savedJobs:
                res = json.loads(item)
-              
+               if res['link'] == link:
+                    savedJobs.remove(item)
+          savedJobs = json.dumps(savedJobs)
+          curs.execute(REMOVE_SAVED_JOB,(savedJobs,data['sentData'][0],))
+          con.commit() 
+          curs.execute(GET_SAVED_JOBS,(data['sentData'][0],))
+          savedJobs = curs.fetchone()[0]
+          print("new:",savedJobs)
+          
           return data
      except Exception as e:
           print(f"Error: {e}")
