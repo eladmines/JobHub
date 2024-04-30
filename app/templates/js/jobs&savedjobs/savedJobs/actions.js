@@ -18,10 +18,10 @@ async function getSavedJobs() {
     }
 };
 
-export async function removeSavedJob() {
-    alert("remove")
+export async function removeSavedJob(data) {
+    alert("Job has been removed")
     try {
-        var res = await sendData("/savedjobs", document.cookie, 'remove saved job');
+        var res = await sendData("/savedjobs",data, 'remove saved job');
         if (res === false) {
             failFunc();
         } else {
