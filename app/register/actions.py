@@ -1,12 +1,7 @@
 
 from dbConnections import openConnection, closeConnection
 from register.queries import CHECK_EMAIL_EXISTS,INSERT_USER
-FIRST_NAME='firstName'
-LAST_NAME='lastName'
-EMAIL='email'
-PASSWORD='inputPassword'
-ROLE='role'
-COMPANY='company'
+FIRST_NAME='firstName'; LAST_NAME='lastName';EMAIL='email';PASSWORD='inputPassword';ROLE='role';COMPANY='company'
 
 def generate_insert_query(data):
      #
@@ -28,6 +23,6 @@ def generate_insert_query(data):
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback() 
-   
+     con=closeConnection()
 
     
