@@ -10,7 +10,6 @@ def generate_insert_query(data):
      try:
           values=(data[FIRST_NAME], data[LAST_NAME], data[EMAIL],
           data[PASSWORD], data[ROLE], data[COMPANY])
-          print(data)
           curs.execute(CHECK_EMAIL_EXISTS,(values[2],))
           exists = curs.fetchone()[0]
           if (exists == False):
