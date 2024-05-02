@@ -1,8 +1,9 @@
+const NAME="name",ROLE="role";
 var details;
 function checkCookies(){
     let cookies = document.cookie;
     if(cookies){
-
+        //DO NOTHING
     }
     else{
         window.location.href = '\\';
@@ -38,8 +39,8 @@ async function fetchData() {
 (async () => {
     try {
         details = await fetchData();
-        document.getElementById("name").innerText=details[1]
-        document.getElementById("role").innerText=details[5]
+        document.getElementById(NAME).innerText=details[1]
+        document.getElementById(ROLE).innerText=details[5]
     } catch (error) {
         console.error('Error', error);
     }
