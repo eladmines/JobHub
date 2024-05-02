@@ -8,11 +8,6 @@ from models.companyElementsScraping import companyScrapingDetails,driver,options
 from companiesData.companies import MicrosoftScrapingDetails,MICROSOFT
 import psycopg2
 
-
-
-DROP_JOBS="DROP TABLE IF EXISTS jobs;"
-
-
 def getSourceCode(link):
     # Add the 'excludeSwitches' option to disable logging
     options.add_experimental_option(switch , logging)
@@ -30,7 +25,6 @@ def sendJobsToDB(jobs):
         curs.execute(CREATE_JOBS_TABLE)
         for job in jobs:
             curs.execute(INSERT_JOBS, (job.title, job.location, job.description, job.qualifications, job.date,job.link,"Microsoft","https://i.pinimg.com/originals/b2/d9/06/b2d906c4b90768b63db1078cf365ca9f.jpg"))
-            
             conn.commit()
         
 if __name__ == "__main__":
