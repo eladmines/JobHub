@@ -16,4 +16,5 @@ def checkLoginDetails(data):
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback() 
+     con=closeConnection()
    
