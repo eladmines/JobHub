@@ -1,6 +1,10 @@
 import {Job} from '../models/job.js'
+import{saveJob} from './jobs/actions.js'
+import{removeSavedJob} from './savedJobs/actions.js'
+const TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
 
-export function deployJobsContainer(data){
+function deployJobsContainer(data){
+  
     var i=0
     while(i< data.length){
         buildJobContainer(data,i)
@@ -8,18 +12,18 @@ export function deployJobsContainer(data){
     }
   }
 
-function buildJobContainer(arr,i)
+function buildJobContainer(arr,i,job)
   { 
 var url = window.location.href;
 var job;
 if(url.includes("savedjobs")){
     job=JSON.parse(arr[i])
-    job = new Job(job["title"],job["location"],job["description"],job["qualifications"],job["company"],job["image"],job["date"],job["link"])
+    job = new Job(job[TITLE],job[LOCATION],job[DESCRIPTION],job[QUALIFICATIONS],job[COMPANY],job[IMAGE],job[DATE],job[LINK])
 }
 else{
-    job = new Job(arr[i]["title"],arr[i]["location"],arr[i]["description"],arr[i]["qualifications"],arr[i]["company"],arr[i]["image"],arr[i]["date"],arr[i]["link"])
+    job = new Job(arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
 }
-  
+
       // Elements initialization
       var card = document.createElement('div')
       var cardHeader = document.createElement('div')
@@ -42,11 +46,27 @@ else{
       card.style.overflow = "scroll"; 
       card.style.textOverflow = 'ellipsis';
       cardHeader.className="d-block card-header py-3"
-      saveJobButton.innerHTML="save"
+      
+      
       saveJobButton.href="#"
-      var data = [document.cookie, JSON.stringify(arr[i]) ]
-      saveJobButton.setAttribute("onclick", "saveJob('" + data + "')")
-      saveJobButton.setAttribute('data-info',job.link)
+      
+      var data = [document.cookie, JSON.stringify(arr[i])]
+      
+        if(window.location.href.includes("saved")){
+          saveJobButton.innerHTML="Remove"
+          saveJobButton.id=job.link
+          saveJobButton.addEventListener('click', function() {
+            data[2]=event.target.id
+            removeSavedJob(data);
+          });
+        }
+        else{
+          saveJobButton.innerHTML="save"
+          saveJobButton.id="saveJobButton";
+          saveJobButton.addEventListener('click', function() {
+            saveJob(data);
+          });
+        }
       a.innerHTML=job.title
       a.href=job.link
       //a.setAttribute('data-toggle', 'collapse');
@@ -81,3 +101,5 @@ else{
       card.appendChild(cardContent)
       document.getElementById("content").appendChild(card)
   }
+ 
+  export{deployJobsContainer}
