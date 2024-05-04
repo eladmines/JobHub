@@ -1,6 +1,6 @@
 
 class Job:
-    def __init__(self,title,location,description,qualifications,date,link, company,image):
+    def __init__(self,title,location,description,qualifications,date,link, company,image,id):
         self.title=title
         self.location=location
         self.description=description
@@ -9,5 +9,6 @@ class Job:
         self.image = image
         self.date = date
         self.link=link
+        self.id=id
 
         
