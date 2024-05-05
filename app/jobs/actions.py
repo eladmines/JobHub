@@ -21,8 +21,7 @@ def saveJob(email,data,id):
      con=openConnection()
      curs=con.cursor()
      try:
-          stringData = json.dumps(data)
-          curs.execute(SAVE_JOB,(stringData,email))
+          curs.execute(SAVE_JOB,(data,email))
           con.commit() 
           con=closeConnection()
      except Exception as e:
