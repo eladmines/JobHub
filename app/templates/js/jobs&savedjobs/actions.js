@@ -1,7 +1,7 @@
 import {Job} from '../models/job.js'
 import{saveJob} from './jobs/actions.js'
 import{removeSavedJob} from './savedJobs/actions.js'
-const TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
+const ID="id",TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
 
 function deployJobsContainer(data){
   
@@ -14,14 +14,15 @@ function deployJobsContainer(data){
 
 function buildJobContainer(arr,i,job)
   { 
+    
 var url = window.location.href;
 var job;
 if(url.includes("savedjobs")){
-    job=JSON.parse(arr[i])
-    job = new Job(job[TITLE],job[LOCATION],job[DESCRIPTION],job[QUALIFICATIONS],job[COMPANY],job[IMAGE],job[DATE],job[LINK])
+    job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
 }
 else{
-    job = new Job(arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
+    job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
+    console.log(job)
 }
 
       // Elements initialization
@@ -64,6 +65,7 @@ else{
           saveJobButton.innerHTML="save"
           saveJobButton.id="saveJobButton";
           saveJobButton.addEventListener('click', function() {
+            data[2]=job.id
             saveJob(data);
           });
         }
