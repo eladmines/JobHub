@@ -14,17 +14,14 @@ function deployJobsContainer(data){
 
 function buildJobContainer(arr,i,job)
   { 
-    
-var url = window.location.href;
-var job;
-if(url.includes("savedjobs")){
-    job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
-}
-else{
-    job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
-    console.log(job)
-}
-
+    var url = window.location.href;
+    var job;
+    if(url.includes("savedjobs")){
+        job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
+    }
+    else{
+        job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
+    }
       // Elements initialization
       var card = document.createElement('div')
       var cardHeader = document.createElement('div')
