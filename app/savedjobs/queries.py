@@ -6,9 +6,5 @@ SET savedjobs = (
     FROM jsonb_array_elements(savedjobs) AS job
     WHERE job->>'id' != %s
 )
-WHERE EXISTS (
-    SELECT 1
-    FROM jsonb_array_elements(savedjobs) AS job
-    WHERE job->>'id' = %s
-);"""
+"""
 
