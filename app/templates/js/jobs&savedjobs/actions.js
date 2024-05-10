@@ -49,13 +49,13 @@ function buildJobContainer(arr,i,job)
       saveJobButton.href="#"
       
       var data = [document.cookie, JSON.stringify(arr[i])]
-      
+      var removeData=[document.cookie, arr[i][ID]]
         if(window.location.href.includes("saved")){
           saveJobButton.innerHTML="Remove"
           saveJobButton.id=job.link
           saveJobButton.addEventListener('click', function() {
             data[2]=event.target.id
-            removeSavedJob(data);
+            removeSavedJob(removeData);
           });
         }
         else{
