@@ -20,14 +20,17 @@ SET savedjobs = (
     FROM jsonb_array_elements(savedjobs) AS job
     WHERE job->>'id' != %s
 ) WHERE email = %s;
+
 """
 
-CHECK_EMPTY_COLUMN="""
+INIT_EMPTY_SAVEDJOBS_ARR="""
 UPDATE users 
 SET savedjobs = (
     CASE 
         WHEN savedjobs IS NULL OR jsonb_array_length(savedjobs) = 0 THEN
             jsonb_build_array() 
+    ELSE
+        savedjobs
     END
 )
 WHERE email = %s;
