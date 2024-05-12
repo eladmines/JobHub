@@ -1,5 +1,5 @@
 from dbConnections import openConnection, closeConnection     
-from savedjobs.queries import GET_SAVED_JOBS,REMOVE_SAVED_JOB
+from savedjobs.queries import GET_SAVED_JOBS,REMOVE_SAVED_JOB,INIT_EMPTY_SAVEDJOBS_ARR
 import json
 def getSavedJobs(data):
      con=openConnection()
@@ -17,10 +17,10 @@ def removeSavedJob(data):
      con=openConnection()
      curs=con.cursor()
      try:
-          
           email=(data['sentData'][0])
           jobId=str(data['sentData'][1])
           curs.execute(REMOVE_SAVED_JOB,(jobId,email))
+          curs.execute(INIT_EMPTY_SAVEDJOBS_ARR,(email,))
           con.commit() 
           return data
      except Exception as e:
