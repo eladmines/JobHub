@@ -20,6 +20,7 @@ def removeSavedJob(data):
           email=(data['sentData'][0])
           jobId=str(data['sentData'][1])
           curs.execute(REMOVE_SAVED_JOB,(jobId,email))
+          con.commit() 
           curs.execute(INIT_EMPTY_SAVEDJOBS_ARR,(email,))
           con.commit() 
           return data
