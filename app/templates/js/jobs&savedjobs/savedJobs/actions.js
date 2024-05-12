@@ -25,6 +25,7 @@ export async function removeSavedJob(data) {
         if (res === false) {
             failFunc();
         } else {
+            location.reload();
             deployJobsContainer(res);
         }
     } catch (error) {
