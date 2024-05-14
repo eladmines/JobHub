@@ -5,7 +5,6 @@ def getUserData(data):
      con=openConnection()
      curs=con.cursor()
      try:
-          print(data)
           res = curs.execute(GET_USER_DETAILS,(data,))
           res = curs.fetchone()
           closeConnection(con)
