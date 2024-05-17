@@ -13,8 +13,7 @@ function checkCookies(){
     }
 }
 
-
-
+function initData(){
 (async () => {
     try {
         details = await fetchData();
@@ -25,4 +24,6 @@ function checkCookies(){
     }
 })().then(() => {
     
-});
+})}
+
+initData()
