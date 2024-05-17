@@ -22,3 +22,32 @@ export function sendData(page, sentData, action) {
         throw error; // Rethrow the error to propagate it
     });
 }
+
+
+export async function getUserData() {
+    let cookies = document.cookie;
+    try {
+        const response = await fetch('/main', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cookies),
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else {
+            throw new Error('Something went wrong');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+
+export async function fetchData() {
+    var userData = await getUserData();
+    return userData
+}
