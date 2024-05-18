@@ -81,7 +81,7 @@ function sendDetails(detailsArr,currentURL){
         .then(function(response) {
             
             if(response){
-                document.cookie = detailsArr[0].value;
+                document.cookie = [detailsArr[0].value,detailsArr[1].value];
                 window.location.href = '\\main';
             }else{
                 window.location.href = '\\';
