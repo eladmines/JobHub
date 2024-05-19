@@ -5,7 +5,6 @@ import {getUserData} from '../actions.js'
 const ID="id",TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
 
 function deployJobsContainer(data){
-  
     var i=0
     while(i< data.length){
         buildJobContainer(data,i)

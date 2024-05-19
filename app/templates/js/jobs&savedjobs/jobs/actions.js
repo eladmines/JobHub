@@ -1,4 +1,5 @@
 import {sendData} from '../../actions.js'
+
 function succFunc(){
   alert("job has been saved")
 }
@@ -14,6 +15,5 @@ function saveJob(data){
   }
   };
 export {saveJob}
-
 
 

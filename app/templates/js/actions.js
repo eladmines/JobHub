@@ -25,7 +25,6 @@ export function sendData(page, sentData, action) {
     });
 }
 
-
 export async function getUserData() {
     let cookies = document.cookie;
     try {
