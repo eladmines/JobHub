@@ -1,3 +1,4 @@
+const NAME="name",ROLE="role";
 export function sendData(page, sentData, action) {
     let data = { action: action, sentData: sentData }; // Wrap data in an object
 
@@ -45,9 +46,22 @@ export async function getUserData() {
     }
 }
 
-
-
 export async function fetchData() {
     var userData = await getUserData();
     return userData
 }
+
+function initData(){
+    (async () => {
+        try {
+            details = await fetchData();
+            document.getElementById(NAME).innerText=details[1]
+            document.getElementById(ROLE).innerText=details[5]
+        } catch (error) {
+            console.error('Error', error);
+        }
+    })().then(() => {
+        
+    })}
+    
+    initData()
