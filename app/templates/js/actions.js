@@ -1,7 +1,8 @@
-const NAME="name",ROLE="role";
+var details;
+
+/* Send data to a page with the required action */ 
 export function sendData(page, sentData, action) {
     let data = { action: action, sentData: sentData }; // Wrap data in an object
-
     return fetch(page, {
         method: 'POST',
         headers: {
@@ -45,23 +46,3 @@ export async function getUserData() {
         console.error(error);
     }
 }
-
-export async function fetchData() {
-    var userData = await getUserData();
-    return userData
-}
-
-function initData(){
-    (async () => {
-        try {
-            details = await fetchData();
-            document.getElementById(NAME).innerText=details[1]
-            document.getElementById(ROLE).innerText=details[5]
-        } catch (error) {
-            console.error('Error', error);
-        }
-    })().then(() => {
-        
-    })}
-    
-    initData()
