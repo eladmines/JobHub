@@ -1,6 +1,7 @@
 import {Job} from '../models/job.js'
 import{saveJob} from './jobs/actions.js'
 import{removeSavedJob} from './savedJobs/actions.js'
+import {getUserData} from '../actions.js'
 const ID="id",TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
 
 function deployJobsContainer(data){
