@@ -84,27 +84,27 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                        <input id="firstName" type="text" class="form-control bg-light border-0 small mb-1"
+                                            value="" aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="input-group">
+                                        <input id="lastName" type="text" class="form-control bg-light border-0 small mb-1"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                     </div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                        <input id="Email" type="text" class="form-control bg-light border-0 small mb-1"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                     </div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                        <input id="Company" type="text" class="form-control bg-light border-0 small mb-1"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                     </div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small mb-1"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                    </div>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                        <input id="Role" type="text" class="form-control bg-light border-0 small mb-1"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                     </div>
@@ -166,15 +166,11 @@
         </div>
     </div>
  <!-- JS Sources -->
-    <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/profile/actions.js')}}"></script>
-    <script type="module" src="{{ url_for('static', filename='js/actions.js')}}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/profile/actions.js')}}"></script>
 </body>
 </html>
 
