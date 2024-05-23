@@ -1,6 +1,5 @@
 from dbConnections import openConnection, closeConnection     
 from savedjobs.queries import GET_SAVED_JOBS,REMOVE_SAVED_JOB,INIT_EMPTY_SAVEDJOBS_ARR
-import json
 def getSavedJobs(data):
      con=openConnection()
      curs=con.cursor()
