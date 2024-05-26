@@ -56,6 +56,7 @@ function buildJobContainer(arr,i,job)
           saveJobButton.addEventListener('click', function() {
             data[2]=event.target.id
             removeSavedJob(removeData);
+            card.style.display = "none";
           });
         }
         else{
