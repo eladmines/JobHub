@@ -19,7 +19,6 @@ async function getSavedJobs() {
 };
 
 export async function removeSavedJob(data) {
-    alert("Job has been removed")
     try {
         var res = await sendData("/savedjobs",data, 'remove saved job');
         if (res === false) {
