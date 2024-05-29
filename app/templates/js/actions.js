@@ -1,4 +1,4 @@
-import {User} from '../models/user.js'
+import {User} from './models/user.js'
 /* Send data to a page with the required action */ 
 export function sendData(page, sentData, action) {
     let data = { action: action, sentData: sentData }; // Wrap data in an object
@@ -35,8 +35,8 @@ export async function getUserData() {
             body: JSON.stringify(cookies),
         });
         if (response.ok) {
-            const data = await response.json();
-            var user = User(userData[1],userData[2],userData[3],userData[5],userData[6])
+            const userData = await response.json();
+            var user=new User(userData[1],userData[2],userData[3],userData[5],userData[6]);
             return user;
         } else {
             throw new Error('Something went wrong');
