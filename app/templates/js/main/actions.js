@@ -13,7 +13,7 @@ function checkCookies(){
 
 async function initPage(){
     var userData = await getUserData();
-    document.getElementById("role").innerText=userData[5]
+    document.getElementById("role").innerText=userData.role
 }
 
 /*Functions to be executed */ 
