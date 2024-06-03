@@ -1,5 +1,5 @@
-from dbConnections import openConnection, closeConnection     
-from main.queries import GET_USER_DETAILS
+from app.dbConnections import openConnection, closeConnection     
+from app.main.queries import GET_USER_DETAILS
 
 def getUserData(data):
      con=openConnection()

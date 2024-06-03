@@ -1,8 +1,8 @@
 
 from flask import Blueprint, render_template,request, jsonify
 import psycopg2
-from main.actions import getUserData
-from models import user
+from app.main.actions import getUserData
+from app.models import user
 
 
 main_bp = Blueprint("main_bp", __name__ , template_folder='main')

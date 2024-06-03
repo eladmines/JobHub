@@ -9,10 +9,8 @@ SET savedjobs = CASE
                     WHEN EXISTS (
                         SELECT 1
                         FROM jsonb_array_elements(savedjobs) AS job
-                        WHERE job->>'id' = %s
+                        WHERE job->>'id' = '%s'
                     ) THEN savedjobs
                     ELSE savedjobs || %s::jsonb
                 END
 WHERE email = %s;"""
-
-

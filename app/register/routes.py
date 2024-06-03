@@ -1,6 +1,6 @@
 
 from flask import Blueprint, render_template,request, jsonify
-from register.actions import generate_insert_query
+from app.register.actions import generate_insert_query
 register_bp = Blueprint("register_bp", __name__ , template_folder='register')
 @register_bp.route("/register")
 def index():

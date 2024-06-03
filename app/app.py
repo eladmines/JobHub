@@ -1,12 +1,11 @@
 from flask import Flask
-from main.routes import main_bp
-from jobs.routes import jobs_bp
-from companies.routes import companies_bp
-from login.routes import login_bp
-from register.routes import register_bp
-from savedjobs.routes import savedjobs_bp
-from profile.routes import profile_bp
-#from app.app import app
+from app.main.routes import main_bp
+from app.jobs.routes import jobs_bp
+from app.companies.routes import companies_bp
+from app.login.routes import login_bp
+from app.register.routes import register_bp
+from app.savedjobs.routes import savedjobs_bp
+from app.profile.routes import profile_bp
 app = Flask(__name__,static_folder='templates')
 app.register_blueprint(main_bp)    
 app.register_blueprint(jobs_bp)    
@@ -15,6 +14,5 @@ app.register_blueprint(login_bp)
 app.register_blueprint(register_bp)  
 app.register_blueprint(savedjobs_bp)
 app.register_blueprint(profile_bp)
-if __name__ == '__main__':
-    app.run(debug=False)
+
 

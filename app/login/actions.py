@@ -1,5 +1,5 @@
-from dbConnections import openConnection, closeConnection     
-from login.queries import CHECK_LOGIN_DETAILS
+from app.dbConnections import openConnection, closeConnection     
+from app.login.queries import CHECK_LOGIN_DETAILS
 
 def checkLoginDetails(data):
      con=openConnection()

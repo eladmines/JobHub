@@ -1,8 +1,8 @@
-from jobs import jobs_bp
+from app.jobs import jobs_bp
 from flask import  render_template, redirect, jsonify,request
-from dbConnections import openConnection, closeConnection
+from app.dbConnections import openConnection, closeConnection
 import json
-from jobs.actions import saveJob,getAllJobs
+from app.jobs.actions import saveJob,getAllJobs
 
 @jobs_bp.route("/jobs")
 def jobsInit():

@@ -1,8 +1,6 @@
 
 from flask import Blueprint, render_template,request, jsonify
-import psycopg2
-from login.actions import checkLoginDetails
-
+from app.login.actions import checkLoginDetails
 
 login_bp = Blueprint("login_bp", __name__ , template_folder='login')
 
@@ -15,3 +13,4 @@ def handle_post_request():
     data = request.get_json()
     loginDetails=checkLoginDetails(data)
     return jsonify(loginDetails)
+

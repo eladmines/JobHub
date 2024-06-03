@@ -1,6 +1,6 @@
 
 from flask import Blueprint, render_template,request
-from savedjobs.actions import getSavedJobs,removeSavedJob
+from app.savedjobs.actions import getSavedJobs,removeSavedJob
 
 
 savedjobs_bp = Blueprint("savedjobs_bp", __name__ , template_folder='savedjobs')

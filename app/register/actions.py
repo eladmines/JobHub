@@ -1,6 +1,6 @@
 
-from dbConnections import openConnection, closeConnection
-from register.queries import CHECK_EMAIL_EXISTS,INSERT_USER
+from app.dbConnections import openConnection, closeConnection
+from app.register.queries import CHECK_EMAIL_EXISTS,INSERT_USER
 FIRST_NAME='firstName'; LAST_NAME='lastName';EMAIL='email';PASSWORD='inputPassword';ROLE='role';COMPANY='company'
 
 def generate_insert_query(data):

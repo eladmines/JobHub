@@ -1,7 +1,7 @@
-from dbConnections import openConnection, closeConnection     
-from jobs.queries import SAVE_JOB
+from app.dbConnections import openConnection, closeConnection     
+from app.jobs.queries import SAVE_JOB
 import json
-from models.job import Job
+from app.models.job import Job
 from .queries import GET_ALL_JOBS
 
 def getAllJobs(con,curs):
