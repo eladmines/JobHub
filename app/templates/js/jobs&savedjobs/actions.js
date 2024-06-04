@@ -4,6 +4,7 @@ import{removeSavedJob} from './savedJobs/actions.js'
 import {getUserData} from '../actions.js'
 const ID="id",TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
 
+
 function deployJobsContainer(data){
     var i=0
     while(i< data.length){
@@ -30,6 +31,7 @@ function buildJobContainer(arr,i,job)
       var divButtons = document.createElement('div')
       var date=document.createElement('span')
       var a = document.createElement('a')
+      
       var locationContainer = document.createElement('div')
       var location=document.createElement('span')
       var saveJobButton=document.createElement('a')
@@ -40,6 +42,7 @@ function buildJobContainer(arr,i,job)
       //Properties
       
       card.className="card shadow mb-4"
+      card.id=job.id
       card.style.height = "400px";
       card.style.overflow = "scroll"; 
       card.style.textOverflow = 'ellipsis';
@@ -100,6 +103,25 @@ function buildJobContainer(arr,i,job)
       card.appendChild(cardHeader)
       card.appendChild(cardContent)
       document.getElementById("content").appendChild(card)
+      a.id="title"+job.id;
   }
  
-  export{deployJobsContainer}
+var searchJobButton=document.getElementById("searchBar")
+
+searchJobButton.addEventListener('keyup', function() {
+  var i=1;
+  var card = document.getElementById(i);
+  var input = document.getElementById("searchBar").value;
+  var title;
+  while(card!=null){
+    title = document.getElementById("title"+i).innerHTML
+    if(title.toLowerCase().includes(input.toLowerCase()) == 1 || title.toUpperCase().includes(input.toUpperCase()) == 1 || input==null){
+      card.style.display = "block"
+    }else{
+      card.style.display = "none"
+    }
+    i++;
+    card = document.getElementById(i)
+  }
+})
+export{deployJobsContainer}
