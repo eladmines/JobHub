@@ -15,5 +15,3 @@ def closeConnection(con):
         con.close()
     except Exception as e:
         print('Error closing connection: {0}'.format(e))
-    finally:
-        print('Connection closed.') 

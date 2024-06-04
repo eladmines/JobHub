@@ -4,7 +4,7 @@ import {sendData} from '../../actions.js'
 function failFunc(){
     alert("Error, try again");
 }
-async function getSavedJobs() {
+export async function getSavedJobs() {
     try {
         var res = await sendData("/savedjobs", document.cookie, 'get saved jobs');
         if (res === false) {
@@ -31,4 +31,3 @@ export async function removeSavedJob(data) {
         // Handle the error or rethrow it to propagate
     }
 };
-getSavedJobs()

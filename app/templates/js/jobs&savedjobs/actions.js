@@ -1,12 +1,12 @@
 import {Job} from '../models/job.js'
 import{saveJob} from './jobs/actions.js'
 import{removeSavedJob} from './savedJobs/actions.js'
-import {getUserData} from '../actions.js'
 const ID="id",TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
 
 
-function deployJobsContainer(data){
+export function deployJobsContainer(data){
     var i=0
+    console.log("pppp",data)
     while(i< data.length){
         buildJobContainer(data,i)
     i++
@@ -15,13 +15,18 @@ function deployJobsContainer(data){
 
 
 function buildJobContainer(arr,i,job){ 
+    console.log("start")
     var url = window.location.href;
     var job;
     if(url.includes("savedjobs")){
+      
         job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
     }
-    else{
+    else if(url.includes("jobs")){
         job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK])
+    }
+    else if(url.includes("profile")){
+      return;
     }
 // Elements initialization
     var card = document.createElement('div')
@@ -58,13 +63,17 @@ function buildJobContainer(arr,i,job){
           card.style.display = "none";
           });
     }
-    else{
+    if(window.location.href.includes("jobs")){
       saveJobButton.innerHTML="save"
       saveJobButton.id="saveJobButton";
+      console.log("ddddd",data)
       saveJobButton.addEventListener('click', function() {
           data[2]=job.id
           saveJob(data);
           });
+    }
+    else{
+      return;
     }
     a.innerHTML=job.title
     a.href=job.link
@@ -100,10 +109,11 @@ function buildJobContainer(arr,i,job){
     card.appendChild(cardContent)
     document.getElementById("content").appendChild(card)
     a.id="title"+job.id;
+    console.log("finish")
 }
 
 
-function jobSearch(){
+/*function jobSearch(){
   var searchJobButton=document.getElementById("searchBar")
   searchJobButton.addEventListener('keyup', function() {
     var i=1;
@@ -123,5 +133,5 @@ function jobSearch(){
   })
 }
  
-jobSearch()
-export{deployJobsContainer}
+jobSearch()*/
+
