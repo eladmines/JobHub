@@ -113,25 +113,26 @@ function buildJobContainer(arr,i,job){
 }
 
 
-/*function jobSearch(){
+function jobSearch(){
+  var i=0;
   var searchJobButton=document.getElementById("searchBar")
   searchJobButton.addEventListener('keyup', function() {
-    var i=1;
-    var card = document.getElementById(i);
+    var contentDivs = document.getElementById('content');
+    var card = contentDivs.getElementsByClassName('card shadow mb-4')[i];
     var input = document.getElementById("searchBar").value;
-    var title;
+    var title = card.querySelector('a').innerHTML;
     while(card!=null){
-      title = document.getElementById("title"+i).innerHTML
-      if(title.toLowerCase().includes(input.toLowerCase()) == 1 || title.toUpperCase().includes(input.toUpperCase()) == 1 || input==null){
-        card.style.display = "block"
-      }else{
-        card.style.display = "none"
+      var title = card.querySelector('a').innerHTML;;
+        if(title.toLowerCase().includes(input.toLowerCase()) == 1 || title.toUpperCase().includes(input.toUpperCase()) == 1 || input==null){
+          card.style.display = "block"
+        }else{
+          card.style.display = "none"
+        }
+        i++;
+        card = contentDivs.getElementsByClassName('card shadow mb-4')[i];
       }
-      i++;
-      card = document.getElementById(i)
-    }
   })
 }
  
-jobSearch()*/
+jobSearch()
 
