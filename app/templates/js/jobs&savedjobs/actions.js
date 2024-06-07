@@ -50,8 +50,8 @@ function buildJobContainer(arr,i,job){
     card.style.textOverflow = 'ellipsis';
     cardHeader.className="d-block card-header py-3";
     saveJobButton.href="#";
-    var data = [document.cookie, JSON.stringify(arr[i])]
-    var removeData=[document.cookie, arr[i][ID]]
+    var data = [document.cookie, JSON.stringify(arr[i])];
+    var removeData=[document.cookie, arr[i][ID]];
     if(window.location.href.includes("saved")){
       saveJobButton.innerHTML="Remove";
       saveJobButton.id=job.link;
@@ -61,7 +61,7 @@ function buildJobContainer(arr,i,job){
           card.style.display = "none";
           });
     }
-    if(window.location.href.includes("jobs")){
+    else if(window.location.href.includes("jobs")){
       saveJobButton.innerHTML="save";
       saveJobButton.id="saveJobButton";
       saveJobButton.addEventListener('click', function() {
