@@ -6,6 +6,8 @@ from app.login.routes import login_bp
 from app.register.routes import register_bp
 from app.savedjobs.routes import savedjobs_bp
 from app.profile.routes import profile_bp
+from app.applications.allApplications.routes import allApplications_bp
+
 app = Flask(__name__,static_folder='templates')
 app.register_blueprint(main_bp)    
 app.register_blueprint(jobs_bp)    
@@ -14,5 +16,6 @@ app.register_blueprint(login_bp)
 app.register_blueprint(register_bp)  
 app.register_blueprint(savedjobs_bp)
 app.register_blueprint(profile_bp)
+app.register_blueprint(allApplications_bp)
 
 
