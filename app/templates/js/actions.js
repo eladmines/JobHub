@@ -36,7 +36,7 @@ export async function getUserData() {
         });
         if (response.ok) {
             const userData = await response.json();
-            var user=new User(userData[1],userData[2],userData[3],userData[5],userData[6]);
+            var user=new User(userData[0],userData[1],userData[2],userData[3],userData[5],userData[6]);
             return user;
         } else {
             throw new Error('Something went wrong');

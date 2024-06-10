@@ -14,6 +14,7 @@ function checkCookies(){
 async function initPage(){
     var userData = await getUserData();
     document.getElementById("role").innerText=userData.role
+    document.getElementById("company").innerText=userData.company
 }
 
 /*Functions to be executed */ 
