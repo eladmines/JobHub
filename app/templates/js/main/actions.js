@@ -15,7 +15,11 @@ async function initPage(){
     var userData = await getUserData();
     document.getElementById("role").innerText=userData.role
     document.getElementById("company").innerText=userData.company
+    document.getElementById("experience").innerText=userData.experience
+    document.getElementById("skills").innerText=userData.skills
 }
 
 /*Functions to be executed */ 
+checkCookies()
 initPage()
+
