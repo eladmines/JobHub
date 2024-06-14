@@ -31,5 +31,5 @@ def jobsInit():
 def handle_post_request():
     data = request.get_json()
     if(data['action']=="save job"):
-        saveJob(data['sentData'][0], data['sentData'][1],data['sentData'][2])
+        saveJob(data['sentData'][0],data['sentData'][1])
     return data
