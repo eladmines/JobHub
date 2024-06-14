@@ -17,13 +17,26 @@ def getAllJobs(con,curs):
         row = curs.fetchone()
     return Jobs
 
-def saveJob(email,data,id):
+# def saveJob(email,data,id):
+#      con=openConnection()
+#      curs=con.cursor()
+#      try:
+#           curs.execute(SAVE_JOB,(id,data,email))
+#           con.commit() 
+#           con=closeConnection()
+#      except Exception as e:
+#           print(f"Error: {e}")
+#           # Rollback changes in case of an error
+#           con.rollback()
+
+
+def saveJob(userId,jobId):
      con=openConnection()
      curs=con.cursor()
      try:
-          curs.execute(SAVE_JOB,(id,data,email))
+          curs.execute(SAVE_JOB,(userId,jobId))
           con.commit() 
-          con=closeConnection()
+          closeConnection(con)
      except Exception as e:
           print(f"Error: {e}")
           # Rollback changes in case of an error
