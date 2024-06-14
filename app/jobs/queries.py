@@ -4,13 +4,8 @@ GET_ALL_JOBS = """SELECT * FROM jobs"""
 
 GET_USER="SELECT * FROM users WHERE email=%s"
 
-SAVE_JOB="""UPDATE users 
-SET savedjobs = CASE 
-                    WHEN EXISTS (
-                        SELECT 1
-                        FROM jsonb_array_elements(savedjobs) AS job
-                        WHERE job->>'id' = '%s'
-                    ) THEN savedjobs
-                    ELSE savedjobs || %s::jsonb
-                END
-WHERE email = %s;"""
+SAVE_JOB = """
+INSERT INTO jobs_saved (user_id,job_id)
+VALUES (%s,%s)
+ON CONFLICT (user_id,job_id) DO NOTHING
+"""
