@@ -5,15 +5,8 @@ from .queries import GET_ALL_JOBS
 
 def removeSpecialChars(job):
     job["title"]=job["title"].replace("'"," ")
-    job["description"]=job["description"].replace("'"," ")
-    job["description"]=job["description"].replace("\n","<br>")
-    job["description"]=job["description"].replace('\"',"")
-    job["qualifications"]=job["qualifications"].replace("'"," ")
-    job["qualifications"]=job["qualifications"].replace("\n","<br>")
-    job["qualifications"]=job["qualifications"].replace("\\","")
-    job["qualifications"]=job["qualifications"].replace('{"'," ")
-    job["qualifications"]=job["qualifications"].replace('"}'," ")
-    job["qualifications"]=job["qualifications"].replace('"'," ")
+    job["description"] = job["description"].translate(str.maketrans({"'": " ", "\n": "<br>", '"': ""}))
+    job["qualifications"] = job["qualifications"].translate(str.maketrans({"'": " ", "\n": "<br>", "\\": "", '{': " ", '}': " ", '"': " "}))
     return job
 
 
