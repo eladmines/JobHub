@@ -15,4 +15,5 @@ def index():
 def handle_post_request():
     data = request.get_json()
     res = getUserData(data)
+    
     return jsonify(res)
