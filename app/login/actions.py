@@ -5,16 +5,17 @@ def checkLoginDetails(data):
      con=openConnection()
      curs=con.cursor()
      try:
-          values=(data['email'],data['password'])
-          curs.execute(CHECK_LOGIN_DETAILS,(values[0],values[1]))
+          email=data['email']
+          password=data['password']
+          curs.execute(CHECK_LOGIN_DETAILS,(email,password))
           exists = curs.fetchone()[0]
-          if (exists == True):
-               return True
+          if exists:
+               return exists
           else:
-               return False   
+               return None  
      except Exception as e:
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback() 
-     con=closeConnection()
+     closeConnection(con)
    
