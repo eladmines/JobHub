@@ -1,15 +1,15 @@
 from app.jobs import jobs_bp
-from flask import  render_template, redirect, jsonify,request
+from flask import  render_template,request
 from app.dbConnections import openConnection, closeConnection
 import json
-from app.jobs.actions import saveJob,getAllJobs,removeSpecialChars
-
+from app.jobs.actions import saveJob,getAllJobs
+from app.utils import removeSpecialChars
 
 @jobs_bp.route("/jobs")
 def jobsInit():
     con=openConnection()
     curs=con.cursor()
-    Jobs = getAllJobs(con,curs)
+    Jobs = getAllJobs(curs)
     jobsList =[]
     for job in Jobs:
         job = vars(job)
