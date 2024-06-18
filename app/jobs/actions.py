@@ -3,25 +3,23 @@ from app.jobs.queries import SAVE_JOB
 from app.models.job import Job
 from .queries import GET_ALL_JOBS
 
-def removeSpecialChars(job):
-    job["title"]=job["title"].replace("'"," ")
-    job["description"] = job["description"].translate(str.maketrans({"'": " ", "\n": "<br>", '"': ""}))
-    job["qualifications"] = job["qualifications"].translate(str.maketrans({"'": " ", "\n": "<br>", "\\": "", '{': " ", '}': " ", '"': " "}))
-    return job
 
-
-def getAllJobs(con,curs):
+def getAllJobs(curs):
     curs.execute(GET_ALL_JOBS)
-    con.commit()
-    rowCounter=0
     Jobs=[]
-    row = curs.fetchone()
-    while row is not None:
-        print(row[1])
-        job = Job(row[0],row[1],row[2],row[3], row[4],row[5],row[6],row[7],row[8])
-        Jobs.append(job)
-        rowCounter = rowCounter + 1
-        row = curs.fetchone()
+    rows = curs.fetchall()
+    for row in rows:
+        title=row[0]
+        location=row[1]
+        description=row[2]
+        qualifications=row[3]
+        date=row[4]
+        link=row[5]
+        company=row[6]
+        image=row[7]
+        id=row[8]
+        job = Job(title,location,description,qualifications, date,link,company,image,id)
+        Jobs.append(job)    
     return Jobs
 
 def saveJob(userId,jobId):
