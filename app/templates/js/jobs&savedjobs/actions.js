@@ -1,6 +1,8 @@
 import {Job} from '../models/job.js'
 import{saveJob} from './jobs/actions.js'
 import{removeSavedJob} from './savedJobs/actions.js'
+import { getCookie,sendData } from '../actions.js';
+import {createCommentsModal,createCommentsDivs, removeModalContent} from "../comments/actions.js"
 const ID="id",TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
 
 
@@ -10,37 +12,28 @@ export function deployJobsContainer(data){
         buildJobContainer(data,i);
     i++
     }
-  }
-
+}
 
 function buildJobContainer(arr,i,job){ 
-    var url = window.location.href;
-    var job;
-    if(url.includes("savedjobs")){
-      
-        job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK]);
-    }
-    else if(url.includes("jobs")){
-        job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK]);
-    }
-    else if(url.includes("profile")){
-      return;
-    }
-// Elements initialization
+    var job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK]);
+// Create div objects
     var card = document.createElement('div');
     var cardHeader = document.createElement('div');
     var titleContainer = document.createElement('div');
     var locationContainer = document.createElement('div');
     var divButtons = document.createElement('div');
-    var date=document.createElement('span');
-    var a = document.createElement('a');
     var locationContainer = document.createElement('div');
-    var location=document.createElement('span');
-    var saveJobButton=document.createElement('a');
-    var company=document.createElement('span');
     var cardContent = document.createElement('div');
     var qualificationsContainer = document.createElement('div');
     var descriptionContainer = document.createElement('div');
+// Create link objects
+    var a = document.createElement('a');
+    var saveJobButton=document.createElement('a');
+    var commentsButton=document.createElement('a');
+// Create span objects
+    var date=document.createElement('span');
+    var location=document.createElement('span');
+    var company=document.createElement('span');
 
 //Set properties
     card.className="card shadow mb-4"
@@ -50,22 +43,40 @@ function buildJobContainer(arr,i,job){
     card.style.textOverflow = 'ellipsis';
     cardHeader.className="d-block card-header py-3";
     saveJobButton.href="#";
-    var data = [document.cookie, JSON.stringify(arr[i])];
-    var removeData=[document.cookie, arr[i][ID]];
+    commentsButton.href="#";
+    var data = [getCookie("userId")];
+    var removeData=[getCookie("userId"), arr[i][ID]];
     if(window.location.href.includes("saved")){
-      saveJobButton.innerHTML="Remove";
-      saveJobButton.id=job.link;
-      saveJobButton.addEventListener('click', function() {
-          data[2]=event.target.id;
-          removeSavedJob(removeData);
-          card.style.display = "none";
-          });
+        commentsButton.innerHTML="Comments ";
+        commentsButton.setAttribute("data-target", "#comments");
+        commentsButton.setAttribute("href", "#");
+        commentsButton.setAttribute("data-toggle", "modal");
+        commentsButton.innerHTML="Comments";
+        commentsButton.id=job.id;
+        saveJobButton.innerHTML="Remove ";
+        saveJobButton.addEventListener('click', function() {
+            data[2]=event.target.id;
+            removeSavedJob(removeData);
+            card.style.display = "none";
+            });
+        commentsButton.addEventListener('click', async function() {
+          createCommentsModal()
+              var getCommentsData=[getCookie("userId"),job.id]
+              var res = await sendData('\savedjobs',getCommentsData,'get comments')
+              for(var i=0; i<res[0][0].length; i++){
+                createCommentsDivs(res[0][0],i)
+              }
+              });
     }
     else if(window.location.href.includes("jobs")){
+      commentsButton.setAttribute("data-target", "#comments");
+      commentsButton.setAttribute("class", "dropdown-item");
+      commentsButton.setAttribute("href", "#");
+      commentsButton.setAttribute("data-toggle", "modal");
       saveJobButton.innerHTML="save";
       saveJobButton.id="saveJobButton";
       saveJobButton.addEventListener('click', function() {
-          data[2]=job.id;
+          data[1]=job.id;
           saveJob(data);
           });
     }
@@ -98,13 +109,20 @@ function buildJobContainer(arr,i,job){
     cardHeader.appendChild(locationContainer);
     locationContainer.appendChild(location);
     cardHeader.appendChild(divButtons);
+    divButtons.appendChild(commentsButton);
     divButtons.appendChild(saveJobButton);
+    divButtons.appendChild(commentsButton);
     titleContainer.appendChild(a);
     titleContainer.appendChild(date);
     titleContainer.appendChild(company);
     card.appendChild(cardHeader);
     card.appendChild(cardContent);
     document.getElementById("content").appendChild(card);
+    commentsButton.addEventListener('click', function() {
+      var sendCommentButton = document.getElementsByClassName('btn btn-primary change');
+      sendCommentButton[0].id=commentsButton.id
+    });
+    
 }
 
 
@@ -127,8 +145,14 @@ function jobSearch(){
       card = contentDivs.getElementsByClassName('card shadow mb-4')[i];
       }
   })
+  
 }
+
+
+
+
 
 //Main
 jobSearch()
+
 
