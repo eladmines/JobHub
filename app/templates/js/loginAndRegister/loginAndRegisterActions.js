@@ -79,9 +79,9 @@ function sendDetails(detailsArr,currentURL){
     if(response.ok) {  
         response.json() 
         .then(function(response) {
-            
             if(response){
-                document.cookie = detailsArr[0].value;
+                document.cookie = "email="+detailsArr[0].value;
+                document.cookie = "userId="+response;
                 window.location.href = '\\main';
             }else{
                 window.location.href = '\\';
