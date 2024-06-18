@@ -1,12 +1,12 @@
 import {deployJobsContainer} from '../actions.js'
 import {sendData} from '../../actions.js'
-
+import { getCookie } from '../../actions.js';
 function failFunc(){
     alert("Error, try again");
 }
 export async function getSavedJobs() {
     try {
-        var res = await sendData("/savedjobs", document.cookie, 'get saved jobs');
+        var res = await sendData("/savedjobs", getCookie("userId"), 'get saved jobs');
         if (res === false) {
             failFunc();
         } else {
