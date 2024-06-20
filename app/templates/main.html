@@ -1,5 +1,3 @@
-
-{% extends 'top_bar.html' %}
 {% block content %}
 
 <!DOCTYPE html>
@@ -29,9 +27,10 @@
 </head>
 
 <body id="page-top">
+    {% include 'top_bar.html' %}
     <!-- Page Wrapper -->
     <div id="wrapper">
-
+        
         {% include "sidebar.html" %}
 
         <!-- Content Wrapper -->
