@@ -1,5 +1,5 @@
 from app.dbConnections import openConnection, closeConnection     
-from app.jobs.queries import SAVE_JOB
+from app.jobs.queries import SAVE_JOB,SAVE_JOB_APPLICATION
 from app.models.job import Job
 from .queries import GET_ALL_JOBS
 
@@ -22,14 +22,20 @@ def getAllJobs(curs):
         Jobs.append(job)    
     return Jobs
 
-def saveJob(userId,jobId):
+def queryExec(userId,jobId,query):
      con=openConnection()
      curs=con.cursor()
      try:
-          curs.execute(SAVE_JOB,(userId,jobId))
+          curs.execute(query,(userId,jobId))
           con.commit() 
           closeConnection(con)
      except Exception as e:
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback()
+
+def saveJob(userId,jobId):
+    queryExec(userId,jobId,SAVE_JOB)
+
+def saveApplication(userId,jobId):
+    queryExec(userId,jobId,SAVE_JOB_APPLICATION)
