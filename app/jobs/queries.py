@@ -9,3 +9,9 @@ INSERT INTO jobs_saved (user_id,job_id)
 VALUES (%s,%s)
 ON CONFLICT (user_id,job_id) DO NOTHING
 """
+
+SAVE_JOB_APPLICATION = """
+INSERT INTO jobs_applicated (user_id,job_id)
+VALUES (%s,%s)
+ON CONFLICT (user_id,job_id) DO NOTHING
+"""
