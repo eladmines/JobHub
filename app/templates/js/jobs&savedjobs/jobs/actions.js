@@ -1,19 +1,13 @@
-import {sendData} from '../../actions.js'
+import { saveData } from '../../actions.js';
 
-function succFunc(){
-  alert("job has been saved")
+function saveJob(data) {
+  saveData("/jobs", data, "save job" ,"Job has been saved");
 }
-function failFunc(){
-  alert("Something went wrong, try again")
+
+function saveApp(data) {
+  saveData("/applications", data, "save application" ,"Application has been saved");
 }
-function saveJob(data){
-  var res = sendData("/jobs",data,'save job')
-  if(res == false){
-    failFunc();
-  }else{
-    succFunc();
-  }
-  };
-export {saveJob}
+
+export {saveJob,saveApp}
 
 
