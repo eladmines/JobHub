@@ -62,3 +62,18 @@ export function getCookie(cname) {
     return "";
   }
 
+  function succFunc(message){
+    alert(message)
+  }
+  function failFunc(message){
+    alert(message)
+  }
+
+  export function saveData(endpoint, data, action,successMessage, failureMessage) {
+    var res = sendData(endpoint, data, action);
+    /*if (res === false) {
+      failFunc(failureMessage || "Something went wrong, try again");
+    } else {
+      succFunc(successMessage || "Data has been saved");
+    }*/
+  }
