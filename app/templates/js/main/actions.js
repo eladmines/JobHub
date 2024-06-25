@@ -1,4 +1,11 @@
 import {getUserData} from '../actions.js'
+
+function almostReady(){
+    document.getElementById('generateReport').addEventListener('click', function() {
+        alert("Available soon :)")
+    });
+}
+
 function checkCookies(){
     let cookies = document.cookie;
     /*Everything is fine - the user has logged in.*/
@@ -12,16 +19,24 @@ function checkCookies(){
 }
 
 async function initPage(){
-    var userData = await getUserData();
-    console.log(userData)
-    document.getElementById("role").innerText=userData.role;
-    document.getElementById("company").innerText=userData.company;
-    document.getElementById("experience").innerText=userData.experience;
-    document.getElementById("skills").innerText=userData.skills;
-    document.getElementById("savedjobs-counter").innerText=userData.saved_jobs_counter;
+    var allDetails = await getUserData();
+    var userInfo=allDetails[0];
+    var profileInfo=allDetails[1];
+    document.getElementById("role").innerText=userInfo.role;
+    document.getElementById("company").innerText=userInfo.company;
+    document.getElementById("experience").innerText=userInfo.experience;
+    document.getElementById("skills").innerText=userInfo.skills;
+    document.getElementById("savedjobs-counter").innerText=profileInfo.saved_jobs_counter;
+    document.getElementById("apply-today").innerText=profileInfo.apply_today;
 }
+
+function removeSearchBar(){
+    document.getElementById("search-bar").style.visibility="hidden";
+}
+
 
 /*Functions to be executed */ 
 checkCookies()
 initPage()
-
+removeSearchBar();
+almostReady()
