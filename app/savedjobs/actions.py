@@ -1,18 +1,25 @@
 from app.dbConnections import openConnection, closeConnection     
-from app.savedjobs.queries import GET_SAVED_JOBSIDS,GET_SAVED_JOBS,DELETE_SAVED_JOB,SAVE_COMMENT,GET_COMMENTS
+from app.savedjobs.queries import GET_SAVED_JOBSIDS,GET_SAVED_JOBS,DELETE_SAVED_JOB
 from app.models.job import Job
-from flask import jsonify
+from app.utils import queryExec
+from app.savedjobs.queries import SAVE_JOB
+
+def GetSavedJobsIds(userId):
+    con=openConnection()
+    curs=con.cursor()
+    curs.execute(GET_SAVED_JOBSIDS,(userId,))
+    jobsIds=curs.fetchall()
+    jobsIds = [x[0] for x in jobsIds]
+    return jobsIds
 
 def getSavedJobs(data):
      con=openConnection()
      curs=con.cursor()
      try:
           user_id=data['sentData']
-          curs.execute(GET_SAVED_JOBSIDS,(user_id,))
-          data = curs.fetchall()
-          jobsIds=[item[0] for item in data]
+          jobsId=GetSavedJobsIds(user_id)
           Jobs=[]
-          for item in jobsIds:
+          for item in jobsId:
                curs.execute(GET_SAVED_JOBS,(item,))
                job = curs.fetchone()
                job = Job(job[0],job[1],job[2],job[3], job[4],job[5],job[6],job[7],job[8])
@@ -42,34 +49,8 @@ def removeSavedJob(data):
           con.rollback() 
           closeConnection(con)
 
-
-def saveComment(user_id,data,job_id):
-     con=openConnection()
-     curs=con.cursor()
-     try:
-          curs.execute(SAVE_COMMENT,(data,job_id,user_id))
-          con.commit() 
-          closeConnection(con)
-          return jsonify(True)
-     except Exception as e:
-          print(f"Error: {e}")
-          # Rollback changes in case of an error
-          con.rollback()
-          closeConnection(con)
-          return jsonify(False)
+def saveJob(userId,jobId):
+    queryExec(userId,jobId,SAVE_JOB)
 
 
-def getComments(user_id,job_id):
-     con=openConnection()
-     curs=con.cursor()
-     try:
-          curs.execute(GET_COMMENTS,(user_id,job_id))
-          con.commit() 
-          res = curs.fetchall()
-          closeConnection(con)
-          return res
-     except Exception as e:
-          print(f"Error: {e}")
-          # Rollback changes in case of an error
-          con.rollback()
-          closeConnection(con)
+
