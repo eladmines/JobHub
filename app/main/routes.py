@@ -1,9 +1,6 @@
 
 from flask import Blueprint, render_template,request, jsonify
-import psycopg2
-from app.main.actions import getUserData
-from app.models import user
-
+from app.main.actions import getUserData,getProfileData
 
 main_bp = Blueprint("main_bp", __name__ , template_folder='main')
 
@@ -14,6 +11,9 @@ def index():
 @main_bp.route("/main", methods=["POST"])
 def handle_post_request():
     data = request.get_json()
-    res = getUserData(data)
-    
-    return jsonify(res)
+    user = getUserData(data)
+    profile = getProfileData(user['id'])
+    allDetails={}
+    allDetails.update(user)
+    allDetails.update(profile)
+    return jsonify(allDetails)
