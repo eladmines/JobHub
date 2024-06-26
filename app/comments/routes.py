@@ -1,8 +1,7 @@
-from flask import Blueprint
-from flask import  request
+from flask import Blueprint,request
 from app.comments.actions import getComments,saveComment
-
 comments_bp = Blueprint("comments_bp", __name__ , template_folder='comments')
+
 @comments_bp.route("/comments", methods=["POST"])
 def handle_post_request():
     data = request.get_json()
@@ -30,4 +29,4 @@ def handle_post_request():
             endpoint="jobs_saved"
             res=saveComment(endpoint,int(userId),dataForaAction,jobId)
         return res
-    return data
+    return
