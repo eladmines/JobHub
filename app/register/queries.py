@@ -1,6 +1,8 @@
-INSERT_USER = "INSERT INTO users (firstName,lastName,email,password, role, company,savedjobs) " \
-                    "VALUES (%s, %s, %s, %s, %s, %s,'[]')"              
-CHECK_EMAIL_EXISTS = "SELECT EXISTS (SELECT 1 FROM users WHERE email=%s)"
+INSERT_USER = """INSERT INTO users (firstName, lastName, email, password, role, company, experience, skills) 
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s) 
+ON CONFLICT (email) DO NOTHING 
+RETURNING id;"""
+
 
 
     
