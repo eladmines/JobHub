@@ -9,26 +9,37 @@ class Profile:
 
     def get_id(self):
         return self.id
+    
     def get_saved_jobs_count(self):
         return self.saved_jobs_count
+    
     def num_of_daily_applications_count(self):
         return self.daily_applications_count
+    
     def num_of_weekly_applications_count(self):
         return self.weekly_applications_count
+    
     def get_monthly_applications_count(self):
         return self.monthly_applications_count
+    
     def get_weekly_applications_goal(self):
         return self.weekly_applications_goal
+    
     def set_id(self,new_value):
         self.id=new_value
+
     def set_saved_jobs_count(self,new_value):
         self.saved_jobs_count=new_value
-    def num_of_daily_applications_count(self,new_value):
-        self.num_of_daily_applications_count=new_value
-    def set_num_of_weekly_applications_count(self,new_value):
-        self.num_of_weekly_applications_count=new_value
+
+    def set_daily_applications_count(self,new_value):
+        self.daily_applications_count=new_value
+
+    def set_weekly_applications_count(self,new_value):
+        self.weekly_applications_count=new_value
+
     def set_monthly_applications_count(self,new_value):
         self.monthly_applications_count=new_value
+
     def set_weekly_applications_goal(self,new_value):
         self.weekly_applications_goal=new_value
 
