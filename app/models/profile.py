@@ -43,4 +43,11 @@ class Profile:
     def set_weekly_applications_goal(self,new_value):
         self.weekly_applications_goal=new_value
 
+    def __str__(self):
+            return (f"Profile(id={self.id}, "
+                    f"saved_jobs_count={self.saved_jobs_count}, "
+                    f"daily_applications_count={self.daily_applications_count}, "
+                    f"weekly_applications_count={self.weekly_applications_count}, "
+                    f"monthly_applications_count={self.monthly_applications_count}, "
+                    f"weekly_applications_goal={self.weekly_applications_goal})")
     

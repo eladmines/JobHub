@@ -64,3 +64,7 @@ class Job:
     def set_id(self, id):
         self.id = id
         
+    def __str__(self):
+        return (f"Job(id={self.id}, title={self.title}, location={self.location}, "
+                f"description={self.description}, qualifications={self.qualifications}, "
+                f"date={self.date}, link={self.link}, company={self.company}, image={self.image})")

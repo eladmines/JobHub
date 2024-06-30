@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, email, password, firstname, lastname, role, company, id, experience, skills):
+    def __init__(self,id, firstname, lastname, email, password, role, company, experience, skills):
         self.email = email
         self.password = password
         self.firstname = firstname
@@ -63,3 +63,8 @@ class User:
     
     def set_skills(self, skills):
         self.skills = skills
+
+    def __str__(self):
+        return (f"User(id={self.id}, firstname={self.firstname}, lastname={self.lastname}, "
+                f"email={self.email}, role={self.role}, company={self.company}, "
+                f"experience={self.experience}, skills={self.skills})")
