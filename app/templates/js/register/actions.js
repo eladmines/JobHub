@@ -1,5 +1,5 @@
-import {User} from "../../models/user.js";
-import {checkEmptyInputsArray,emailValidation,checkPasswords,sendData,C} from "../../utils.js"
+import {User} from "../models/user.js";
+import {checkEmptyInputsArray,emailValidation,checkPasswords,sendData,navigateToPage,isNumber} from "../utils.js"
 const USER_DO_NOT_CREATE_YET_ID=0;
 
 export function register(){
@@ -66,6 +66,11 @@ function registerInputsValidiation(user,passwords){
     res = checkPasswords(passwords[0],passwords[1]);
     if(!res){
         alert("Check your password");
+        return;
+    }
+    res = isNumber(user.getExperience());
+    if(!res){
+        alert("Experience must be a number");
         return;
     }
     return true;  
