@@ -1,6 +1,6 @@
 import psycopg2
 from config import DATABASE_URL
-def openConnection():
+def open_connection():
     try:
         conn = psycopg2.connect(DATABASE_URL)
     except psycopg2.OperationalError as e:
@@ -10,7 +10,7 @@ def openConnection():
     else:
         return conn
 
-def closeConnection(con):
+def close_connection(con):
     try:
         con.close()
     except Exception as e:
