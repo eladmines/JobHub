@@ -48,9 +48,7 @@
                                             </div>
                                         </div>
                                         
-                                        <a type="submit" class="btn btn-primary btn-user btn-block" onclick=initArgs()>
-                                            Login
-                                        </a>
+                                        <input id="login-btn" value="Login Account" class="btn btn-primary btn-user btn-block">
                                         <hr>
                                         <a href="main.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -78,8 +76,9 @@
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/loginAndRegister/login/actions.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/loginAndRegister/loginAndRegisterActions.js')}}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/login/main.js')}}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/login/actions.js')}}"></script>
+   
 </body>
 
 </html>
