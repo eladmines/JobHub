@@ -1,4 +1,4 @@
-import {checkEmptyInputsArray,emailValidation,sendData,navigateToPage} from "../utils.js";
+import {checkEmptyInputsArray,emailValidation,sendData,navigateToPage,setCookie} from "../utils.js";
 import {User} from "../models/user.js";
 const INPUT_EMAIL="InputEmail"
 const INPUT_PASSWORD="InputPassword"
@@ -9,9 +9,10 @@ export async function login(){
     var res = loginInputsValidiation(user,password);
     if(res){
         var user = new User(USER_DO_NOT_LOGIN_YET_ID,null,null,user.value,password.value,null,null,null,null);
-        res = await authenticateDetails(user);
+        user = await authenticateDetails(user);
     }
-    if(res){
+    if(user){
+        setCookie(user)
         navigateToPage('/main');
     }
 }

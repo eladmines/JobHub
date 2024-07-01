@@ -1,13 +1,14 @@
-import { saveData } from '../../actions.js';
-
-function saveJob(data) {
-  saveData("/jobs", data, "save job" ,"Job has been saved");
+import {getCookie} from "../../actions.js"
+import {sendData} from "../../actions.js"
+import { getCookieValue } from "../../utils.js";
+function sendUserId(){
+    var res=sendData('/jobs',getCookieValue(document.cookie,'id'),'Send user id');
+    return res;
 }
 
-function saveApp(data) {
-  saveData("/applications", data, "save application" ,"Application has been saved");
+function removeCommentsButton(endpoint,button){
+    if(endpoint=="/jobs"){
+        button.style.display="none"
+    }
 }
-
-export {saveJob,saveApp}
-
-
+export {sendUserId,removeCommentsButton}

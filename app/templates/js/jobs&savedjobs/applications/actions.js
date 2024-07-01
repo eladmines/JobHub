@@ -2,12 +2,20 @@ import {deployJobsContainer} from '../actions.js'
 import {sendData} from '../../actions.js'
 import { getCookieValue } from '../../utils.js'
 import { saveData } from '../../actions.js';
+
+export function saveApp(data) {
+  saveData("/applications", data, "save application" ,"Application has been saved");
+}
+
 function failFunc(){
     alert("Error, try again");
 }
-export async function getSavedJobs() {
+
+export async function getApplications() {
     try {
-        var res = await sendData("/savedjobs", getCookieValue(document.cookie,'id'), 'get saved jobs');
+        
+        var res = await sendData("/applications",getCookieValue(document.cookie,'id'), 'get applications');
+        
         if (res === false) {
             failFunc();
         } else {
@@ -19,12 +27,13 @@ export async function getSavedJobs() {
     }
 };
 
-export async function removeSavedJob(data) {
+export async function removeApplication(data) {
     try {
-        if(window.location.pathname=='/savedjobs'){
-        document.getElementById(data[1]).style.display="none";
+        if(window.location.pathname=='/applications'){
+            document.getElementById(data[1]).style.display="none";
         }
-        var res = await sendData("/savedjobs",data, 'remove saved job');
+        
+        var res = await sendData("/applications",data, 'remove job application');
         if (res === false) {
             failFunc();
         } else {
@@ -36,6 +45,3 @@ export async function removeSavedJob(data) {
     }
 };
 
-export function saveJob(data) {
-    saveData("/savedjobs", data, "save job" ,"Job has been saved");
-  }

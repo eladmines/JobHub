@@ -1,20 +1,26 @@
 import {Job} from '../models/job.js'
-import{saveJob} from './jobs/actions.js'
+import { getCookieValue,sendData,createFormattedDate} from '../utils.js'
+//import {setupJobsPage} from './jobs/conf.js'
+//import {setupSavedjobsPage} from './savedJobs/conf.js'
+import {setupApplicationsPage} from './applications/conf.js'
+//import { saveApp } from './applications/actions.js';
+import {saveJob} from './savedJobs/actions.js'
+import {removeApplication, saveApp} from './applications/actions.js'
 import{removeSavedJob} from './savedJobs/actions.js'
-import { getCookie,sendData } from '../actions.js';
 import {createCommentsModal,createCommentsDivs, removeModalContent} from "../comments/actions.js"
+import {removeCommentsButton} from './jobs/actions.js'
 const ID="id",TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
 
 
-export function deployJobsContainer(data){
+export async function deployJobsContainer(data){
     var i=0;
     while(i< data.length){
         buildJobContainer(data,i);
-    i++
+        i++
     }
 }
 
-function buildJobContainer(arr,i,job){ 
+export function buildJobContainer(arr,i,job){ 
     var job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK]);
 // Create div objects
     var card = document.createElement('div');
@@ -28,8 +34,10 @@ function buildJobContainer(arr,i,job){
     var descriptionContainer = document.createElement('div');
 // Create link objects
     var a = document.createElement('a');
-    var saveJobButton=document.createElement('a');
+    var saveOrRemoveJobButton=document.createElement('a');
     var commentsButton=document.createElement('a');
+    var applyButton=document.createElement('a');
+    
 // Create span objects
     var date=document.createElement('span');
     var location=document.createElement('span');
@@ -42,47 +50,15 @@ function buildJobContainer(arr,i,job){
     card.style.overflow = "scroll"; 
     card.style.textOverflow = 'ellipsis';
     cardHeader.className="d-block card-header py-3";
-    saveJobButton.href="#";
+    saveOrRemoveJobButton.href="#";
     commentsButton.href="#";
-    var data = [getCookie("userId")];
-    var removeData=[getCookie("userId"), arr[i][ID]];
-    if(window.location.href.includes("saved")){
-        commentsButton.innerHTML="Comments ";
-        commentsButton.setAttribute("data-target", "#comments");
-        commentsButton.setAttribute("href", "#");
-        commentsButton.setAttribute("data-toggle", "modal");
-        commentsButton.innerHTML="Comments";
-        commentsButton.id=job.id;
-        saveJobButton.innerHTML="Remove ";
-        saveJobButton.addEventListener('click', function() {
-            data[2]=event.target.id;
-            removeSavedJob(removeData);
-            card.style.display = "none";
-            });
-        commentsButton.addEventListener('click', async function() {
-          createCommentsModal()
-              var getCommentsData=[getCookie("userId"),job.id]
-              var res = await sendData('\savedjobs',getCommentsData,'get comments')
-              for(var i=0; i<res[0][0].length; i++){
-                createCommentsDivs(res[0][0],i)
-              }
-              });
-    }
-    else if(window.location.href.includes("jobs")){
-      commentsButton.setAttribute("data-target", "#comments");
-      commentsButton.setAttribute("class", "dropdown-item");
-      commentsButton.setAttribute("href", "#");
-      commentsButton.setAttribute("data-toggle", "modal");
-      saveJobButton.innerHTML="save";
-      saveJobButton.id="saveJobButton";
-      saveJobButton.addEventListener('click', function() {
-          data[1]=job.id;
-          saveJob(data);
-          });
-    }
-    else{
-      return;
-    }
+    commentsButton.id=job.id;
+    applyButton.href="#";
+    saveOrRemoveJobButton.id="saveOrRemoveJobButton";
+    applyButton.innerHTML="Apply"
+    var dataToSend = [getCookieValue(document.cookie,'id')];
+    var removeData=[getCookieValue(document.cookie,'id'), arr[i][ID]];
+    setupCard(saveOrRemoveJobButton,job,dataToSend,applyButton,arr[i]['saved'],arr[i]['applied'],commentsButton);
     a.innerHTML=job.title;
     a.href=job.link;
     a.id="title"+job.id;
@@ -110,8 +86,9 @@ function buildJobContainer(arr,i,job){
     locationContainer.appendChild(location);
     cardHeader.appendChild(divButtons);
     divButtons.appendChild(commentsButton);
-    divButtons.appendChild(saveJobButton);
+    divButtons.appendChild(saveOrRemoveJobButton);
     divButtons.appendChild(commentsButton);
+    divButtons.appendChild(applyButton);
     titleContainer.appendChild(a);
     titleContainer.appendChild(date);
     titleContainer.appendChild(company);
@@ -122,6 +99,10 @@ function buildJobContainer(arr,i,job){
       var sendCommentButton = document.getElementsByClassName('btn btn-primary change');
       sendCommentButton[0].id=commentsButton.id
     });
+    commentsButton.setAttribute("data-target", "#comments");
+    commentsButton.setAttribute("href", "#");
+    commentsButton.setAttribute("data-toggle", "modal");
+    commentsButton.innerHTML="Comments | ";
     
 }
 
@@ -147,10 +128,58 @@ function jobSearch(){
   })
   
 }
+function setupCard(saveOrRemoveJobButton,job,dataToSend,applyButton,isJobSaved,isJobApplied,commentsButton){
 
+    if(isJobSaved == "yes"){
+      saveOrRemoveJobButton.innerHTML="Unsave | ";
+    }
+    else{
+      saveOrRemoveJobButton.innerHTML="Save | ";
+    }
+    if(isJobApplied == "no"){
+      applyButton.innerHTML="Apply";
+      
+    }
+    else{
+      applyButton.innerHTML="Withdraw application (Applied on "+isJobApplied+")";
+    }
+    saveOrRemoveJobButton.id="saveOrRemoveJobButton";
+    saveOrRemoveJobButton.addEventListener('click', function() {
+          if(saveOrRemoveJobButton.innerHTML == "Save | "){
+            saveOrRemoveJobButton.innerHTML = "Unsave | ";
+            dataToSend[1]=job.id;
+            console.log(dataToSend)
+            saveJob(dataToSend);
+          }
+          else{
+              saveOrRemoveJobButton.innerHTML="Save | ";
+              dataToSend[1]=job.id;
+              removeSavedJob(dataToSend)
+          }
+          });
+    applyButton.addEventListener('click', function() {
+            if(applyButton.innerHTML == "Apply"){
+              dataToSend[1]=job.id;
+              applyButton.innerHTML="Withdraw application (Applied on "+createFormattedDate()+")";
+              saveApp(dataToSend);
+            }
+            else{
+              dataToSend[1]=job.id;
+              removeApplication(dataToSend)
+              applyButton.innerHTML="Apply";
+            }
+            });
+            commentsButton.addEventListener('click', async function() {
+                  createCommentsModal()
+                  var getCommentsData=[getCookieValue(document.cookie,'id'),job.id]
+                  var res = await sendData('/comments',getCommentsData,'get comments '+ window.location.pathname)
+                  for(var i=0; i<res[0][0].length; i++){
+                    createCommentsDivs(res[0][0],i)
+                  }
+            })
+            removeCommentsButton(window.location.pathname,commentsButton)
 
-
-
+}
 
 //Main
 jobSearch()

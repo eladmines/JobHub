@@ -1,15 +1,21 @@
-import { getCookie,sendData } from '../actions.js';
+import { getCookieValue,sendData, almostReady} from '../utils.js';
 export function createCommentsDivs(arr,i){
     var rowComments = document.createElement('div')
     var buttons = document.createElement('div')
     var deleteButton = document.createElement('a');
+    var editButton = document.createElement('a');
     var textCommentContent = document.createElement('p');
     var col2Div = document.getElementsByClassName("col-lg-7")[0];
     var comment = JSON.stringify(arr[i]);
     deleteButton.innerHTML="Delete"
+    deleteButton.style.marginRight="5px"
+    deleteButton.style.marginLeft="10px"
+    editButton.innerHTML=" Edit"
     buttons.className="row";
     deleteButton.href="#"
     deleteButton.style.fontSize="12px"
+    editButton.href="#"
+    editButton.style.fontSize="12px"
     rowComments.className = "row comments";
     rowComments.style.backgroundColor = '#FAFAFA';
     rowComments.style.marginBottom = '1px';
@@ -19,6 +25,9 @@ export function createCommentsDivs(arr,i){
     col2Div.append(rowComments);
     rowComments.append(textCommentContent)
     rowComments.append(deleteButton)
+    rowComments.append(editButton)
+    deleteButton.addEventListener('click',almostReady);
+    editButton.addEventListener('click',almostReady);
   }
   
   
@@ -80,7 +89,7 @@ export function createCommentsDivs(arr,i){
   
     var h1Element = document.createElement('h1');
     h1Element.className = "h4 text-gray-900 mb-4";
-    h1Element.textContent = "Create a Comment";
+    h1Element.textContent = "Leave a Comment";
   
     var formElement = document.createElement('form');
     formElement.className = "user";
@@ -96,7 +105,7 @@ export function createCommentsDivs(arr,i){
     textareaElement.className = "form-control";
     textareaElement.id = "contentComment";
     textareaElement.rows = "10";
-  
+//Connections
     formGroupCol.appendChild(textareaElement);
     formGroupRow.appendChild(formGroupCol);
     formElement.appendChild(formGroupRow);
@@ -137,7 +146,7 @@ export function createCommentsDivs(arr,i){
     // Append modal to body
     document.body.appendChild(modal);
   
-    sendCommentButton.addEventListener('click',sendCommentHandler)
+    sendCommentButton.addEventListener('click',sendCommentHandler);
   
     // Add event listener for when the modal is hidden
     $('#comments').on('hidden.bs.modal', function () {
@@ -156,8 +165,8 @@ export function removeModalContent() {
     
 export async function sendCommentHandler() {
         var commentContent = document.getElementById("contentComment");
-        var commentData = [getCookie("userId"), document.getElementsByClassName("btn btn-primary change")[0].id, commentContent.value];
-        var res =await sendData('/savedjobs', commentData, 'insert a comment');
+        var commentData = [getCookieValue(document.cookie,'id'), document.getElementsByClassName("btn btn-primary change")[0].id, commentContent.value];
+        var res =await sendData('/comments', commentData, 'insert a comment '+ window.location.pathname);
         if(res == true){
             var formattedDate = createFormattedDate();
             var arr=[formattedDate+":"+commentContent.value];
