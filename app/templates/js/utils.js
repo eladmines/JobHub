@@ -18,13 +18,15 @@ export function checkEmptyInputsArray(array){
             array[i].style.borderColor="red";
             count++;
         }
+        else{
+            array[i].style.borderColor="grey";
+        }
     }
     return count==0 ? true : false;
 }
 
 
 export function checkPasswords(pass1,pass2){
-    console.log(pass1.value +" "+pass2.value);
     if(pass1.value==pass2.value){
         return true;
     }
@@ -56,57 +58,42 @@ export function sendData(page, sentData, action) {
     });
 }
 
-export async function getUserData() {
-    let emailCookie = getCookie("email");
-    try {
-            const response = await fetch('/main', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(emailCookie),
-        });
-        if (response.ok) {
-            const details = await response.json();
-            var user=new User(details['id'],details['firstname'],details['lastname'],details['email'],details['role'],details['company'],details['experience'],details['skills']);
-            var profile = new Profile(details['id'],details['numOfSavedJobs'],details['numOfTodayApplications'],details['numOfWeekApplications'],details['monthlyApplications'],10);
-            var allDetails=[user,profile]
-            return allDetails;
-        } else {
-            throw new Error('Something went wrong');
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
 
-export function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-
-  function succFunc(message){
-    alert(message)
-  }
-  function failFunc(message){
-    alert(message)
-  }
-
-  export function saveData(endpoint, data, action,successMessage, failureMessage) {
+export function saveData(endpoint, data, action,successMessage, failureMessage) {
     var res = sendData(endpoint, data, action);
   }
 
 export function navigateToPage(url) {
     window.location.href = url;
+}
+
+export function isNumber(data){
+    if(typeof(data) == 'number'){
+        return true;
+    }
+    return false;
+}
+
+export function setCookie(data){
+    document.cookie =encodeURIComponent(JSON.stringify(data));
+}
+
+export function getCookieValue(encodedCookie,attribute) {
+    const decodedCookie = decodeURIComponent(encodedCookie);
+    const cookieObject = JSON.parse(decodedCookie);
+    
+    return cookieObject[attribute];
+}
+
+export function almostReady(){
+    alert("Available soon :)")
+}
+
+export function createFormattedDate(){
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    var day = currentDate.getDate().toString().padStart(2, '0');
+    var formattedDate = year+"-"+month+"-"+day;
+    return formattedDate;
 }
