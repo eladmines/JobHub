@@ -1,0 +1,30 @@
+.loader {
+    position: relative; /* Ensure positioning context for ::before pseudo-element */
+    width: 20px; /* Adjust width as needed */
+    height: 20px; /* Adjust height as needed */
+    background-color: #ffffff; /* Example background color */
+  
+    &::before {
+      content: ''; /* Ensure content is initially empty */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: dots 2s linear infinite;
+    }
+  }
+  
+  @keyframes dots {
+    0%, 20% {
+      content: '.';
+    }
+    40% {
+      content: '..';
+    }
+    60% {
+      content: '...';
+    }
+    90%, 100% {
+      content: '';
+    }
+  }

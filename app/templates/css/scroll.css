@@ -1,0 +1,19 @@
+/* width */
+.card::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .card::-webkit-scrollbar-track {
+    background: rgb(241, 241, 241); 
+  }
+   
+  /* Handle */
+.card::-webkit-scrollbar-thumb {
+    background: rgb(188, 188, 188); 
+  }
+  
+  /* Handle on hover */
+  .card::-webkit-scrollbar-thumb:hover {
+    background: hsl(0, 0%, 55%); 
+  }
