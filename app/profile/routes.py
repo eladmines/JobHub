@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template
-profile_bp = Blueprint("profile_bp", __name__ , template_folder='profile')
+from flask import render_template,request,jsonify
+from app.utils import open_connection,close_connection
+from app.profile.queries import UPDATE_USER_DETAILS
+from app.profile import profile_bp
 
 @profile_bp.route("/profile", methods=["GET"])
 def handle_get_request():
@@ -7,5 +9,17 @@ def handle_get_request():
 
 @profile_bp.route("/profile", methods=["POST"])
 def handle_post_request():
-    ### Here to call UPDATE_USER_DETAILS query
-    return render_template('profile.html') 
+    data = request.get_json()
+    id=data['sentData']['id']
+    firstname=data['sentData']['firstname']
+    lastname=data['sentData']['lastname']
+    email=data['sentData']['email']
+    role=data['sentData']['role']
+    company=data['sentData']['company']
+    experience=data['sentData']['experience']
+    skills=data['sentData']['skills']
+    con=open_connection()
+    curs=con.cursor()
+    curs.execute(UPDATE_USER_DETAILS,(firstname,lastname,role,company,experience,skills,id))
+    con.commit()
+    return jsonify("Update successful")
