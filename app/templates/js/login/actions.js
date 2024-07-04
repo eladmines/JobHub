@@ -12,8 +12,14 @@ export async function login(){
         user = await authenticateDetails(user);
     }
     if(user){
-        setCookie(user)
+        var userString  = JSON.stringify(user);
+        // Store the JSON string in sessionStorage
+        sessionStorage.setItem('user', userString);
+        setCookie('id',user.id)
         navigateToPage('/main');
+    }
+    else{
+        alert("Wrong username/password")
     }
 }
 
@@ -53,4 +59,15 @@ export function checkEmptyInputsLoginWrapper(user,password){
 async function authenticateDetails(user){
     var res = await sendData('/',user,'autentication');
     return res;
+}
+
+
+export function forgotPasssowrd(){
+    alert("Coming soon...");
+    /*document.getElementById("InputPassword").placeholder = "Captcha place (not available right now)";
+    document.getElementById("remember-me-btn").style.display = "none";
+    document.getElementById("google-register-btn").style.display = "none";
+    document.getElementById("facebook-register-btn").style.display = "none";
+    document.getElementById("login-btn").value = "Reset";
+    document.getElementById("title").innerHTML = "Reset your password";*/
 }

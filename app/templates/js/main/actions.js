@@ -1,4 +1,4 @@
-import {getCookieValue,sendData,almostReady} from '../utils.js'
+import {sendData,almostReady,getUserSession,removeSearchBar} from '../utils.js'
 import {setLineChart} from '../demo/chart-area-demo.js'
 import {Profile} from '../models/profile-info.js'
 
@@ -8,19 +8,18 @@ export async function initPage(){
     removeSearchBar();
     document.getElementById("generateReport").addEventListener('click',almostReady);
 }
-function removeSearchBar(){
-    document.getElementById("search-bar").style.visibility="hidden";
-}
+
 
 function initUserData(){
-    document.getElementById("role").innerText=getCookieValue(document.cookie,'role')
-    document.getElementById("company").innerText=getCookieValue(document.cookie,'company')
-    document.getElementById("experience").innerText=getCookieValue(document.cookie,'experience')
-    document.getElementById("skills").innerText=getCookieValue(document.cookie,'skills')  
+    var user = getUserSession();
+    document.getElementById("role").innerText=user.role;
+    document.getElementById("company").innerText=user.company;
+    document.getElementById("experience").innerText=user.experience;
+    document.getElementById("skills").innerText=user.skills;
 }
 
 async function initProfileData(){
-    var id = getCookieValue(document.cookie,'id');
+    var id = getUserSession().id;
     var profileData = await sendData('/main',id,'get profile data');
     var userProfile = new Profile(id,profileData['saved_jobs_count'],profileData['daily_applications_count'],profileData['weekly_applications_count'],profileData['monthly_applications_count'],profileData['weekly_applications_goal'],profileData['array_of_monthly_applications_count']);
     document.getElementById("savedjobs-counter").innerText=userProfile.getSavedJobsCount();
