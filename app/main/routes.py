@@ -1,8 +1,7 @@
 
-from flask import Blueprint, render_template,request, jsonify
-from app.main.actions import getUserData,getProfileData
-
-main_bp = Blueprint("main_bp", __name__ , template_folder='main')
+from flask import render_template,request, jsonify
+from app.main.actions import get_profile_data
+from app.main import main_bp
 
 @main_bp.route("/main")
 def index():
@@ -11,9 +10,6 @@ def index():
 @main_bp.route("/main", methods=["POST"])
 def handle_post_request():
     data = request.get_json()
-    user = getUserData(data)
-    profile = getProfileData(user['id'])
-    allDetails={}
-    allDetails.update(user)
-    allDetails.update(profile)
-    return jsonify(allDetails)
+    if data['action'] == 'get profile data':
+            profile = get_profile_data(data['sentData'])
+    return jsonify(profile)
