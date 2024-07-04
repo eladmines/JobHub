@@ -1,21 +1,19 @@
-from app.dbConnections import openConnection, closeConnection     
-from app.login.queries import CHECK_LOGIN_DETAILS
+from app.dbConnections import open_connection, close_connection     
+from app.login.queries import USER_AUTHENTICATION
 
-def checkLoginDetails(data):
-     con=openConnection()
+def authentication(username,password):
+     con=open_connection()
      curs=con.cursor()
      try:
-          email=data['email']
-          password=data['password']
-          curs.execute(CHECK_LOGIN_DETAILS,(email,password))
-          exists = curs.fetchone()[0]
-          if exists:
-               return exists
-          else:
-               return None  
+          values=(username,password)
+          curs.execute(USER_AUTHENTICATION,values)
+          user=curs.fetchone()
+          if(curs.rowcount > 0):   
+               close_connection(con)
+               return user
      except Exception as e:
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback() 
-     closeConnection(con)
-   
+          close_connection(con)
+          return False
