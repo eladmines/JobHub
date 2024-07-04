@@ -165,7 +165,7 @@ export function removeModalContent() {
     
 export async function sendCommentHandler() {
         var commentContent = document.getElementById("contentComment");
-        var commentData = [getCookieValue(document.cookie,'id'), document.getElementsByClassName("btn btn-primary change")[0].id, commentContent.value];
+        var commentData = [getCookieValue('id'), document.getElementsByClassName("btn btn-primary change")[0].id, commentContent.value];
         var res =await sendData('/comments', commentData, 'insert a comment '+ window.location.pathname);
         if(res == true){
             var formattedDate = createFormattedDate();
