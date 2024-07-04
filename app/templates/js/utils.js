@@ -74,20 +74,34 @@ export function isNumber(data){
     return false;
 }
 
-export function setCookie(data){
-    document.cookie =encodeURIComponent(JSON.stringify(data));
+export function setCookie(name, value) {
+    document.cookie = `${name}=${value}; `;
+}
+export function getCookieValue(name) {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+
+    for (let cookie of cookies) {
+        const [cookieName, cookieValue] = cookie.split('=');
+        if (cookieName === name) {
+            return cookieValue;
+        }
+    }
+
+    return null;
 }
 
-export function getCookieValue(encodedCookie,attribute) {
-    const decodedCookie = decodeURIComponent(encodedCookie);
-    const cookieObject = JSON.parse(decodedCookie);
-    
-    return cookieObject[attribute];
+export function getUserSession(){
+    const userString = sessionStorage.getItem('user');
+    // Parse the JSON string back into an object
+    const user = JSON.parse(userString);
+    return user;
 }
 
 export function almostReady(){
-    alert("Available soon :)")
+    alert("Coming soon...")
 }
+
 
 export function createFormattedDate(){
     var currentDate = new Date();
@@ -96,4 +110,8 @@ export function createFormattedDate(){
     var day = currentDate.getDate().toString().padStart(2, '0');
     var formattedDate = year+"-"+month+"-"+day;
     return formattedDate;
+}
+
+export function removeSearchBar(){
+    document.getElementById("search-bar").style.visibility="hidden";
 }
