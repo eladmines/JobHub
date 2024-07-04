@@ -1,7 +1,7 @@
 from app.models.job import Job
 from .queries import GET_ALL_JOBS
 
-def getAllJobs(curs):
+def get_all_jobs(curs):
     curs.execute(GET_ALL_JOBS)
     Jobs=[]
     rows = curs.fetchall()

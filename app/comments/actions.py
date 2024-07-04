@@ -1,36 +1,36 @@
-from app.dbConnections import openConnection, closeConnection     
+from app.dbConnections import open_connection, close_connection     
 from app.comments.queries import SAVE_COMMENT,GET_COMMENTS
 from flask import jsonify
 
-def getComments(table,user_id,job_id):
-     con=openConnection()
+def get_comments(table,user_id,job_id):
+     con=open_connection()
      curs=con.cursor()
      try:
           query = GET_COMMENTS.format(table)
           curs.execute(query,(user_id,job_id))
           con.commit() 
           res = curs.fetchall()
-          closeConnection(con)
+          close_connection(con)
           return res
      except Exception as e:
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback()
-          closeConnection(con)
+          close_connection(con)
           
     
-def saveComment(table,user_id,data,job_id):
-     con=openConnection()
+def save_comment(table,user_id,data,job_id):
+     con=open_connection()
      curs=con.cursor()
      try:
           query = SAVE_COMMENT.format(table)
           curs.execute(query,(data,job_id,user_id))
           con.commit() 
-          closeConnection(con)
+          close_connection(con)
           return jsonify(True)
      except Exception as e:
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback()
-          closeConnection(con)
+          close_connection(con)
           return jsonify(False)

@@ -1,6 +1,7 @@
-from flask import Blueprint,request
-from app.comments.actions import getComments,saveComment
-comments_bp = Blueprint("comments_bp", __name__ , template_folder='comments')
+from flask import request
+from app.comments import comments_bp
+from app.comments.actions import get_comments,save_comment
+
 
 @comments_bp.route("/comments", methods=["POST"])
 def handle_post_request():
@@ -12,10 +13,10 @@ def handle_post_request():
         jobId=data['sentData'][1]
         if "application" in endpoint:
             endpoint="jobs_applicated"
-            res=getComments(endpoint,int(userId),jobId)
+            res=get_comments(endpoint,int(userId),jobId)
         if "saved" in endpoint:
             endpoint="jobs_saved"
-            res=getComments(endpoint,int(userId),jobId)
+            res=get_comments(endpoint,int(userId),jobId)
         return res
     
     elif action in "insert a comment":
@@ -24,9 +25,9 @@ def handle_post_request():
         dataForaAction=data['sentData'][2]
         if "application" in endpoint:
             endpoint="jobs_applicated"
-            res=saveComment(endpoint,int(userId),dataForaAction,jobId)
+            res=save_comment(endpoint,int(userId),dataForaAction,jobId)
         if "saved" in endpoint:
             endpoint="jobs_saved"
-            res=saveComment(endpoint,int(userId),dataForaAction,jobId)
+            res=save_comment(endpoint,int(userId),dataForaAction,jobId)
         return res
     return
