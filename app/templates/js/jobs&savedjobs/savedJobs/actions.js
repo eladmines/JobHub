@@ -7,7 +7,7 @@ function failFunc(){
 }
 export async function getSavedJobs() {
     try {
-        var res = await sendData("/savedjobs", getCookieValue(document.cookie,'id'), 'get saved jobs');
+        var res = await sendData("/savedjobs", getCookieValue('id'), 'get saved jobs');
         if (res === false) {
             failFunc();
         } else {

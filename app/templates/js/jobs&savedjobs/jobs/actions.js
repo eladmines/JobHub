@@ -1,8 +1,7 @@
-import {getCookie} from "../../actions.js"
 import {sendData} from "../../actions.js"
 import { getCookieValue } from "../../utils.js";
 function sendUserId(){
-    var res=sendData('/jobs',getCookieValue(document.cookie,'id'),'Send user id');
+    var res=sendData('/jobs',getCookieValue('id'),'Send user id');
     return res;
 }
 
