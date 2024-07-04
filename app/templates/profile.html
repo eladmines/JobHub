@@ -8,21 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>JobHub</title>
-
     <!-- Custom fonts for this template-->
-
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" />
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
     <!-- Custom styles for this template-->
-  
     <link  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/sb-admin-2.min.css') }}" />
-
-
 </head>
 
 <body id="page-top">
@@ -47,7 +40,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Profile</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a id="save-button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-save fa-sm text-white-50"></i> Save</a>
                     </div>
 
@@ -94,7 +87,7 @@
                                     <div class="input-group">
                                         <input id="Email" type="text" class="form-control bg-light border-0 small mb-1"
                                             placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
+                                            aria-describedby="basic-addon2" readonly>
                                     </div>
                                     <div class="input-group">
                                         <input id="Company" type="text" class="form-control bg-light border-0 small mb-1"
@@ -102,9 +95,82 @@
                                             aria-describedby="basic-addon2">
                                     </div>
                                     <div class="input-group">
-                                        <input id="Role" type="text" class="form-control bg-light border-0 small mb-1"
+                                       <input id="Role" type="text" class="form-control bg-light border-0 small mb-1"
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="input-group">
+                                        <input id="Experience" type="text" class="form-control bg-light border-0 small mb-1"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="input-group">
+                                        <input id="Skills" type="text" class="form-control bg-light border-0 small mb-1"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">My Preferences</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="input-group">
+                                        <input id="per page" type="text" class="form-control bg-light border-0 small mb-1"
+                                            value="Jobs per page" aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                            placeholder="C,C++,Network....." aria-label="Search"
+                                            aria-describedby="basic-addon2" value="coming soon..">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                        placeholder="C,C++,Network....." aria-label="Search"
+                                        aria-describedby="basic-addon2" value="coming soon..">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                        placeholder="C,C++,Network....." aria-label="Search"
+                                        aria-describedby="basic-addon2" value="coming soon..">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                        placeholder="C,C++,Network....." aria-label="Search"
+                                        aria-describedby="basic-addon2" value="coming soon..">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                            placeholder="C,C++,Network....." aria-label="Search"
+                                            aria-describedby="basic-addon2" value="coming soon..">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small mb-1"
+                                        placeholder="C,C++,Network....." aria-label="Search"
+                                        aria-describedby="basic-addon2" value="coming soon..">
                                     </div>
                                 </div>
                                 
