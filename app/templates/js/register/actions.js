@@ -60,17 +60,21 @@ function registerInputsValidiation(user,passwords){
     } 
     res = emailValidation(user.email)
     if(!res){
+        user.email.style.borderColor="red";
         alert("Your email is not valid");
         return;
     }
     res = checkPasswords(passwords[0],passwords[1]);
     if(!res){
+        passwords[0].style.borderColor="red";
+        passwords[1].style.borderColor="red";
         alert("Check your password");
         return;
     }
-    res = isNumber(user.getExperience());
+    res = !isNaN(user.getExperience().value);
     if(!res){
-        alert("Experience must be a number");
+        user.experience.style.borderColor="red";
+        alert("Experience field must be a number");
         return;
     }
     return true;  
@@ -79,4 +83,8 @@ function registerInputsValidiation(user,passwords){
 async function userRegister(user){
     var res = await sendData('register',user,'register');
     return res;
+}
+
+export function registerAlert(){
+    alert("Coming soon...\nPlease create an account")
 }
