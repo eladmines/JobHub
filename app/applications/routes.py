@@ -1,5 +1,5 @@
 from flask import render_template,request
-from app.applications.__init__ import applications_bp
+from app.applications import applications_bp
 from app.applications.actions import get_applications,save_application,remove_application
 from app.utils import remove_special_chars
 from app.savedjobs.actions import get_saved_jobs_ids
