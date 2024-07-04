@@ -150,13 +150,9 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
-                                                Applications today</div>
-                                            <div id="apply-today" class="h5 mb-0 font-weight-bold text-gray-800">
-                                                
+                                                Daily Applications</div>
+                                            <div id="apply-today" class="h5 mb-0 font-weight-bold text-gray-800">         
                                                 <p class="loader"><span></span><p>
-
-
-
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -212,7 +208,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <div class="dropdown-header"></div>
                                             <a class="dropdown-item" href="#">Action</a>
                                             <a class="dropdown-item" href="#">Another action</a>
                                             <div class="dropdown-divider"></div>
@@ -311,16 +307,14 @@
     </a>
  <!-- JS Sources -->
     <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js')}}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/demo/chart-area-demo.js')}}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/demo/chart-pie-demo.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/sb-admin-2.min.js')}}"></script>
     <script type="module" src="{{ url_for('static', filename='js/main/main.js')}}"></script>
     <script type="module" src="{{ url_for('static', filename='js/utils.js')}}"></script>
-    <script type="module" src="{{ url_for('static', filename='js/demo/chart-area-demo.js')}}"></script>
-
 </body>
 </html>
 {% include  'logout.html' %}
