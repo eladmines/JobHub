@@ -1,9 +1,6 @@
 import {Job} from '../models/job.js'
 import { getCookieValue,sendData,createFormattedDate} from '../utils.js'
-//import {setupJobsPage} from './jobs/conf.js'
-//import {setupSavedjobsPage} from './savedJobs/conf.js'
 import {setupApplicationsPage} from './applications/conf.js'
-//import { saveApp } from './applications/actions.js';
 import {saveJob} from './savedJobs/actions.js'
 import {removeApplication, saveApp} from './applications/actions.js'
 import{removeSavedJob} from './savedJobs/actions.js'
@@ -48,6 +45,7 @@ export function buildJobContainer(arr,i,job){
     card.id=job.id;
     card.style.height = "400px";
     card.style.overflow = "scroll"; 
+    card.style.overflowX = "hidden";
     card.style.textOverflow = 'ellipsis';
     cardHeader.className="d-block card-header py-3";
     saveOrRemoveJobButton.href="#";
@@ -56,8 +54,8 @@ export function buildJobContainer(arr,i,job){
     applyButton.href="#";
     saveOrRemoveJobButton.id="saveOrRemoveJobButton";
     applyButton.innerHTML="Apply"
-    var dataToSend = [getCookieValue(document.cookie,'id')];
-    var removeData=[getCookieValue(document.cookie,'id'), arr[i][ID]];
+    var dataToSend = [getCookieValue('id')];
+    var removeData=[getCookieValue('id'), arr[i][ID]];
     setupCard(saveOrRemoveJobButton,job,dataToSend,applyButton,arr[i]['saved'],arr[i]['applied'],commentsButton);
     a.innerHTML=job.title;
     a.href=job.link;
@@ -116,8 +114,10 @@ function jobSearch(){
     var input = document.getElementById("searchBar").value;
     var title = card.querySelector('a').innerHTML;
     while(card!=null){
-      var title = card.querySelector('a').innerHTML;;
-      if(title.toLowerCase().includes(input.toLowerCase()) == 1 || title.toUpperCase().includes(input.toUpperCase()) == 1 || input==null){
+      var title = card.querySelector('a').innerHTML;
+      var text =card.querySelector("#collapseCardExample").innerHTML;
+      if(title.toLowerCase().includes(input.toLowerCase()) == 1 || title.toUpperCase().includes(input.toUpperCase()) == 1 || input==null || 
+      text.toLowerCase().includes(input.toLowerCase()) == 1 || text.toUpperCase().includes(input.toUpperCase())){
           card.style.display = "block"
       }else{
           card.style.display = "none"
@@ -129,7 +129,6 @@ function jobSearch(){
   
 }
 function setupCard(saveOrRemoveJobButton,job,dataToSend,applyButton,isJobSaved,isJobApplied,commentsButton){
-
     if(isJobSaved == "yes"){
       saveOrRemoveJobButton.innerHTML="Unsave | ";
     }
@@ -148,7 +147,6 @@ function setupCard(saveOrRemoveJobButton,job,dataToSend,applyButton,isJobSaved,i
           if(saveOrRemoveJobButton.innerHTML == "Save | "){
             saveOrRemoveJobButton.innerHTML = "Unsave | ";
             dataToSend[1]=job.id;
-            console.log(dataToSend)
             saveJob(dataToSend);
           }
           else{
@@ -171,7 +169,7 @@ function setupCard(saveOrRemoveJobButton,job,dataToSend,applyButton,isJobSaved,i
             });
             commentsButton.addEventListener('click', async function() {
                   createCommentsModal()
-                  var getCommentsData=[getCookieValue(document.cookie,'id'),job.id]
+                  var getCommentsData=[getCookieValue('id'),job.id]
                   var res = await sendData('/comments',getCommentsData,'get comments '+ window.location.pathname)
                   for(var i=0; i<res[0][0].length; i++){
                     createCommentsDivs(res[0][0],i)
