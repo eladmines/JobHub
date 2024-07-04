@@ -1,51 +1,51 @@
-from app.dbConnections import openConnection, closeConnection     
-from app.applications.queries import GET_APPLICATIONS_JOBSIDS,GET_APPLICATED_JOBS
+from app.dbConnections import open_connection, close_connection    
+from app.applications.queries import GET_APPLICATIONS_JOBSIDS,GET_APPLICATED_JOBS,SAVE_JOB_APPLICATION,DELETE_APPLICATION
 from app.models.job import Job
-from app.utils import queryExec
-from app.applications.queries import SAVE_JOB_APPLICATION,DELETE_APPLICATION
+from app.utils import query_exec
 
-def getApplicationsIds(userId):
-    con=openConnection()
+def get_applications_ids(userId):
+    con=open_connection()
     curs=con.cursor()
     curs.execute(GET_APPLICATIONS_JOBSIDS,(userId,))
     jobsIds=curs.fetchall()
-    jobsIds = [x[0] for x in jobsIds]
+    jobsIds = [(item[0], f"{item[1].year}-{item[1].month:02}-{item[1].day:02}")  for item in jobsIds]
     return jobsIds
 
-def getApplications(data):
-     con=openConnection()
+def get_applications(data):
+     con=open_connection()
      curs=con.cursor()
      try:
           user_id=data['sentData']
-          applicationsId=getApplicationsIds(user_id)
+          applicationsId=get_applications_ids(user_id)
           Jobs=[]
           for item in applicationsId:
-               curs.execute(GET_APPLICATED_JOBS,(item,))
+               curs.execute(GET_APPLICATED_JOBS,(item[0],))
                job = curs.fetchone()
                job = Job(job[0],job[1],job[2],job[3], job[4],job[5],job[6],job[7],job[8])
+               job = vars(job)
+               job["applied"]=item[1]
                Jobs.append(job)
-          closeConnection(con)
+          close_connection(con)
           return Jobs
      except Exception as e:
           print(f"Error: {e}")
-          # Rollback changes in case of an error
-          con.rollback()
-          closeConnection(con) 
-def saveApplication(userId,jobId):
-    queryExec(userId,jobId,SAVE_JOB_APPLICATION)
+          close_connection(con) 
 
-def removeApplication(data):
-     con=openConnection()
+def save_application(userId,jobId):
+    query_exec(userId,jobId,SAVE_JOB_APPLICATION)
+
+def remove_application(data):
+     con=open_connection()
      curs=con.cursor()
      try:
           user_id=(data['sentData'][0])
           jobId=str(data['sentData'][1])
           curs.execute(DELETE_APPLICATION,(user_id,jobId))
           con.commit()
-          closeConnection(con) 
+          close_connection(con) 
           return data
      except Exception as e:
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback() 
-          closeConnection(con)
+          close_connection(con)
