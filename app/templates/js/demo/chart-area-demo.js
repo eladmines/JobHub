@@ -29,7 +29,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
-function setLineChart(arrCount) {
+export function setLineChart(arrCount) {
   var ctx = document.getElementById("myAreaChart");
   var myLineChart = new Chart(ctx, {
     type: 'line',
@@ -119,5 +119,3 @@ function setLineChart(arrCount) {
     }
   });
 }
-
-export { setLineChart };
