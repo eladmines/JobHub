@@ -1,6 +1,7 @@
-import {getCookieValue} from "./utils.js"
+import {getCookieValue,getUserSession} from "./utils.js"
 function initTopBar(){
-    document.getElementById("name").innerText=getCookieValue(document.cookie,"email");
+    var user = getUserSession('user');
+    document.getElementById("name").innerText="Welcome back, " + user.firstname +" "+user.lastname;
 }
-/*Functions to be executed */ 
+//Entry point
 initTopBar()
