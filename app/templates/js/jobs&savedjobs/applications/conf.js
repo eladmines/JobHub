@@ -1,5 +1,5 @@
 import{removeApplication} from './actions.js'
-import { getCookie,sendData } from '../../actions.js';
+import { sendData } from '../../actions.js';
 import {createCommentsModal,createCommentsDivs, removeModalContent} from "../../comments/actions.js"
 
 export function setupApplicationsPage(card,commentsButton,saveOrRemoveJobButton,applyButton,job,removeData){
@@ -17,7 +17,7 @@ export function setupApplicationsPage(card,commentsButton,saveOrRemoveJobButton,
       });
   commentsButton.addEventListener('click', async function() {
         createCommentsModal()
-        var getCommentsData=[getCookieValue(document.cookie,'id'),job.id]
+        var getCommentsData=[getCookieValue('id'),job.id]
         var res = await sendData('/comments',getCommentsData,'get comments')
         for(var i=0; i<res[0][0].length; i++){
           createCommentsDivs(res[0][0],i)

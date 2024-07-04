@@ -14,7 +14,7 @@ function failFunc(){
 export async function getApplications() {
     try {
         
-        var res = await sendData("/applications",getCookieValue(document.cookie,'id'), 'get applications');
+        var res = await sendData("/applications",getCookieValue('id'), 'get applications');
         
         if (res === false) {
             failFunc();
