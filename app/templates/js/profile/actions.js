@@ -21,7 +21,10 @@ function changeUserDetails(user){
     var experience = document.getElementById("Experience").value
     var skills = document.getElementById("Skills").value
     var user = new User(getCookieValue('id'),firstName,lastName,email,"",role,company,experience,skills);
-    sendData('/profile',user,'update user details')
+    var res = sendData('/profile',user,'update user details');
+    if(res){
+        sessionStorage.setItem('user', JSON.stringify(user));
+    }
 }
 /*Functions to be executed */ 
 initPage();

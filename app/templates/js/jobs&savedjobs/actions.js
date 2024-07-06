@@ -63,7 +63,7 @@ export function buildJobContainer(arr,i,job){
     a.setAttribute('role', 'button');
     a.setAttribute('aria-expanded', 'true');
     a.setAttribute('aria-controls', 'collapseCardExample');
-    date.innerHTML="Posted:"+job.date;
+    date.innerHTML=" Posted : "+job.date;
     date.className="float-right";
     location.className="h6";
     location.innerHTML=job.location;
@@ -73,8 +73,8 @@ export function buildJobContainer(arr,i,job){
     cardContent.id="collapseCardExample";
     qualificationsContainer.className="card-body";
     descriptionContainer.className="card-body";
-    qualificationsContainer.innerHTML="Qualifications:<br>"+job.qualifications;
-    descriptionContainer.innerHTML="Description:<br>"+ job.description;
+    qualificationsContainer.innerHTML=""
+    descriptionContainer.innerHTML=job.description;
 
 //Elements connections 
     cardContent.appendChild(descriptionContainer);
