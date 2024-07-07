@@ -25,7 +25,6 @@ def get_profile_data(data):
      con=open_connection()
      curs=con.cursor()
      try:
-          print(data)
           curs.execute(GET_NUM_OF_SAVED_JOBS,(str(data),))
           saved_jobs_counter = curs.fetchone()[0]
           saved_jobs_counter if saved_jobs_counter else 0
@@ -44,8 +43,6 @@ def get_profile_data(data):
           profile_obj = Profile(data, saved_jobs_counter, applied_today_counter,applied_week_counter,applied_month_counter,applied_month_counter,month_applications_arr)
           close_connection(con)
           dictProfile=vars(profile_obj)
-          print("ppp")
-          print(dictProfile)
           return dictProfile
      except Exception as e:
           print(f"Error: {e}")
