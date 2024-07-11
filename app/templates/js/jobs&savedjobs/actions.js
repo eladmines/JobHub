@@ -1,185 +1,197 @@
-import {Job} from '../models/job.js'
-import { getCookieValue,sendData,createFormattedDate} from '../utils.js'
-import {setupApplicationsPage} from './applications/conf.js'
-import {saveJob} from './savedJobs/actions.js'
-import {removeApplication, saveApp} from './applications/actions.js'
-import{removeSavedJob} from './savedJobs/actions.js'
-import {createCommentsModal,createCommentsDivs, removeModalContent} from "../comments/actions.js"
-import {removeCommentsButton} from './jobs/actions.js'
-const ID="id",TITLE="title",LOCATION="location",DESCRIPTION="description",QUALIFICATIONS="qualifications",COMPANY="company",IMAGE="image",DATE="date",LINK="link";
+// Import necessary modules and functions
+import { Job } from '../models/job.js';
+import { getCookieValue, sendData, createFormattedDate } from '../utils.js';
+import { saveJob, removeSavedJob } from './savedJobs/actions.js';
+import { removeApplication, saveApp } from './applications/actions.js';
+import { createCommentsModal, createCommentsDivs, removeModalContent } from "../comments/actions.js";
+import { removeCommentsButton } from './jobs/actions.js';
 
+// Define constants
+const ID = "id",
+    TITLE = "title",
+    LOCATION = "location",
+    DESCRIPTION = "description",
+    QUALIFICATIONS = "qualifications",
+    COMPANY = "company",
+    IMAGE = "image",
+    DATE = "date",
+    LINK = "link";
 
-export async function deployJobsContainer(data){
-    var i=0;
-    while(i< data.length){
-        buildJobContainer(data,i);
-        i++
+// Function to deploy jobs container
+export async function deployJobsContainer(data) {
+    for (let i = 0; i < data.length; i++) {
+        buildJobContainer(data, i);
     }
 }
 
-export function buildJobContainer(arr,i,job){ 
-    var job = new Job(arr[i][ID],arr[i][TITLE],arr[i][LOCATION],arr[i][DESCRIPTION],arr[i][QUALIFICATIONS],arr[i][COMPANY],arr[i][IMAGE],arr[i][DATE],arr[i][LINK]);
-// Create div objects
-    var card = document.createElement('div');
-    var cardHeader = document.createElement('div');
-    var titleContainer = document.createElement('div');
-    var locationContainer = document.createElement('div');
-    var divButtons = document.createElement('div');
-    var locationContainer = document.createElement('div');
-    var cardContent = document.createElement('div');
-    var qualificationsContainer = document.createElement('div');
-    var descriptionContainer = document.createElement('div');
-// Create link objects
-    var a = document.createElement('a');
-    var saveOrRemoveJobButton=document.createElement('a');
-    var commentsButton=document.createElement('a');
-    var applyButton=document.createElement('a');
-    
-// Create span objects
-    var date=document.createElement('span');
-    var location=document.createElement('span');
-    var company=document.createElement('span');
+// Function to build individual job containers
+export function buildJobContainer(arr, i) {
+    const job = new Job(
+        arr[i][ID], arr[i][TITLE], arr[i][LOCATION], arr[i][DESCRIPTION],
+        arr[i][QUALIFICATIONS], arr[i][COMPANY], arr[i][IMAGE], arr[i][DATE], arr[i][LINK]
+    );
 
-//Set properties
-    card.className="card shadow mb-4"
-    card.id=job.id;
-    card.style.height = "400px";
-    card.style.overflow = "scroll"; 
-    card.style.overflowX = "hidden";
-    card.style.textOverflow = 'ellipsis';
-    cardHeader.className="d-block card-header py-3";
-    saveOrRemoveJobButton.href="#";
-    commentsButton.href="#";
-    commentsButton.id=job.id;
-    applyButton.href="#";
-    saveOrRemoveJobButton.id="saveOrRemoveJobButton";
-    applyButton.innerHTML="Apply"
-    var dataToSend = [getCookieValue('id')];
-    var removeData=[getCookieValue('id'), arr[i][ID]];
-    setupCard(saveOrRemoveJobButton,job,dataToSend,applyButton,arr[i]['saved'],arr[i]['applied'],commentsButton);
-    a.innerHTML=job.title;
-    a.href=job.link;
-    a.id="title"+job.id;
-    a.setAttribute('role', 'button');
-    a.setAttribute('aria-expanded', 'true');
-    a.setAttribute('aria-controls', 'collapseCardExample');
-    date.innerHTML=" Posted : "+job.date;
-    date.className="float-right";
-    location.className="h6";
-    location.innerHTML=job.location;
-    company.innerHTML=job.company+", ";
-    company.className="float-right mr-2";
-    cardContent.className="collapse show";
-    cardContent.id="collapseCardExample";
-    qualificationsContainer.className="card-body";
-    descriptionContainer.className="card-body";
-    qualificationsContainer.innerHTML=""
-    descriptionContainer.innerHTML=job.description;
+    const card = document.createElement('div');
+    card.className = 'card shadow mb-4';
 
-//Elements connections 
-    cardContent.appendChild(descriptionContainer);
-    cardContent.appendChild(qualificationsContainer);
-    cardHeader.appendChild(titleContainer);
-    cardHeader.appendChild(locationContainer);
-    locationContainer.appendChild(location);
-    cardHeader.appendChild(divButtons);
-    divButtons.appendChild(commentsButton);
-    divButtons.appendChild(saveOrRemoveJobButton);
-    divButtons.appendChild(commentsButton);
-    divButtons.appendChild(applyButton);
-    titleContainer.appendChild(a);
-    titleContainer.appendChild(date);
-    titleContainer.appendChild(company);
+    const cardHeader = document.createElement('a');
+    cardHeader.href = '#collapseCardExample' + i; 
+    cardHeader.className = 'd-block card-header py-3';
+    cardHeader.setAttribute('data-toggle', 'collapse');
+    cardHeader.setAttribute('role', 'button');
+    cardHeader.setAttribute('aria-expanded', 'true');
+    cardHeader.setAttribute('aria-controls', 'collapseCardExample' + i);
+
+    const headerContainer = document.createElement('div');
+    headerContainer.className = 'd-flex flex-column align-items-start';
+
+    const headerText = document.createElement('h6');
+    headerText.className = 'm-0 font-weight-bold text-primary';
+    headerText.innerHTML = `${job.title} (${job.company})`;
+    headerText.addEventListener('click', (event) => {
+        event.stopPropagation();
+        window.location.href = job.link;
+    });
+
+    const locationDateContainer = document.createElement('div');
+    locationDateContainer.className = 'd-flex flex-column';
+
+    const locationDateText = document.createElement('div');
+    locationDateText.className = 'm-0 text-muted';
+    locationDateText.style.fontSize = '0.8rem';
+    locationDateText.innerHTML = `
+        <i class="fas fa-map-marker-alt mr-1"></i><span>${job.location}</span>
+        <i class="far fa-calendar-alt ml-2"></i><span class="ml-1">${job.date}</span>
+    `;
+
+    // Create links for Save, Apply, and Comments
+    const saveLink1 = document.createElement('a');
+    saveLink1.href = '#';
+    saveLink1.className = 'm-0 text-muted mr-2';
+    saveLink1.style.fontSize = '0.7rem';
+    saveLink1.textContent = 'Save';
+    saveLink1.id = "saveOrRemoveJobButton";
+
+    const saveLink2 = document.createElement('a');
+    saveLink2.href = '#';
+    saveLink2.className = 'm-0 text-muted';
+    saveLink2.style.fontSize = '0.7rem';
+    saveLink2.textContent = 'Apply';
+
+    const commentsButton = document.createElement('a');
+    commentsButton.href = '#';
+    commentsButton.className = 'm-0 text-muted';
+    commentsButton.style.fontSize = '0.7rem';
+    commentsButton.textContent = 'Comments';
+    commentsButton.id = job.id;
+
+    // Append elements to the location container
+    const locationContainer = document.createElement('div');
+    locationContainer.appendChild(locationDateText);
+    locationContainer.appendChild(saveLink1);
+    locationContainer.appendChild(saveLink2);
+    locationContainer.appendChild(commentsButton);
+
+    headerContainer.appendChild(headerText);
+    headerContainer.appendChild(locationContainer);
+    cardHeader.appendChild(headerContainer);
+
+    const cardContent = document.createElement('div');
+    cardContent.className = 'collapse';
+    cardContent.id = 'collapseCard' + i;
+
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+    cardBody.innerHTML = job.description;
+
+    cardContent.appendChild(cardBody);
     card.appendChild(cardHeader);
     card.appendChild(cardContent);
-    document.getElementById("content").appendChild(card);
-    commentsButton.addEventListener('click', function() {
-      var sendCommentButton = document.getElementsByClassName('btn btn-primary change');
-      sendCommentButton[0].id=commentsButton.id
+
+    document.getElementById('content').appendChild(card);
+
+    cardHeader.addEventListener('click', (event) => {
+        event.preventDefault();
+        $('#' + cardContent.id).collapse('toggle');
     });
-    commentsButton.setAttribute("data-target", "#comments");
-    commentsButton.setAttribute("href", "#");
-    commentsButton.setAttribute("data-toggle", "modal");
-    commentsButton.innerHTML="Comments | ";
-    
+
+    const dataToSend = [getCookieValue('id')];
+    setupCard(saveLink1, job, dataToSend, saveLink2, arr[i]['saved'], arr[i]['applied'], commentsButton);
 }
 
+// Function for job search functionality
+function jobSearch() {
+    const searchJobButton = document.getElementById("searchBar");
+    const contentDivs = document.getElementById('content');
+    searchJobButton.addEventListener('keyup', function () {
+        let i = 0;
+        let card = contentDivs.getElementsByClassName('card shadow mb-4')[i];
+        const input = searchJobButton.value;
 
-function jobSearch(){
-  var searchJobButton=document.getElementById("searchBar");
-  var contentDivs = document.getElementById('content');
-  searchJobButton.addEventListener('keyup', function() {
-    var i=0;
-    var card = contentDivs.getElementsByClassName('card shadow mb-4')[i];
-    var input = document.getElementById("searchBar").value;
-    var title = card.querySelector('a').innerHTML;
-    while(card!=null){
-      var title = card.querySelector('a').innerHTML;
-      var text =card.querySelector("#collapseCardExample").innerHTML;
-      if(title.toLowerCase().includes(input.toLowerCase()) == 1 || title.toUpperCase().includes(input.toUpperCase()) == 1 || input==null || 
-      text.toLowerCase().includes(input.toLowerCase()) == 1 || text.toUpperCase().includes(input.toUpperCase())){
-          card.style.display = "block"
-      }else{
-          card.style.display = "none"
-      }
-      i++;
-      card = contentDivs.getElementsByClassName('card shadow mb-4')[i];
-      }
-  })
-  
+        while (card != null) {
+            const title = card.querySelector('h6').innerHTML;
+            const text = card.querySelector(`#collapseCard${i}`).innerHTML;
+            const location = card.querySelector('span').innerHTML;
+
+            if (title.toLowerCase().includes(input.toLowerCase()) || text.toLowerCase().includes(input.toLowerCase()) || location.toLowerCase().includes(input.toLowerCase())) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+            i++;
+            card = contentDivs.getElementsByClassName('card shadow mb-4')[i];
+        }
+    });
 }
-function setupCard(saveOrRemoveJobButton,job,dataToSend,applyButton,isJobSaved,isJobApplied,commentsButton){
-    if(isJobSaved == "yes"){
-      saveOrRemoveJobButton.innerHTML="Unsave | ";
+
+// Function to set up card with event listeners for save, apply, and comments
+function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSaved, isJobApplied, commentsButton) {
+    if (isJobSaved == 1) {
+        saveOrRemoveJobButton.innerHTML = "Unsave | ";
+    } else {
+        saveOrRemoveJobButton.innerHTML = "Save | ";
     }
-    else{
-      saveOrRemoveJobButton.innerHTML="Save | ";
+    if (!isJobApplied) {
+        applyButton.innerHTML = "Apply";
+    } else {
+        applyButton.innerHTML = `Withdraw application (Applied on ${isJobApplied})`;
     }
-    if(isJobApplied == "no"){
-      applyButton.innerHTML="Apply";
-      
-    }
-    else{
-      applyButton.innerHTML="Withdraw application (Applied on "+isJobApplied+")";
-    }
-    saveOrRemoveJobButton.id="saveOrRemoveJobButton";
-    saveOrRemoveJobButton.addEventListener('click', function() {
-          if(saveOrRemoveJobButton.innerHTML == "Save | "){
+
+    saveOrRemoveJobButton.addEventListener('click', () => {
+        if (saveOrRemoveJobButton.innerHTML == "Save | ") {
             saveOrRemoveJobButton.innerHTML = "Unsave | ";
-            dataToSend[1]=job.id;
+            dataToSend[1] = job.id;
             saveJob(dataToSend);
-          }
-          else{
-              saveOrRemoveJobButton.innerHTML="Save | ";
-              dataToSend[1]=job.id;
-              removeSavedJob(dataToSend)
-          }
-          });
-    applyButton.addEventListener('click', function() {
-            if(applyButton.innerHTML == "Apply"){
-              dataToSend[1]=job.id;
-              applyButton.innerHTML="Withdraw application (Applied on "+createFormattedDate()+")";
-              saveApp(dataToSend);
-            }
-            else{
-              dataToSend[1]=job.id;
-              removeApplication(dataToSend)
-              applyButton.innerHTML="Apply";
-            }
-            });
-            commentsButton.addEventListener('click', async function() {
-                  createCommentsModal()
-                  var getCommentsData=[getCookieValue('id'),job.id]
-                  var res = await sendData('/comments',getCommentsData,'get comments '+ window.location.pathname)
-                  for(var i=0; i<res[0][0].length; i++){
-                    createCommentsDivs(res[0][0],i)
-                  }
-            })
-            removeCommentsButton(window.location.pathname,commentsButton)
+        } else {
+            saveOrRemoveJobButton.innerHTML = "Save | ";
+            dataToSend[1] = job.id;
+            removeSavedJob(dataToSend);
+        }
+    });
 
+    applyButton.addEventListener('click', () => {
+        if (applyButton.innerHTML == "Apply") {
+            dataToSend[1] = job.id;
+            applyButton.innerHTML = `Withdraw application (Applied on ${createFormattedDate()})`;
+            saveApp(dataToSend);
+        } else {
+            dataToSend[1] = job.id;
+            removeApplication(dataToSend);
+            applyButton.innerHTML = "Apply";
+        }
+    });
+
+    commentsButton.addEventListener('click', async () => {
+        createCommentsModal();
+        const getCommentsData = [getCookieValue('id'), job.id];
+        const res = await sendData('/comments', getCommentsData, 'get comments ' + window.location.pathname);
+        for (let i = 0; i < res[0][0].length; i++) {
+            createCommentsDivs(res[0][0], i);
+        }
+    });
+
+    removeCommentsButton(window.location.pathname, commentsButton);
 }
 
-//Main
-jobSearch()
-
-
+// Initialize job search functionality
+jobSearch();
