@@ -4,32 +4,63 @@ const INPUT_EMAIL="InputEmail"
 const INPUT_PASSWORD="InputPassword"
 const USER_DO_NOT_LOGIN_YET_ID=0;
 
-export async function login(){
-    var {user,password} = initLoginArgs();
-    var res = loginInputsValidiation(user,password);
-    if(res){
-        var user = new User(USER_DO_NOT_LOGIN_YET_ID,null,null,user.value,password.value,null,null,null,null);
-        user = await authenticateDetails(user);
-    }
-    if(user){
-        var userString  = JSON.stringify(user);
-        // Store the JSON string in sessionStorage
-        sessionStorage.setItem('user', userString);
-        setCookie('id',user.id)
-        navigateToPage('/main');
-    }
-    else{
-        alert("Wrong username/password")
+function initLoginPage(){
+    var loginBtnHandle = document.getElementById("login-btn").addEventListener("click",login);
+    var googleRegisterHandler = document.getElementById("google-register-btn").addEventListener("click",registerAlert);
+    var facebookRegisterHandler = document.getElementById("facebook-register-btn").addEventListener("click",registerAlert);
+    var forgotPasswordHandler = document.getElementById("forgot-password-btn").addEventListener("click",forgotPasssowrd);
+    if(!loginBtnHandle || !googleRegisterHandler || !facebookRegisterHandler || !forgotPasswordHandler){
+        
     }
 }
 
 
+export async function login() {
+        var username = document.getElementById(INPUT_EMAIL);
+        var password = document.getElementById(INPUT_PASSWORD);
+        if (!username || !password){
+            console.error('Element with ID "InputEmail" or "InputPassword" not found');
+            return 0;
+        }
+        var res = loginInputsValidiation(username, password);
+        if(!res){
+            return 0;
+            
+        }
+        try {
+            var userObj = new User(USER_DO_NOT_LOGIN_YET_ID, null, null, username.value, password.value, null, null, null, null);
+        } catch (error) {
+            console.error("Create user failed:", error);
+            return 0;
+        }
+            userObj = await authenticateDetails(userObj);
+            if(!userObj){
+                alert("Wrong email/password , please try again.");
+                return 0;
+            }
+            if (userObj) {
+                var userString = JSON.stringify(userObj);
+                sessionStorage.setItem('user', userString);
+                setCookie('id', userObj.id);
+                navigateToPage('/main');
+            } 
+        }
+
 export function initLoginArgs(){
-    var username = document.getElementById(INPUT_EMAIL);
-    var password = document.getElementById(INPUT_PASSWORD);
-    return {
-        user:username,
-        password:password
+    try{
+        var username = document.getElementById(INPUT_EMAIL);
+        var password = document.getElementById(INPUT_PASSWORD);
+        if(!username || !password){
+            throw new Error ('Username or password input element not found');
+        }
+        return {
+            user:username,
+            password:password
+        }
+    }
+    catch (error){
+        console.error('An error occurred:', error);
+        return null;
     }
 }
 
@@ -37,12 +68,12 @@ function loginInputsValidiation(username,password){
     var res = checkEmptyInputsLoginWrapper(username,password);
     if(!res){
         alert("Empty inputs");
-        return;
+        return false;
     } 
     res = emailValidation(username)
     if(!res){
         alert("Your email is not valid");
-        return;
+        return false;
     }
     return true;  
 }
