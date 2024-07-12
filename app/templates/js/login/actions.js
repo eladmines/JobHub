@@ -1,16 +1,16 @@
 import {checkEmptyInputsArray,emailValidation,sendData,navigateToPage,setCookie} from "../utils.js";
+import {registerAlert} from '../register/actions.js';
 import {User} from "../models/user.js";
 const INPUT_EMAIL="InputEmail"
 const INPUT_PASSWORD="InputPassword"
 const USER_DO_NOT_LOGIN_YET_ID=0;
 
-function initLoginPage(){
+export function initLoginPage(){
     var loginBtnHandle = document.getElementById("login-btn").addEventListener("click",login);
     var googleRegisterHandler = document.getElementById("google-register-btn").addEventListener("click",registerAlert);
     var facebookRegisterHandler = document.getElementById("facebook-register-btn").addEventListener("click",registerAlert);
-    var forgotPasswordHandler = document.getElementById("forgot-password-btn").addEventListener("click",forgotPasssowrd);
-    if(!loginBtnHandle || !googleRegisterHandler || !facebookRegisterHandler || !forgotPasswordHandler){
-        
+    if(!loginBtnHandle || !googleRegisterHandler || !facebookRegisterHandler){
+        console.error("Element with ID login-btn, google-register-btn,  facebook-register-btn or forgot-password-btn is not found", error);
     }
 }
 
@@ -25,7 +25,6 @@ export async function login() {
         var res = loginInputsValidiation(username, password);
         if(!res){
             return 0;
-            
         }
         try {
             var userObj = new User(USER_DO_NOT_LOGIN_YET_ID, null, null, username.value, password.value, null, null, null, null);
@@ -95,10 +94,4 @@ async function authenticateDetails(user){
 
 export function forgotPasssowrd(){
     alert("Coming soon...");
-    /*document.getElementById("InputPassword").placeholder = "Captcha place (not available right now)";
-    document.getElementById("remember-me-btn").style.display = "none";
-    document.getElementById("google-register-btn").style.display = "none";
-    document.getElementById("facebook-register-btn").style.display = "none";
-    document.getElementById("login-btn").value = "Reset";
-    document.getElementById("title").innerHTML = "Reset your password";*/
 }
