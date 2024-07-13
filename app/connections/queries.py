@@ -1,0 +1,1 @@
+GET_CONNECTIONS="""SELECT * FROM connections where user_id=%s"""
