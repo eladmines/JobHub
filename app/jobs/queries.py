@@ -6,9 +6,9 @@ SELECT
 FROM 
     jobs
 LEFT JOIN 
-    jobs_saved ON jobs.id = jobs_saved.job_id AND jobs_saved.user_id = %s
+    jobs_saved ON jobs.job_id = jobs_saved.job_id AND jobs_saved.user_id = %s
 LEFT JOIN 
-    jobs_applicated ON jobs.id = jobs_applicated.job_id AND jobs_applicated.user_id = %s;
+    jobs_applicated ON jobs.job_id = jobs_applicated.job_id AND jobs_applicated.user_id = %s;
 """
 
 
