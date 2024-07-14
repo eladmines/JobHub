@@ -1,5 +1,5 @@
 class Job:
-    def __init__(self, title, location, description, qualifications, date, link, company, image, id,saved,applied):
+    def __init__(self, title, location, description, qualifications, date, link, company,id,saved,applied):
         self.title = title
         self.location = location
         self.description = description
@@ -7,7 +7,6 @@ class Job:
         self.date = date
         self.link = link
         self.company = company
-        self.image = image
         self.id = id
         self.saved = saved
         self.applied = applied
@@ -54,12 +53,6 @@ class Job:
     def set_company(self, company):
         self.company = company
 
-    def get_image(self):
-        return self.image
-    
-    def set_image(self, image):
-        self.image = image
-
     def get_id(self):
         return self.id
     
@@ -69,4 +62,8 @@ class Job:
     def __str__(self):
         return (f"Job(id={self.id}, title={self.title}, location={self.location}, "
                 f"description={self.description}, qualifications={self.qualifications}, "
-                f"date={self.date}, link={self.link}, company={self.company}, image={self.image})")
+                f"date={self.date}, link={self.link}, company={self.company}, image={self.image}, "
+                f"saved={self.saved}, applied={self.applied})")
+    
+    def __repr__(self):
+        return self.__str__()
