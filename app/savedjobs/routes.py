@@ -1,41 +1,45 @@
 
-from flask import render_template,request
+from flask import render_template,request,jsonify
 from app.savedjobs.actions import get_saved_jobs,remove_saved_job,save_job
-import json
-from app.utils import remove_special_chars
-from app.applications.actions import get_applications_ids
 from app.savedjobs import savedjobs_bp
+
 
 @savedjobs_bp.route("/savedjobs")
 def index():
     return render_template('savedjobs.html') 
 
+@savedjobs_bp.route("/savedjobs/<user_id>", methods=["GET"])
+def handle_get_request(user_id):
+    if(user_id is None):
+        jsonify("Error: user_id is null"),400
+    jobs,error = get_saved_jobs(user_id)
+    if error:
+        return jsonify({"error":error}),400
+    return jsonify(jobs), 200
+
 @savedjobs_bp.route("/savedjobs", methods=["POST"])
 def handle_post_request():
     data = request.get_json()
-    action = data['action']
-    userId=data['sentData']
-    if action == "get saved jobs":
-        savedJobs=get_saved_jobs(data)
-        applications = get_applications_ids(userId)
-        jobsList =[]
-        for job in savedJobs:
-            job = vars(job)
-            job["saved"]="yes"
-            job["applied"]="no"
-            remove_special_chars(job)
-            for application in applications:
-                if job["id"] == application[0]:
-                    job["applied"]=application[1]   
-            jobsList.append(job)
-        savedJobs = json.dumps(jobsList)
-        return savedJobs
-    elif action == "remove saved job":
-        res = remove_saved_job(data)
-        return res
-    elif action == "save job":
-        jobId=data['sentData'][1]
-        save_job(userId[0],jobId)
-        return data
-    return data
     
+    if(data is None):
+        return jsonify({"error": "No data provided"}), 400
+    user_id = data['sentData'][0]
+
+    if(user_id is None):
+        return jsonify({"error": "action or user_id missing in request data"}), 400
+
+    res = save_job(data)
+    if(res == False):
+        return jsonify({"error": "Failed to dave job"}), 400
+    return jsonify(res)
+
+
+@savedjobs_bp.route("/savedjobs/<user_id>/<job_to_delete>", methods=["DELETE"])
+def handle_delete_request(user_id,job_to_delete):
+    if(user_id is None or job_to_delete is None):
+        return jsonify("Error: user_id or job_to_delete is null"),400
+    data=[user_id,int(job_to_delete)]
+    res = remove_saved_job(data)
+    if(res == False):
+        return jsonify("Error:Failed to delete job"),400
+    return jsonify("Job successfully deleted"),200
