@@ -9,18 +9,17 @@ def get_all_jobs(user_id):
             return "Error: GET_ALL_JOBS query failed",400
     Jobs=[]
     for row in rows:
-        title= remove_special_chars(row[0])
-        location=row[1]
-        description=remove_special_chars(row[2])
-        qualifications=remove_special_chars(row[3])
-        date=row[4]
-        link=row[5]
-        company=row[6]
-        image=row[7]
-        id=row[8]
-        saved=row[9]
-        applied=row[10]
-        job = Job(title,location,description,qualifications, date,link,company,image,id,saved,applied)
+        title= remove_special_chars(row['job_title'])
+        location=row['job_location']
+        description=remove_special_chars('job_description')
+        qualifications=remove_special_chars("")
+        date=row['job_date']
+        link=row['job_link']
+        company=row['job_company']
+        id=row['job_id']
+        saved=row['saved']
+        applied=row['applicated_date']
+        job = Job(title,location,description,qualifications, date,link,company,id,saved,applied)
         job = job.__dict__
         Jobs.append(job)  
     return Jobs,None  
