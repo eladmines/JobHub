@@ -1,6 +1,6 @@
 /* Send data to a page with the required action */ 
-export  function sendData(page, sentData, action) {
-    let data = { action: action, sentData: sentData }; // Wrap data in an object
+export  function sendData(page, sentData) {
+    let data = {sentData: sentData }; // Wrap data in an object
     return fetch(page, {
         method: 'POST',
         headers: {
