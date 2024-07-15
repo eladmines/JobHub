@@ -11,11 +11,18 @@ def index():
 @login_bp.route("/", methods=["POST"])
 def handle_post_request():
     data = request.get_json()
-    email=data['sentData']['email']
-    password=data['sentData']['password']
-    loginDetails=authentication(email,password)
-    if loginDetails is not None:
+    if data is None:
+        return jsonify({"error": "No JSON data received"}), 400
+    try:
+        email=data['sentData']['email']
+        password=data['sentData']['password']
+        loginDetails=authentication(email,password)
+        if loginDetails is None:
+            return jsonify({"error": "Authentication failed. Incorrect email or password."}), 401
         user = User(loginDetails[0],loginDetails[1],loginDetails[2],loginDetails[3],loginDetails[4],loginDetails[5],loginDetails[6],loginDetails[7],loginDetails[8])
+        if user is None:
+             return jsonify ({"error":"No user created"})
         user=vars(user)
         return user
-    return jsonify(None)
+    except Exception as e:
+            return {"error": f"An error occurred: {str(e)}"}, 500
