@@ -27,8 +27,8 @@ def handle_post_request():
 
     if(user_id is None):
         return jsonify({"error": "action or user_id missing in request data"}), 400
-
-    res = save_job(data)
+    sent_data = data['sentData']
+    res = save_job(sent_data)
     if(res == False):
         return jsonify({"error": "Failed to dave job"}), 400
     return jsonify(res)

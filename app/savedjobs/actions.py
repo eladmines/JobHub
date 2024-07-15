@@ -7,6 +7,7 @@ from app.savedjobs.queries import SAVE_JOB
 
 
 def get_saved_jobs(data):
+    data=(data,data)
     rows=get_query_exec(GET_ALL_SAVED_JOBS,data)
     Jobs = []
     for row in rows:
