@@ -1,5 +1,3 @@
-import {User} from './models/user.js'
-import {Profile} from './models/profile-info.js'
 
 export function emailValidation(email){
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,9 +32,9 @@ export function checkPasswords(pass1,pass2){
 }
 
 /* Send data to a page with the required action */ 
-export function sendData(page, sentData, action) {
-    let data = { action: action, sentData: sentData }; // Wrap data in an object
-    return fetch(page, {
+export function sendData(endpoint, sentData, action) {
+    let data = { action: action, sentData: sentData }; 
+    return fetch(endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -45,7 +43,6 @@ export function sendData(page, sentData, action) {
     })
     .then(function (response) {
         if (response.ok) {
-            // Parse and return JSON response
             return response.json();
         } else {
             console.log(response)
@@ -54,9 +51,61 @@ export function sendData(page, sentData, action) {
     })
     .catch(function (error) {
         console.error('There was a problem with the fetch operation:', error);
-        throw error; // Rethrow the error to propagate it
+        throw error; 
     });
 }
+
+export function sendDeleteRequest(endpoint) {
+    return fetch(endpoint, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function (response) {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log(response)
+            return false;
+        }
+    })
+    .catch(function (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error; 
+    });
+}
+
+export function sendGetRequest(endpoint) {
+    return fetch(endpoint)
+    .then(function (response) {
+        if (response.ok) {
+            return response.json();
+        } else {
+            console.log(response)
+            return false;
+        }
+    })
+    .catch(function (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    });
+}
+
+export async function deleteData(endpoint,data) {
+    if(data == null){
+        console.error("Data is null");
+        return false;
+    }
+    var [user_id,item_id_to_delete]=data;
+    var res = await sendDeleteRequest(`/${endpoint}/${user_id}/${item_id_to_delete}`);
+    if (res == false){
+        console.error("Failed to delete data");
+        return false;
+    }
+    
+    return true;
+};
 
 
 export function saveData(endpoint, data, action,successMessage, failureMessage) {
@@ -77,17 +126,16 @@ export function isNumber(data){
 export function setCookie(name, value) {
     document.cookie = `${name}=${value}; `;
 }
+
 export function getCookieValue(name) {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
-
     for (let cookie of cookies) {
         const [cookieName, cookieValue] = cookie.split('=');
         if (cookieName === name) {
             return cookieValue;
         }
     }
-
     return null;
 }
 
@@ -114,4 +162,9 @@ export function createFormattedDate(){
 
 export function removeSearchBar(){
     document.getElementById("search-bar").style.visibility="hidden";
+}
+
+export function sendUserId(endpoint){
+    var res=sendGetRequest(`${endpoint}/${getCookieValue('id')}`);
+    return res;
 }
