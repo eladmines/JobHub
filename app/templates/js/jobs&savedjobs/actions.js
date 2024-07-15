@@ -1,10 +1,10 @@
 // Import necessary modules and functions
 import { Job } from '../models/job.js';
 import { getCookieValue, sendData, createFormattedDate } from '../utils.js';
-import { saveJob, removeSavedJob } from './savedJobs/actions.js';
-import { removeApplication, saveApp } from './applications/actions.js';
+import { saveJob, deleteSavedJob } from './savedJobs/actions.js';
+import { deleteApplication, saveApp } from './applications/actions.js';
 import { createCommentsModal, createCommentsDivs } from "../comments/actions.js";
-import { removeCommentsButton } from './jobs/actions.js';
+
 
 // Define constants
 const ID = "id",
@@ -30,10 +30,9 @@ export function buildJobContainer(arr, i) {
         arr[i][ID], arr[i][TITLE], arr[i][LOCATION], arr[i][DESCRIPTION],
         arr[i][QUALIFICATIONS], arr[i][COMPANY], arr[i][IMAGE], arr[i][DATE], arr[i][LINK]
     );
-
     var card = document.createElement('div');
     card.className = 'card shadow mb-4 ';
-
+    card.id=job.id;
     var cardHeader = document.createElement('a');
     cardHeader.href = '#collapseCardExample' + i; 
     cardHeader.className = 'd-block card-header py-3';
@@ -78,19 +77,12 @@ export function buildJobContainer(arr, i) {
     applyButton.style.fontSize = '0.7rem';
     applyButton.textContent = 'Apply';
 
-    var commentsButton = document.createElement('a');
-    commentsButton.href = '#';
-    commentsButton.className = 'm-0 text-muted';
-    commentsButton.style.fontSize = '0.7rem';
-    commentsButton.textContent = 'Comments';
-    commentsButton.id = job.id;
 
     // Append elements to the location container
     var locationContainer = document.createElement('div');
     locationContainer.appendChild(locationDateText);
     locationContainer.appendChild(saveButton);
     locationContainer.appendChild(applyButton);
-    locationContainer.appendChild(commentsButton);
 
     headerContainer.appendChild(headerText);
     headerContainer.appendChild(locationContainer);
@@ -114,9 +106,9 @@ export function buildJobContainer(arr, i) {
         event.preventDefault();
         $('#' + cardContent.id).collapse('toggle');
     });
-
     var dataToSend = [getCookieValue('id')];
-    setupCard(saveButton, job, dataToSend, applyButton, arr[i]['saved'], arr[i]['applied'], commentsButton);
+    setupCard(saveButton, job, dataToSend, applyButton, arr[i]['saved'], arr[i]['applied']);
+    
 }
 
 // Function for job search functionality
@@ -150,10 +142,7 @@ function jobSearch() {
             }
             i++;
             card = contentDivs.getElementsByClassName('card shadow mb-4')[i];
-            if(card){
-              console.error("Card not found");
-              return;
-            }
+            
         }
     });
 }
@@ -166,6 +155,7 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
         saveOrRemoveJobButton.innerHTML = "Save | ";
     }
     if (!isJobApplied) {
+        
         applyButton.innerHTML = "Apply";
     } else {
         applyButton.innerHTML = `Withdraw application (Applied on ${isJobApplied})`;
@@ -178,11 +168,10 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
             saveJob(dataToSend);
         } else {
             saveOrRemoveJobButton.innerHTML = "Save | ";
-            dataToSend[1] = job.id;
-            removeSavedJob(dataToSend);
+            dataToSend[1] =job.id;
+            deleteSavedJob(dataToSend);
         }
     });
-
     applyButton.addEventListener('click', () => {
         if (applyButton.innerHTML == "Apply") {
             dataToSend[1] = job.id;
@@ -190,21 +179,11 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
             saveApp(dataToSend);
         } else {
             dataToSend[1] = job.id;
-            removeApplication(dataToSend);
+            deleteApplication(dataToSend);
             applyButton.innerHTML = "Apply";
         }
     });
 
-    commentsButton.addEventListener('click', async () => {
-        createCommentsModal();
-        const getCommentsData = [getCookieValue('id'), job.id];
-        const res = await sendData('/comments', getCommentsData, 'get comments ' + window.location.pathname);
-        for (let i = 0; i < res[0][0].length; i++) {
-            createCommentsDivs(res[0][0], i);
-        }
-    });
-
-    removeCommentsButton(window.location.pathname, commentsButton);
 }
 
 // Initialize job search functionality
