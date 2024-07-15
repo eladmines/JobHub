@@ -1,6 +1,6 @@
 import {deployJobsContainer} from '../actions.js'
 import {sendData} from '../../actions.js'
-import { getCookieValue } from '../../utils.js'
+import { getCookieValue,deleteData } from '../../utils.js'
 import { saveData } from '../../actions.js';
 
 export function saveApp(data) {
@@ -27,21 +27,17 @@ export async function getApplications() {
     }
 };
 
-export async function removeApplication(data) {
-    try {
-        if(window.location.pathname=='/applications'){
-            document.getElementById(data[1]).style.display="none";
-        }
-        
-        var res = await sendData("/applications",data, 'remove job application');
-        if (res === false) {
-            failFunc();
-        } else {
-            deployJobsContainer(res);
-        }
-    } catch (error) {
-        console.error('An error occurred during the sendData operation:', error);
-        // Handle the error or rethrow it to propagate
-    }
-};
 
+export async function deleteApplication(data) {
+    console.log(data)
+    var res = deleteData("applications",data);
+    var application_to_delete=data[1]
+    if(res == false){
+        console.error("Failed to delete the application");
+        return false;
+    }
+    if(window.location.pathname == '/applications'){
+        document.getElementById(application_to_delete).style.display="none";
+    }
+    return true;
+};
