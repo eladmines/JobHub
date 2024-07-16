@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import psycopg2
 from app.data.queries import INSERT_JOBS
-from app.data.constants import DATABASE_URL
+from app.data.config import DATABASE_URL
 from app.models.job import Job
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(options=options)
@@ -37,7 +37,7 @@ class company_elements:
             title=self.get_item(self.name_title)
             location=self.get_item(self.name_location)
             description=self.get_item(self.name_description)
-            job = Job(title,location,description," ","Not available",link,company," "," ")
+            job = Job(title,location,description," ","Not available",link,company," "," ","")
             jobs.append(job)
          sendJobsToDB(jobs)
 
@@ -50,7 +50,7 @@ def sendJobsToDB(jobs):
     else:
         curs=conn.cursor()
         for job in jobs:
-            curs.execute(INSERT_JOBS, (job.title, job.location, job.description,"", job.date,job.link,job.company," "))
+            curs.execute(INSERT_JOBS, (job.title, job.location, job.description,"", job.date,job.link,job.company))
             conn.commit()
 
 
