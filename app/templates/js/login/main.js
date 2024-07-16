@@ -1,3 +1,4 @@
-import {initLoginPage} from './actions.js';
+import {initLoginPage,deleteCookies} from './actions.js';
 //Entry point
+deleteCookies()
 initLoginPage()

@@ -9,9 +9,6 @@ export function initLoginPage(){
     var loginBtnHandle = document.getElementById("login-btn").addEventListener("click",login);
     var googleRegisterHandler = document.getElementById("google-register-btn").addEventListener("click",registerAlert);
     var facebookRegisterHandler = document.getElementById("facebook-register-btn").addEventListener("click",registerAlert);
-    if(!loginBtnHandle || !googleRegisterHandler || !facebookRegisterHandler){
-        console.error("Element with ID login-btn, google-register-btn,  facebook-register-btn or forgot-password-btn is not found", error);
-    }
 }
 
 
@@ -94,4 +91,8 @@ async function authenticateDetails(user){
 
 export function forgotPasssowrd(){
     alert("Coming soon...");
+}
+
+export function deleteCookies(){
+    document.cookie = 'id' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
