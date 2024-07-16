@@ -22,7 +22,7 @@ JobHub is a web application designed to help users find and track job offers fro
 ## Screenshots
 
 ### Homepage
-![Home](https://github.com/eladmines/JobHub/blob/dev/images/MAIN.PNG)
+![Home](https://github.com/eladmines/JobHub/blob/dev/images/main.png)
 
 ### Login
 ![Dashboard](./images/login-Page.png)
@@ -31,10 +31,15 @@ JobHub is a web application designed to help users find and track job offers fro
 ![Dashboard](./images/register.png)
 
 ### Jobs
-![Dashboard](./images/jobs-image.PNG)
+![Dashboard](./images/jobs.png)
+### Jobs
+![Dashboard](./images/jobs-open.png)
 
-### Comments
-![Dashboard](./images/comments-image.PNG)
+### Applications
+![Dashboard](./images/applications.png)
+
+### Connections
+![Dashboard](./images/connections.png)
 ## Installation
 
 ## Installation
