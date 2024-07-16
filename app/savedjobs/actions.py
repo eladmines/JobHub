@@ -4,8 +4,6 @@ from app.models.job import Job
 from app.utils import remove_special_chars,save_query_exec,delete_query_exec,get_query_exec
 from app.savedjobs.queries import SAVE_JOB
 
-
-
 def get_saved_jobs(data):
     data=(data,data)
     rows=get_query_exec(GET_ALL_SAVED_JOBS,data)
@@ -13,7 +11,7 @@ def get_saved_jobs(data):
     for row in rows:
         title= remove_special_chars(row['job_title'])
         location=row['job_location']
-        description=remove_special_chars('job_description')
+        description=remove_special_chars(row['job_description'])
         qualifications=remove_special_chars("")
         date=row['job_date']
         link=row['job_link']
