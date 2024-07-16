@@ -1,4 +1,4 @@
-import { getCookieValue,sendData, almostReady} from '../utils.js';
+import { getCookieValue,sendData, almostReady,sendDeleteRequest} from '../utils.js';
 export function createCommentsDivs(arr,i){
     var rowComments = document.createElement('div')
     var buttons = document.createElement('div')
@@ -13,12 +13,21 @@ export function createCommentsDivs(arr,i){
     editButton.innerHTML=" Edit"
     buttons.className="row";
     deleteButton.href="#"
+    deleteButton.id=i;
     deleteButton.style.fontSize="12px"
     editButton.href="#"
     editButton.style.fontSize="12px"
     rowComments.className = "row comments";
+    deleteButton.addEventListener('click', function(event) {
+        // Get the comment ID from the data-comment-id attribute of the clicked element
+        const commentId = event.target.id
+        // Call the deleteComment function passing commentId and event
+        deleteComment(commentId);
+    });
+    
     rowComments.style.backgroundColor = '#FAFAFA';
     rowComments.style.marginBottom = '1px';
+    rowComments.style.wordBreak = "break-word";
     textCommentContent.className = "col-lg-12";
     comment = comment.replace(/[{}"]/g, '');
     textCommentContent.innerHTML=comment
@@ -26,7 +35,7 @@ export function createCommentsDivs(arr,i){
     rowComments.append(textCommentContent)
     rowComments.append(deleteButton)
     rowComments.append(editButton)
-    deleteButton.addEventListener('click',almostReady);
+    deleteButton.addEventListener('click',deleteComment);
     editButton.addEventListener('click',almostReady);
   }
   
@@ -181,4 +190,8 @@ function createFormattedDate(){
     var day = currentDate.getDate().toString().padStart(2, '0');
     var formattedDate = year+"-"+month+"-"+day;
     return formattedDate;
+}
+
+function deleteComment(idComment){
+    sendDeleteRequest(window.location.pathname+'/comment/'+getCookieValue('id')+idComment);
 }

@@ -128,7 +128,9 @@ function createTableRow(connection) {
     td.innerHTML = `<a href="#" class="btn btn-primary btn-circle"><i class="fab fa-linkedin"></i></a>&nbsp;<a href="#" class="btn btn-dark btn-circle"><i class="fab fa-github"></i></a>&nbsp;<a href="#" class="btn btn-danger btn-circle"><i class="fab fa-gitlab"></i></a>`;
     newRow.appendChild(td);
     const deleteButton = document.createElement('td');
-    deleteButton.innerHTML = '<a href="#" class="btn btn-warning btn-circle"><i class="fas fa-pen"></i></a>&nbsp;<a href="#" id="delete-btn" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>';
+    deleteButton.innerHTML = '<a href="#" class="btn btn-warning btn-circle" onclick="alert(\'Working on it..\')" ><i class="fas fa-pen"></i></a>&nbsp;<a href="#" id="delete-btn" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>';
+
+
     deleteButton.querySelector('#delete-btn').addEventListener('click', function(event) {
         event.preventDefault();
         deleteConnection(connection.id);

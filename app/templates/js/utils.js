@@ -168,3 +168,9 @@ export function sendUserId(endpoint){
     var res=sendGetRequest(`${endpoint}/${getCookieValue('id')}`);
     return res;
 }
+
+export function checkUserLogin(){
+    if(!getCookieValue('id')){
+        navigateToPage('/');
+    }
+}

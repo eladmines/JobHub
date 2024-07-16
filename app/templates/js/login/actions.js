@@ -27,7 +27,7 @@ export async function login() {
             return 0;
         }
         try {
-            var userObj = new User(USER_DO_NOT_LOGIN_YET_ID, null, null, username.value, password.value, null, null, null, null);
+            var userObj = new User(USER_DO_NOT_LOGIN_YET_ID, null, null, username.value.toLowerCase(), password.value, null, null, null, null);
         } catch (error) {
             console.error("Create user failed:", error);
             return 0;

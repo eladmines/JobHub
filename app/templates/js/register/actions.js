@@ -8,7 +8,7 @@ export function register(){
     if(res){
         user.setFirstName(user.firstname.value);
         user.setLastName(user.lastname.value);
-        user.setEmail(user.email.value);
+        user.setEmail(user.email.value.toLowerCase());
         user.setPassword(user.password.value);
         user.setRole(user.role.value);
         user.setCompany(user.company.value);

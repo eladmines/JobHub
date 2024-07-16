@@ -1,6 +1,7 @@
 import {deployJobsContainer} from '../actions.js'
-import {sendUserId} from '../../utils.js'
+import {sendUserId,checkUserLogin} from '../../utils.js'
 
 var data= await sendUserId('/jobs')
 deployJobsContainer(data)
 
+checkUserLogin()
