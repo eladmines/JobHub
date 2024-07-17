@@ -77,12 +77,25 @@ export function buildJobContainer(arr, i) {
     applyButton.style.fontSize = '0.7rem';
     applyButton.textContent = 'Apply';
 
+    
+
+    var applicationProcess = document.createElement('a');
+    applicationProcess.href = '#';
+    applicationProcess.className = 'm-0 text-muted';
+    applicationProcess.style.fontSize = '0.7rem';
+    applicationProcess.textContent = ' | Application process';
+    applicationProcess.addEventListener('click', async function() {
+        event.preventDefault();
+        createCommentsModal();
+    });
+    
 
     // Append elements to the location container
     var locationContainer = document.createElement('div');
     locationContainer.appendChild(locationDateText);
     locationContainer.appendChild(saveButton);
     locationContainer.appendChild(applyButton);
+    locationContainer.appendChild(applicationProcess);
 
     headerContainer.appendChild(headerText);
     headerContainer.appendChild(locationContainer);
