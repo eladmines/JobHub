@@ -1,46 +1,6 @@
-import { getCookieValue,sendData, almostReady,sendDeleteRequest} from '../utils.js';
-export function createCommentsDivs(arr,i){
-    var rowComments = document.createElement('div')
-    var buttons = document.createElement('div')
-    var deleteButton = document.createElement('a');
-    var editButton = document.createElement('a');
-    var textCommentContent = document.createElement('p');
-    var col2Div = document.getElementsByClassName("col-lg-7")[0];
-    var comment = JSON.stringify(arr[i]);
-    deleteButton.innerHTML="Delete"
-    deleteButton.style.marginRight="5px"
-    deleteButton.style.marginLeft="10px"
-    editButton.innerHTML=" Edit"
-    buttons.className="row";
-    deleteButton.href="#"
-    deleteButton.id=i;
-    deleteButton.style.fontSize="12px"
-    editButton.href="#"
-    editButton.style.fontSize="12px"
-    rowComments.className = "row comments";
-    deleteButton.addEventListener('click', function(event) {
-        // Get the comment ID from the data-comment-id attribute of the clicked element
-        const commentId = event.target.id
-        // Call the deleteComment function passing commentId and event
-        deleteComment(commentId);
-    });
-    
-    rowComments.style.backgroundColor = '#FAFAFA';
-    rowComments.style.marginBottom = '1px';
-    rowComments.style.wordBreak = "break-word";
-    textCommentContent.className = "col-lg-12";
-    comment = comment.replace(/[{}"]/g, '');
-    textCommentContent.innerHTML=comment
-    col2Div.append(rowComments);
-    rowComments.append(textCommentContent)
-    rowComments.append(deleteButton)
-    rowComments.append(editButton)
-    deleteButton.addEventListener('click',deleteComment);
-    editButton.addEventListener('click',almostReady);
-  }
+import { getCookieValue,sendData, almostReady,sendDeleteRequest,sendGetRequest} from '../utils.js';
   
-  
-  export function createCommentsModal() {
+  export function createCommentsModal(jobTitle,jobId) {   
     var modal = document.createElement('div');
     modal.className = "modal fade";
     modal.id = "comments";
@@ -63,7 +23,7 @@ export function createCommentsDivs(arr,i){
     var modalTitle = document.createElement('h5');
     modalTitle.className = "modal-title";
     modalTitle.id = "exampleModalLabel";
-    modalTitle.textContent = "Your comments";
+    modalTitle.textContent = jobTitle;
     
     var closeButton = document.createElement('button');
     closeButton.className = "close";
@@ -80,12 +40,10 @@ export function createCommentsDivs(arr,i){
     // Create modal body
     var modalBody = document.createElement('div');
     modalBody.className = "modal-body";
+    modalBody.id = "modal-body";
   
     var rowDiv = document.createElement('div');
     rowDiv.className = "row";
-    
-    var col1Div = document.createElement('div');
-    col1Div.className = "col-lg-5 d-none d-lg-block bg-comment-image";
   
     var col2Div = document.createElement('div');
     col2Div.className = "col-lg-7";
@@ -95,10 +53,7 @@ export function createCommentsDivs(arr,i){
   
     var innerTextCenter = document.createElement('div');
     innerTextCenter.className = "text-center";
-  
-    var h1Element = document.createElement('h1');
-    h1Element.className = "h4 text-gray-900 mb-4";
-    h1Element.textContent = "Leave a Comment";
+
   
     var formElement = document.createElement('form');
     formElement.className = "user";
@@ -109,22 +64,17 @@ export function createCommentsDivs(arr,i){
   
     var formGroupCol = document.createElement('div');
     formGroupCol.className = "col-sm-12 mb-3 mb-sm-0";
-  
-    var textareaElement = document.createElement('textarea');
-    textareaElement.className = "form-control";
-    textareaElement.id = "contentComment";
-    textareaElement.rows = "10";
-//Connections
-    formGroupCol.appendChild(textareaElement);
+    
     formGroupRow.appendChild(formGroupCol);
     formElement.appendChild(formGroupRow);
-    innerTextCenter.appendChild(h1Element);
     innerDiv.appendChild(innerTextCenter);
     innerDiv.appendChild(formElement);
     col2Div.appendChild(innerDiv);
-    rowDiv.appendChild(col1Div);
     rowDiv.appendChild(col2Div);
-    modalBody.appendChild(rowDiv);
+
+
+    // Append table to modal body and create table rows
+   ;
   
     // Create modal footer
     var modalFooter = document.createElement('div');
@@ -155,15 +105,135 @@ export function createCommentsDivs(arr,i){
     // Append modal to body
     document.body.appendChild(modal);
   
-    sendCommentButton.addEventListener('click',sendCommentHandler);
-  
-    // Add event listener for when the modal is hidden
-    $('#comments').on('hidden.bs.modal', function () {
-      removeModalContent();
+    $('#comments').modal('show');
+
+    createProcessTable(modalBody);
+}
+
+
+
+
+function createProcessTable(modalBody) {
+    const div = document.createElement('div');
+    div.className = 'card-body';
+    div.id = 'table-wrap';
+
+    const tableResponsiveDiv = document.createElement('div');
+    tableResponsiveDiv.className = 'table-responsive';
+
+    const wrapperDiv = document.createElement('div');
+    wrapperDiv.id = 'dataTable_wrapper';
+    wrapperDiv.className = 'dataTables_wrapper dt-bootstrap4';
+
+    const row1Div = document.createElement('div');
+    row1Div.className = 'row';
+
+    const col1Div = document.createElement('div');
+    col1Div.className = 'col-sm-12 col-md-6';
+
+    const lengthDiv = document.createElement('div');
+    lengthDiv.className = 'dataTables_length';
+    lengthDiv.id = 'dataTable_length';
+
+    col1Div.appendChild(lengthDiv);
+
+    const col2Div = document.createElement('div');
+    col2Div.className = 'col-sm-12 col-md-6';
+
+    const filterDiv = document.createElement('div');
+    filterDiv.id = 'dataTable_filter';
+    filterDiv.className = 'dataTables_filter';
+
+    col2Div.appendChild(filterDiv);
+    row1Div.appendChild(col1Div);
+    row1Div.appendChild(col2Div);
+
+    const row2Div = document.createElement('div');
+    row2Div.className = 'row';
+
+    const colDiv = document.createElement('div');
+    colDiv.className = 'col-sm-12';
+
+    const table = document.createElement('table');
+    table.className = 'table table-bordered dataTable';
+    table.id = 'dataTable';
+    table.setAttribute('width', '100%');
+    table.setAttribute('cellspacing', '0');
+    table.setAttribute('role', 'grid');
+    table.setAttribute('aria-describedby', 'dataTable_info');
+    table.style.width = '100%';
+
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    headerRow.setAttribute('role', 'row');
+
+    const headers = ['Date', 'Interviewer', 'Status', 'Notes','Actions'];
+
+    headers.forEach(headerText => {
+        const th = document.createElement('th');
+        th.className = 'sorting';
+        th.textContent = headerText;
+        headerRow.appendChild(th);
     });
-  
-    }
-  
+
+    thead.appendChild(headerRow);
+
+    const tbody = document.createElement('tbody');
+    tbody.id = 'table';
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    colDiv.appendChild(table);
+    row2Div.appendChild(colDiv);
+
+    wrapperDiv.appendChild(row1Div);
+    wrapperDiv.appendChild(row2Div);
+    tableResponsiveDiv.appendChild(wrapperDiv);
+    div.appendChild(tableResponsiveDiv);
+
+    modalBody.appendChild(div);
+    createTableRow(tbody); // Pass tbody to createTableRow
+}
+
+
+async function getNotes(applicationId){
+    var userId=getCookieValue('id');
+    var res =  await sendGetRequest(`/app-process/${userId}/${applicationId}`);
+    return res;
+}
+
+
+async function createTableRow(tbody,jobId) {
+    var notes = await getNotes(398);
+    const newRow = document.createElement('tr');
+
+    const rowData = [
+        notes[0]['date'],
+        notes[0]['interviewer'],
+        notes[0]['status'],
+        notes[0]['notes'],
+        '<a href="#" id="delete-btn" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>'
+    ];
+
+    rowData.forEach(data => {
+        const td = document.createElement('td');
+        td.innerHTML = data;
+        newRow.appendChild(td);
+    });
+
+    
+
+    /*deleteButton.querySelector('#delete-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        deleteConnection("");
+        newRow.remove();
+    });*/
+
+
+    tbody.appendChild(newRow);
+    createInsertForm();
+}
+
 export function removeModalContent() {
     var elements = document.getElementsByClassName("modal fade");
     var elementsArray = Array.from(elements);
@@ -171,17 +241,9 @@ export function removeModalContent() {
         element.remove();
     });
 }
-    
-export async function sendCommentHandler() {
-        var commentContent = document.getElementById("contentComment");
-        var commentData = [getCookieValue('id'), document.getElementsByClassName("btn btn-primary change")[0].id, commentContent.value];
-        var res =await sendData('/comments', commentData, 'insert a comment '+ window.location.pathname);
-        if(res == true){
-            var formattedDate = createFormattedDate();
-            var arr=[formattedDate+":"+commentContent.value];
-            createCommentsDivs(arr,0);
-        }
-} 
+
+
+
       
 function createFormattedDate(){
     var currentDate = new Date();
@@ -192,6 +254,65 @@ function createFormattedDate(){
     return formattedDate;
 }
 
-function deleteComment(idComment){
-    sendDeleteRequest(window.location.pathname+'/comment/'+getCookieValue('id')+idComment);
+
+function createInsertForm() {
+    const newRow = document.createElement('tr');
+
+    const columns = [
+        { id: 'newName', placeholder: 'Name' },
+        { id: 'newPosition', placeholder: 'Position' },
+        { id: 'newCompany', placeholder: 'Company' },
+        { id: 'newPhone', placeholder: 'Phone' },
+        
+    ];
+
+    columns.forEach(col => {
+        const td = document.createElement('td');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = col.id;
+        input.className = 'form-control';
+        input.placeholder = col.placeholder;
+        td.appendChild(input);
+        newRow.appendChild(td);
+        newRow.id="inputs-row"
+    });
+
+    const td = document.createElement('td');
+    const button = document.createElement('button');
+    button.id = 'addRowButton';
+    button.className = 'btn btn-primary';
+    button.textContent = 'Add';
+    td.appendChild(button);
+    newRow.appendChild(td);
+
+    document.getElementById('table').appendChild(newRow);
+
+     // Event listener setup
+button.addEventListener('click', addConnection);
+
+// Asynchronous function to add connection
+async function addConnection() {
+    // Retrieve input values
+    var newName = document.getElementById("newName").value;
+    var newPosition = document.getElementById("newPosition").value;
+    var newCompany = document.getElementById("newCompany").value;
+    var newPhone = document.getElementById("newPhone").value;
+    var newAccounts = document.getElementById("newAccounts").value;
+
+    // Create new Connection object
+    var newConnection = new Connection("-1", getCookieValue("id"), newName, newPosition, newCompany, newPhone, newAccounts);
+
+    // Send data asynchronously
+    var res = await sendData(`/connections`, newConnection); // Assuming sendData returns true/false
+
+    // Check result
+    if (res === false) {
+        return false; // Handle error if sendData failed
+    } else {
+        
+        createNewRow(columns); // Call createNewRow if sendData was successful
+    }
+    return true;
+}
 }
