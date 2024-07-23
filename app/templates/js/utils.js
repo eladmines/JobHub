@@ -174,3 +174,13 @@ export function checkUserLogin(){
         navigateToPage('/');
     }
 }
+
+
+export function removeKeysFromDict(dict,keysToRemove){
+        return(Object.keys(dict)  
+        .filter(key => !keysToRemove.includes(key)) 
+        .reduce((newObj, key) => {  
+            newObj[key] = dict[key];
+            return newObj;
+        }, {}));
+};
