@@ -4,7 +4,7 @@ from app.models.connection import Connection
 def get_connections(user_id):
     data=(user_id,)
     rows = get_query_exec(GET_CONNECTIONS,data)
-    if(rows is None):
+    if rows is None:
             return "Error: get connections query failed",400
     connections=[]
     for row in rows:

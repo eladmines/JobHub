@@ -19,6 +19,7 @@ def handle_get_request(user_id):
 def handle_post_request():
     data=request.get_json()
     data = tuple(data['sentData'].values())[1:]
+    print(data)
     add_connection(data)
     return jsonify(True)
 
