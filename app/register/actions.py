@@ -12,7 +12,7 @@ def register_user(user):
           user.get_password(), user.get_role(), user.get_company(),user.get_experience(),user.get_skills())
           curs.execute(REGISTER_USER,values)
           curs.fetchone()
-          if(curs.rowcount > 0):   
+          if curs.rowcount > 0:   
                con.commit()
                close_connection(con)
                return True
