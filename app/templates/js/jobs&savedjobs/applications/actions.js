@@ -29,7 +29,6 @@ export async function getApplications() {
 
 
 export async function deleteApplication(data) {
-    console.log(data)
     var res = deleteData("applications",data);
     var application_to_delete=data[1]
     if(res == false){
@@ -41,3 +40,4 @@ export async function deleteApplication(data) {
     }
     return true;
 };
+

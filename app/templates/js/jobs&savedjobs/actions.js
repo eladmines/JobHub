@@ -3,7 +3,7 @@ import { Job } from '../models/job.js';
 import { getCookieValue, sendData, createFormattedDate } from '../utils.js';
 import { saveJob, deleteSavedJob } from './savedJobs/actions.js';
 import { deleteApplication, saveApp } from './applications/actions.js';
-import { createCommentsModal, createCommentsDivs } from "../comments/actions.js";
+import {initProcessTable } from "../ApplicationProcess/actions.js";
 
 
 // Define constants
@@ -84,10 +84,8 @@ export function buildJobContainer(arr, i) {
     applicationProcess.className = 'm-0 text-muted';
     applicationProcess.style.fontSize = '0.7rem';
     applicationProcess.textContent = ' | Application process';
-    applicationProcess.addEventListener('click', async function() {
-        event.preventDefault();
-        createCommentsModal();
-    });
+    applicationProcess.id=`process${job.id}`;
+    
     
 
     // Append elements to the location container
@@ -120,7 +118,7 @@ export function buildJobContainer(arr, i) {
         $('#' + cardContent.id).collapse('toggle');
     });
     var dataToSend = [getCookieValue('id')];
-    setupCard(saveButton, job, dataToSend, applyButton, arr[i]['saved'], arr[i]['applied']);
+    setupCard(saveButton, job, dataToSend, applyButton, arr[i]['saved'], arr[i]['applied'],applicationProcess);
     
 }
 
@@ -161,7 +159,7 @@ function jobSearch() {
 }
 
 // Function to set up card with event listeners for save, apply, and comments
-function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSaved, isJobApplied, commentsButton) {
+function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSaved, isJobApplied, applicationProcess) {
     if (isJobSaved == 1) {
         saveOrRemoveJobButton.innerHTML = "Unsave | ";
     } else {
@@ -197,7 +195,10 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
         }
     });
 
+    applicationProcess.addEventListener('click', () => initProcessTable(job));
+
 }
 
 // Initialize job search functionality
 jobSearch();
+
