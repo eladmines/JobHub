@@ -66,3 +66,15 @@ WHERE
     (jobs_applicated.job_id IS NOT NULL AND jobs_applicated.job_id = jobs.job_id)
     ;
 """
+
+
+GET_PROCESSES_APPLICATION="""
+SELECT * FROM processes_application WHERE user_id=%s and job_id=%s
+"""
+
+DELETE_PROCESS_APPLICATION="DELETE FROM processes_application WHERE id=%s"
+
+SAVE_PROCESS="""INSERT INTO 
+    processes_application (user_id,job_id,date,interviewer,phone,status,notes)
+VALUES (%s,%s,%s,%s,%s,%s,%s)
+"""
