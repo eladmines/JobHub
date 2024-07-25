@@ -1,5 +1,5 @@
 from app.dbConnections import open_connection, close_connection    
-from app.applications.queries import GET_ALL_APPLICATIONS,SAVE_JOB_APPLICATION,DELETE_APPLICATION
+from app.applications.queries import GET_ALL_APPLICATIONS,SAVE_JOB_APPLICATION,DELETE_APPLICATION,GET_PROCESSES_APPLICATION,DELETE_PROCESS_APPLICATION,SAVE_PROCESS
 from app.models.job import Job
 from app.utils import save_query_exec,remove_special_chars,delete_query_exec,get_query_exec
 from flask import jsonify
@@ -30,3 +30,15 @@ def save_application(data):
 
 def remove_application(data):
      delete_query_exec(DELETE_APPLICATION,data)
+
+def get_applications_processes(user_id,job_id):
+    data=(user_id,job_id)
+    rows=get_query_exec(GET_PROCESSES_APPLICATION,data)
+    return rows,None 
+
+def remove_process_application(data):
+     delete_query_exec(DELETE_PROCESS_APPLICATION,data)
+
+     
+def save_process(data):
+    save_query_exec(SAVE_PROCESS,data)
