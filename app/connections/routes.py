@@ -9,7 +9,6 @@ def index():
 def handle_get_request(user_id):
     if(user_id is None):
         return jsonify("Error: user_id is null"),400
-    
     connections,error = get_connections(user_id)
     if error:
          return jsonify("Error: Failed to get connection"),400  
