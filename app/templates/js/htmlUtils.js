@@ -184,7 +184,7 @@ export function createTable(modalBody,headers) {
     return tbody;
 }
 
-export function createInsertForm(forms,job) {
+export function createInsertForm(forms,item,func) {
     const newRow = document.createElement('tr');
     let formsArray=[];
     forms.forEach(form => {
@@ -200,7 +200,7 @@ export function createInsertForm(forms,job) {
         input.placeholder = col.placeholder;
         td.appendChild(input);
         newRow.appendChild(td);
-        newRow.id=`inputs-row${job.id}`
+        newRow.id=`inputs-row${item.id}`
     });
 
     const td = document.createElement('td');
@@ -214,40 +214,16 @@ export function createInsertForm(forms,job) {
     document.getElementById('table').appendChild(newRow);
 
      // Event listener setup
-//button.addEventListener('click', addConnection);
-
-// Asynchronous function to add connection
-/*
-async function addConnection() {
-    // Retrieve input values
-    var newDate = document.getElementById("newDate").value;
-    var newInterviewer = document.getElementById("newInterviewer").value;
-    var newStatus = document.getElementById("newStatus").value;
-    var newNotes = document.getElementById("newNotes").value;
-
-    // Create new Connection object
-    var note = new Note("-1", newDate, newInterviewer, newStatus, newNotes);
-
-    // Send data asynchronously
-    var res = await sendData(`/applications/add-note`, newConnection); // Assuming sendData returns true/false
-
-    // Check result
-    if (res === false) {
-        return false; // Handle error if sendData failed
-    } else {
-        
-        createNewRow(columns); // Call createNewRow if sendData was successful
-    }
-    return true;
-}
-*/
+button.addEventListener('click', func);
 }
 
-export async function createTableRow(tbody,process) {
+export async function createTableRow(tbody,item) {
     const newRow = document.createElement('tr');
+    newRow.id=`tr-${item._id}`;
+
     const rowData = [
-        ...Object.values(process), // Spread the values into the array
-        '<a href="#" id="delete-btn" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>'
+        ...Object.values(item), // Spread the values into the array
+        '<a href="#" class=" deleteBtn btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>'
     ];
 
     rowData.forEach(data => {
@@ -257,4 +233,16 @@ export async function createTableRow(tbody,process) {
     });
 
     tbody.appendChild(newRow);
+    return newRow;
 }
+
+
+export function deleteButtonInit(tbody,func,item){
+    const button = tbody.lastElementChild.querySelector('.deleteBtn');
+    button.addEventListener('click', function() {
+        const row = button.closest('tr');
+        row.remove();
+        func(item);
+    });
+}
+
