@@ -6,11 +6,14 @@ import {ApplicationProcess} from '../models/ApplicationProcess.js';
 export async function initProcessTable(job){
     let headers = ['Date', 'Interviewer','Phone', 'Status', 'Notes','Actions'];
     let inputTitles=['Date','Interviewer','Phone','Status','Notes'];
+    var processesModal = document.getElementsByClassName("modal fade process")
     var modalBody = await createModal(job.title, job.id);
-    var tbody = createTable(modalBody,headers);
-    if(!document.getElementById(`inputs-row${job.id}`)){
-        createInsertForm(inputTitles,job);
-    }  
+    
+    var tbody = await createTable(modalBody,headers);
+    if (!document.getElementById(`inputs-row${job.id}`)) {
+        
+        createInsertForm(inputTitles, job);
+    }
     
     const processes = await getProcessApplication(job.id);
     
@@ -58,10 +61,18 @@ async function addNote(jobId) {
     if (res === false) {
         return false;
     } else {
-        let keysToRemove = ['_id', '_jobId','_user_id'];
         var tbody=document.getElementById('table');
-        let cleanedProcess = removeKeysFromDict(appProcess,keysToRemove);
-        createTableRow(tbody, cleanedProcess);
+        var processIdToDelete=appProcess._id;
+        delete appProcess._id;
+        delete appProcess._user_id;
+        delete appProcess._jobId;
+        createTableRow(tbody, appProcess);
+        deleteButtonInit(tbody,deleteProcess,processIdToDelete);
+        document.getElementById("newDate").value=""
+        document.getElementById("newInterviewer").value=""
+        document.getElementById("newPhone").value=""
+        document.getElementById("newStatus").value=""
+        document.getElementById("newNotes").value=""
     }
     return true;
 }
