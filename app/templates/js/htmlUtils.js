@@ -1,10 +1,10 @@
 export async function createModal(title, id) {
     var modal = document.createElement('div');
     modal.className = "modal fade";
-    modal.id = `modal${id}`;  // Unique ID
+    modal.id = `modal${id}`;
     modal.tabIndex = "-1";
     modal.role = "dialog";
-    modal.setAttribute("aria-labelledby", `exampleModalLabel${id}`);
+    modal.setAttribute("aria-labelledby", `exampleModalLabel`);
     modal.setAttribute("aria-hidden", "true");
 
     var modalDialog = document.createElement('div');
@@ -14,7 +14,6 @@ export async function createModal(title, id) {
     var modalContent = document.createElement('div');
     modalContent.className = "modal-content";
 
-    // Create modal header
     var modalHeader = document.createElement('div');
     modalHeader.className = "modal-header";
 
@@ -26,7 +25,7 @@ export async function createModal(title, id) {
 
     var modalTitle = document.createElement('h5');
     modalTitle.className = "modal-title";
-    modalTitle.id = `exampleModalLabel${id}`;
+    modalTitle.id = `exampleModalLabel`;
     modalTitle.textContent = title;
 
     var closeIcon = document.createElement('span');
@@ -36,7 +35,6 @@ export async function createModal(title, id) {
     modalHeader.appendChild(modalTitle);
     modalHeader.appendChild(closeButton);
 
-    // Create modal body
     var modalBody = document.createElement('div');
     modalBody.className = "modal-body";
     modalBody.id = "modal-body";
@@ -70,21 +68,20 @@ export async function createModal(title, id) {
     col2Div.appendChild(innerDiv);
     rowDiv.appendChild(col2Div);
 
-    // Create modal footer
     var modalFooter = document.createElement('div');
     modalFooter.className = "modal-footer";
 
     var cancelButton = document.createElement('button');
-    cancelButton.className = "btn btn-secondary";
+    cancelButton.className = "btn btn-danger";
     cancelButton.type = "button";
     cancelButton.setAttribute("data-dismiss", "modal");
-    cancelButton.textContent = "Cancel";
+    cancelButton.textContent = "Inactive";
 
     var sendCommentButton = document.createElement('a');
     sendCommentButton.id = "sendComment";
-    sendCommentButton.className = "btn btn-primary change";
+    sendCommentButton.className = "btn btn-success change";
     sendCommentButton.href = "#";
-    sendCommentButton.textContent = "Comment";
+    sendCommentButton.textContent = "Active";
     modalFooter.appendChild(cancelButton);
     modalFooter.appendChild(sendCommentButton);
 
@@ -98,18 +95,25 @@ export async function createModal(title, id) {
 
     $(`#modal${id}`).modal('show');
 
+    // Remove the modal from the DOM when it is closed
+    $(`#modal${id}`).on('hidden.bs.modal', function() {
+        $(this).remove();
+    });
+
     return modalBody;
 }
 
 
 
-export function createTable(modalBody,headers) {
+
+export async function createTable(modalBody,headers) {
     const div = document.createElement('div');
     div.className = 'card-body';
     div.id = 'table-wrap';
 
     const tableResponsiveDiv = document.createElement('div');
     tableResponsiveDiv.className = 'table-responsive';
+    tableResponsiveDiv.style.overflowX = 'hidden';
 
     const wrapperDiv = document.createElement('div');
     wrapperDiv.id = 'dataTable_wrapper';
@@ -184,7 +188,7 @@ export function createTable(modalBody,headers) {
     return tbody;
 }
 
-export function createInsertForm(forms,item,func) {
+export function createInsertForm(forms,item) {
     const newRow = document.createElement('tr');
     let formsArray=[];
     forms.forEach(form => {
@@ -211,10 +215,10 @@ export function createInsertForm(forms,item,func) {
     td.appendChild(button);
     newRow.appendChild(td);
 
-    document.getElementById('table').appendChild(newRow);
+    document.getElementById(`table`).appendChild(newRow);
 
      // Event listener setup
-button.addEventListener('click', func);
+
 }
 
 export async function createTableRow(tbody,item) {
