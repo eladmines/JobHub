@@ -65,8 +65,15 @@ async function addConnection() {
     } else {
         var tbody=document.getElementById("table");
         delete newConnection._user_id;
+        var idConnection=res[0];
         delete newConnection._id;
         createTableRow(tbody,newConnection); // Call createNewRow if sendData was successful
+        document.getElementById("newName").value="";
+        document.getElementById("newPosition").value="";
+        document.getElementById("newCompany").value="";
+        document.getElementById("newPhone").value="";
+        document.getElementById("newAccounts").value="";
+        deleteButtonInit(tbody,deleteConnection,idConnection);
     }
     return true;
 }

@@ -62,7 +62,7 @@ async function addNote(jobId) {
     } else {
         
         var tbody=document.getElementById('table');
-        var processIdToDelete=appProcess._id;
+        var processIdToDelete=res[0];
         delete appProcess._id;
         delete appProcess._user_id;
         delete appProcess._jobId;
