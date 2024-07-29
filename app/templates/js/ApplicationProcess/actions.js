@@ -5,7 +5,7 @@ import {ApplicationProcess} from '../models/ApplicationProcess.js';
 
 export async function initProcessTable(job){
     let headers = ['Date', 'Interviewer','Phone', 'Subject', 'Descripition','Actions'];
-    let inputTitles=['Date - Day-Month-Year','Interviewer','Phone','Subject','Descripition'];
+    let inputTitles=['Day-Month-Year','Interviewer','Phone','Subject','Descripition'];
     var modalBody = await createModal(job.title, job.id);
     
     var tbody = await createTable(modalBody,headers);
