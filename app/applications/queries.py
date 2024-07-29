@@ -76,4 +76,5 @@ DELETE_PROCESS_APPLICATION="DELETE FROM processes_application WHERE id=%s"
 
 SAVE_PROCESS="""INSERT INTO processes_application (user_id, job_id, date, interviewer, phone, subject, description)
 VALUES (%s, %s, TO_DATE(%s, 'DD-MM-YYYY'), %s, %s, %s, %s)
+RETURNING id;
 """
