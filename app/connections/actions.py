@@ -21,7 +21,7 @@ def get_connections(user_id):
     return connections,None
 
 def add_connection(data):
-    save_query_exec(ADD_CONNECTION,data)
+    return save_query_exec(ADD_CONNECTION,data)
 
 
 def delete_connection(data):

@@ -21,7 +21,7 @@ def get_applications(data):
         applied=row['applicated_date']
         job = Job(title,location,description,qualifications, date,link,company,id,saved,applied)
         job = job.__dict__
-        applications.append(job)  
+        applications.append(job)
     return applications,None 
 
 def save_application(data):
@@ -41,4 +41,4 @@ def remove_process_application(data):
 
      
 def save_process(data):
-    save_query_exec(SAVE_PROCESS,data)
+    return save_query_exec(SAVE_PROCESS,data)
