@@ -83,7 +83,7 @@ export function buildJobContainer(arr, i) {
     applicationProcess.href = '#';
     applicationProcess.className = 'm-0 text-muted';
     applicationProcess.style.fontSize = '0.7rem';
-    applicationProcess.textContent = ' | Application process';
+    applicationProcess.textContent = 'Application process';
     applicationProcess.id=`process${job.id}`;
     
     
@@ -160,29 +160,40 @@ function jobSearch() {
 
 // Function to set up card with event listeners for save, apply, and comments
 function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSaved, isJobApplied, applicationProcess) {
-    if (isJobSaved == 1) {
-        saveOrRemoveJobButton.innerHTML = "Unsave | ";
-    } else {
-        saveOrRemoveJobButton.innerHTML = "Save | ";
+    function addSeparator(afterElement) {
+        const separator = document.createElement('span');
+        separator.innerHTML = " | ";
+        afterElement.parentNode.insertBefore(separator, afterElement.nextSibling);
     }
+
+    if (isJobSaved == 1) {
+        saveOrRemoveJobButton.innerHTML = "Unsave";
+    } else {
+        saveOrRemoveJobButton.innerHTML = "Save";
+    }
+
     if (!isJobApplied) {
-        
         applyButton.innerHTML = "Apply";
     } else {
         applyButton.innerHTML = `Withdraw application (Applied on ${isJobApplied})`;
     }
 
+    // Add separators
+    addSeparator(saveOrRemoveJobButton);
+    addSeparator(applyButton);
+
     saveOrRemoveJobButton.addEventListener('click', () => {
-        if (saveOrRemoveJobButton.innerHTML == "Save | ") {
-            saveOrRemoveJobButton.innerHTML = "Unsave | ";
+        if (saveOrRemoveJobButton.innerHTML == "Save") {
+            saveOrRemoveJobButton.innerHTML = "Unsave";
             dataToSend[1] = job.id;
             saveJob(dataToSend);
         } else {
-            saveOrRemoveJobButton.innerHTML = "Save | ";
-            dataToSend[1] =job.id;
+            saveOrRemoveJobButton.innerHTML = "Save";
+            dataToSend[1] = job.id;
             deleteSavedJob(dataToSend);
         }
     });
+
     applyButton.addEventListener('click', () => {
         if (applyButton.innerHTML == "Apply") {
             dataToSend[1] = job.id;
@@ -196,8 +207,9 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
     });
 
     applicationProcess.addEventListener('click', () => initProcessTable(job));
-
 }
+
+
 
 // Initialize job search functionality
 jobSearch();
