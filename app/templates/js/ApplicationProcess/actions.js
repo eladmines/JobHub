@@ -5,7 +5,7 @@ import {ApplicationProcess} from '../models/ApplicationProcess.js';
 
 export async function initProcessTable(job){
     let headers = ['Date', 'Interviewer','Phone', 'Subject', 'Descripition','Actions'];
-    let inputTitles=['Date','Interviewer','Phone','Subject','Descripition'];
+    let inputTitles=['Date - Day-Month-Year','Interviewer','Phone','Subject','Descripition'];
     var modalBody = await createModal(job.title, job.id);
     
     var tbody = await createTable(modalBody,headers);
@@ -15,7 +15,6 @@ export async function initProcessTable(job){
     }
     
     const processes = await getProcessApplication(job.id);
-    console.log(processes)
     for (let process of processes) {
         var processToInsert = new ApplicationProcess(process["id"],process["job_id"],process["date"],process["interviewer"],process["phone"],process["subject"],process["description"]);
         var processIdToDelete=processToInsert._id;
