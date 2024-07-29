@@ -4,21 +4,20 @@ import {ApplicationProcess} from '../models/ApplicationProcess.js';
 
 
 export async function initProcessTable(job){
-    let headers = ['Date', 'Interviewer','Phone', 'Status', 'Notes','Actions'];
-    let inputTitles=['Date','Interviewer','Phone','Status','Notes'];
-    var processesModal = document.getElementsByClassName("modal fade process")
+    let headers = ['Date', 'Interviewer','Phone', 'Subject', 'Descripition','Actions'];
+    let inputTitles=['Date','Interviewer','Phone','Subject','Descripition'];
     var modalBody = await createModal(job.title, job.id);
     
     var tbody = await createTable(modalBody,headers);
+    
     if (!document.getElementById(`inputs-row${job.id}`)) {
-        
         createInsertForm(inputTitles, job);
     }
     
     const processes = await getProcessApplication(job.id);
-    
+    console.log(processes)
     for (let process of processes) {
-        var processToInsert = new ApplicationProcess(process["id"],process["job_id"],process["date"],process["interviewer"],process["phone"],process["status"],process["notes"]);
+        var processToInsert = new ApplicationProcess(process["id"],process["job_id"],process["date"],process["interviewer"],process["phone"],process["subject"],process["description"]);
         var processIdToDelete=processToInsert._id;
         delete processToInsert._id;
         delete processToInsert._user_id;
@@ -53,14 +52,15 @@ async function addNote(jobId) {
     var newDate = document.getElementById("newDate").value;
     var newInterviewer = document.getElementById("newInterviewer").value;
     var newPhone = document.getElementById("newPhone").value;
-    var newStatus = document.getElementById("newStatus").value;
-    var newNotes = document.getElementById("newNotes").value;
-    var appProcess = new ApplicationProcess(getCookieValue('id'),jobId,newDate,newInterviewer,newPhone,newStatus,newNotes);
+    var newSubject = document.getElementById("newSubject").value;
+    var newDescripition = document.getElementById("newDescripition").value;
+    var appProcess = new ApplicationProcess(getCookieValue('id'),jobId,newDate,newInterviewer,newPhone,newSubject,newDescripition);
     
     var res = await sendData(`/add-process`, appProcess); 
     if (res === false) {
         return false;
     } else {
+        
         var tbody=document.getElementById('table');
         var processIdToDelete=appProcess._id;
         delete appProcess._id;
@@ -71,8 +71,8 @@ async function addNote(jobId) {
         document.getElementById("newDate").value=""
         document.getElementById("newInterviewer").value=""
         document.getElementById("newPhone").value=""
-        document.getElementById("newStatus").value=""
-        document.getElementById("newNotes").value=""
+        document.getElementById("newSubject").value=""
+        document.getElementById("newDescripition").value=""
     }
     return true;
 }
