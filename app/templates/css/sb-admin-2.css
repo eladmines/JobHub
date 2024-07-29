@@ -44,7 +44,8 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  /*box-sizing: border-box;
+  color: blue;*/
 }
 
 html {
@@ -215,7 +216,7 @@ table {
 caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  color: #858796;
+  color: red;
   text-align: left;
   caption-side: bottom;
 }
