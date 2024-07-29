@@ -5,10 +5,10 @@ import {createTableRow,createTable,createInsertForm,deleteButtonInit} from "../h
 export async function initPage(){
     //Init variables
     var body = document.getElementById("table-wrap");
-    let headers = ['Name', 'Position','Company', 'Phone', 'Accounts','Actions'];
+    let headers = ['Name', 'Position','Company', 'Phone', 'Accounts (Coming soon..)','Actions'];
     let inputTitles=['Name', 'Position','Company', 'Phone', 'Accounts'];
     //Create table
-    var tbody = createTable(body,headers);
+    var tbody = await createTable(body,headers);
     createInsertForm(inputTitles,"",addConnection);
     //Get data
     const connections = await getConnections();
@@ -20,7 +20,12 @@ export async function initPage(){
         delete conn._id;
         createTableRow(tbody, conn);
         deleteButtonInit(tbody,deleteConnection,connectionIdToDelete);
+       
     }
+    document.getElementById("addRowButton").addEventListener('click', function() {
+        addConnection(); 
+    });
+    
 }
 
 export async function getConnections() {
