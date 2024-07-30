@@ -83,7 +83,7 @@ export function buildJobContainer(arr, i) {
     applicationProcess.href = '#';
     applicationProcess.className = 'm-0 text-muted';
     applicationProcess.style.fontSize = '0.7rem';
-    applicationProcess.textContent = 'Application process';
+    applicationProcess.textContent = 'Application tracking';
     applicationProcess.id=`process${job.id}`;
     
     
