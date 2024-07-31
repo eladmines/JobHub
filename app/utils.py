@@ -15,8 +15,9 @@ def save_query_exec(query,data):
      try:
           curs.execute(query,data)
           con.commit() 
+          res=curs.fetchone()
           close_connection(con)
-          return True
+          return res
      except Exception as e:
           print(f"Error: {e}")
           con.rollback()
