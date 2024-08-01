@@ -2,7 +2,7 @@ import {User} from "../models/user.js";
 import {checkEmptyInputsArray,emailValidation,checkPasswords,sendData,navigateToPage,isNumber} from "../utils.js"
 const USER_DO_NOT_CREATE_YET_ID=0;
 
-export function register(){
+export async function register(){
     var {user,passwords} = initRegisterArgs();
     var res = registerInputsValidiation(user,passwords);
     if(res){
@@ -14,10 +14,13 @@ export function register(){
         user.setCompany(user.company.value);
         user.setExperience(user.experience.value);
         user.setSkills(user.skills.value);
-        res = userRegister(user);
+        res = await userRegister(user);
     }
     if(res){
         navigateToPage('/');
+    }
+    else{
+        alert("Sorry, this email address is already in use. Please use a different email or log in with your existing account.");
     }
 }
 
