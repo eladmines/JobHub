@@ -1,7 +1,7 @@
 
 from app.dbConnections import open_connection, close_connection
 from app.register.queries import REGISTER_USER
-from app.models.user import User
+import bcrypt
 FIRST_NAME='firstName'; LAST_NAME='lastName';EMAIL='email';PASSWORD='inputPassword';ROLE='role';COMPANY='company';EXPERIENCE='experience';SKILLS='skills'
 
 def register_user(user):
@@ -24,4 +24,7 @@ def register_user(user):
           return False
      
 
-    
+def hash_password(password):
+     salt = bcrypt.gensalt()
+     hashed = bcrypt.hashpw(password.encode('utf-8'),salt)
+     return hashed.decode('utf-8')
