@@ -74,7 +74,9 @@ SELECT * FROM processes_application WHERE user_id=%s and job_id=%s
 
 DELETE_PROCESS_APPLICATION="DELETE FROM processes_application WHERE id=%s"
 
-SAVE_PROCESS="""INSERT INTO processes_application (user_id, job_id, date, interviewer, phone, subject, description)
+SAVE_PROCESS="""INSERT INTO processes_application (user_id, job_id, date, interviewer, phone, subject, description,active)
 VALUES (%s, %s, TO_DATE(%s, 'DD-MM-YYYY'), %s, %s, %s, %s)
 RETURNING id;
 """
+
+UPDATE_ACTIVITY="""UPDATE jobs_applicated SET active=%s WHERE id=%s"""
