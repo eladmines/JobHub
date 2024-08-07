@@ -1,17 +1,19 @@
-import psycopg2
-from config import DATABASE_URL
-def open_connection():
-    try:
-        conn = psycopg2.connect(DATABASE_URL)
-    except psycopg2.OperationalError as e:
-        print('Unable to connect!\n{0}'.format(e))  
-        # Return None or raise an exception here based on your requirement
-        return None
-    else:
-        return conn
 
-def close_connection(con):
+from sqlalchemy import create_engine
+from config import DATABASE_URL
+
+
+def open_connection():
+    engine = create_engine(DATABASE_URL)
     try:
-        con.close()
+        with engine.connect() as connection:
+            print("Connected to PostgreSQL RDS!")
+            return engine
+    except Exception as e:
+        print(f"Error connecting to PostgreSQL RDS: {e}")
+
+def close_connection(engine):
+    try:
+        engine.dispose()
     except Exception as e:
         print('Error closing connection: {0}'.format(e))
