@@ -1,3 +1,5 @@
-UPDATE_USER_DETAILS=""" UPDATE users
-    SET firstname=%s, lastname=%s, company=%s, role=%s, experience=%s,skills=%s
-    WHERE id=%s"""
+UPDATE_USER_DETAILS = """
+    UPDATE users
+    SET firstname=:firstname, lastname=:lastname, company=:company, role=:role, experience=:experience, skills=:skills
+    WHERE id=:id
+"""

@@ -1,1 +1,1 @@
-USER_AUTHENTICATION="SELECT * FROM users WHERE email = %s"
+USER_AUTHENTICATION = "SELECT * FROM users WHERE email = :email"
