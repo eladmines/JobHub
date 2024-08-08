@@ -1,5 +1,5 @@
 from app.dbConnections import open_connection, close_connection     
-import psycopg2.extras
+from sqlalchemy import text
 
 #Remove special characters from JSON
 def remove_special_chars(item):
@@ -9,44 +9,50 @@ def remove_special_chars(item):
      return item
 
 #Connect->Execute (Save data)->Close connection
-def save_query_exec(query,data):
-     con=open_connection()
-     curs=con.cursor()
-     try:
-          curs.execute(query,data)
-          con.commit() 
-          res=curs.fetchone()
-          close_connection(con)
-          return res
-     except Exception as e:
-          print(f"Error: {e}")
-          con.rollback()
+def save_query_exec(query, params):
+    con = open_connection()
+    try:
+        trans = con.begin()
+        result = con.execute(text(query), params)
+        trans.commit()
+        res = result.fetchone()
+        #close_connection(con)
+        return res
+    except Exception as e:
+        print(f"Error: {e}")
+        trans.rollback()
+        close_connection(con)
+        return None
 
-def delete_query_exec(query,data):
-     con=open_connection()
-     curs=con.cursor()
-     print(data)
-     try:
-          curs.execute(query,data)
-          con.commit() 
-          close_connection(con)
-          return True
-     except Exception as e:
-          print(f"Error: {e}")
-          con.rollback()
+def delete_query_exec(query, params):
+    con = open_connection()
+    try:
+        trans = con.begin()
+        con.execute(text(query), params)
+        trans.commit()
+        close_connection(con)
+        return True
+    
+    except Exception as e:
+        print(f"Error: {e}")
+        trans.rollback()
+        #close_connection(con)
+        return False
 
 #Get query execution - no commit neeeded
-def get_query_exec(query,data):
-     con=open_connection()
-     curs = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-     try:
-          curs.execute(query,(data))
-          data=curs.fetchall()
-          close_connection(con)
-          return data
-     except Exception as e:
-          print(f"Error: {e}")
-          con.rollback()
+def get_query_exec(query, params):
+    con = open_connection()
+    try:
+        trans = con.begin()
+        result = con.execute(text(query), params)
+        data = [dict(row) for row in result.mappings()]
+        close_connection(con)
+        return data
+    except Exception as e:
+        print(f"Error: {e}")
+        trans.rollback()
+        close_connection(con)
+        return []
 
 
 
