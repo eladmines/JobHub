@@ -5,7 +5,7 @@ from app.utils import remove_special_chars,save_query_exec,delete_query_exec,get
 from app.savedjobs.queries import SAVE_JOB
 
 def get_saved_jobs(data):
-    data=(data,data)
+    data={'user_id':data}
     rows=get_query_exec(GET_ALL_SAVED_JOBS,data)
     Jobs = []
     for row in rows:
@@ -25,9 +25,11 @@ def get_saved_jobs(data):
     return Jobs,None 
 
 def remove_saved_job(data):
+     data={'user_id':data[0],'job_id':data[1]}
      delete_query_exec(DELETE_SAVED_JOB,data)
 
 def save_job(data):
+    data={'user_id':data[0],'job_id':data[1]}
     save_query_exec(SAVE_JOB,data)
 
 

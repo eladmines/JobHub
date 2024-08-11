@@ -19,7 +19,7 @@ def handle_post_request():
     data=request.get_json()
     data = tuple(data['sentData'].values())[1:]
     res = add_connection(data)
-    return jsonify(res)
+    return jsonify(res[0])
 
 @connections_bp.route("/connections/<user_id>/<connection_to_delete>", methods=["DELETE"])
 def handle_delete_request(user_id,connection_to_delete):

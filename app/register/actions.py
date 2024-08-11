@@ -2,17 +2,27 @@
 from app.dbConnections import open_connection, close_connection
 from app.register.queries import REGISTER_USER
 import bcrypt
+from sqlalchemy import text
+
 FIRST_NAME='firstName'; LAST_NAME='lastName';EMAIL='email';PASSWORD='inputPassword';ROLE='role';COMPANY='company';EXPERIENCE='experience';SKILLS='skills'
 
 def register_user(user):
      con=open_connection()
-     curs=con.cursor()
      try:
-          values=(user.get_firstname(), user.get_lastname(), user.get_email(),
-          user.get_password(), user.get_role(), user.get_company(),user.get_experience(),user.get_skills())
-          curs.execute(REGISTER_USER,values)
-          curs.fetchone()
-          if curs.rowcount > 0:   
+          values = {
+            'firstName': user.get_firstname(),
+            'lastName': user.get_lastname(),
+            'email': user.get_email(),
+            'password': user.get_password(),
+            'role': user.get_role(),
+            'company': user.get_company(),
+            'experience': user.get_experience(),
+            'skills': user.get_skills()
+        }
+          query = text(REGISTER_USER)
+          res = con.execute(query,values)
+          res.fetchone()
+          if res.rowcount > 0:   
                con.commit()
                close_connection(con)
                return True

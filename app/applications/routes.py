@@ -21,8 +21,8 @@ def handle_post_request():
     data = request.get_json()
     if data is None:
         return jsonify({"error": "No data provided"}), 400
-    sent_data = data['sentData']
-    res = save_application(sent_data)
+    user_id,job_id={data['sentData'][0],data['sentData'][1]}
+    res = save_application(user_id,job_id)
     if res == False:
         return jsonify({"error": "Failed to save application"}), 400
     return jsonify(res)

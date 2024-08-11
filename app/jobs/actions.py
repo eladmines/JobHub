@@ -3,7 +3,7 @@ from app.utils import remove_special_chars,get_query_exec
 from .queries import GET_ALL_JOBS
 
 def get_all_jobs(user_id):
-    params=(user_id,user_id)
+    params={"user_id":user_id}
     rows = get_query_exec(GET_ALL_JOBS,params)
     if rows is None:
             return "Error: GET_ALL_JOBS query failed",400
