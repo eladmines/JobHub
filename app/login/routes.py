@@ -20,6 +20,7 @@ def handle_post_request():
         if loginDetails is None:
             return jsonify({"error": "Authentication failed. Incorrect email or password."}), 401
         user = User(loginDetails[0],loginDetails[1],loginDetails[2],loginDetails[3],loginDetails[4],loginDetails[5],loginDetails[6],loginDetails[7],loginDetails[8])
+        
         if user is None:
              return jsonify ({"error":"No user created"})
         user=vars(user)
