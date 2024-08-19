@@ -5,22 +5,20 @@ from app.applications.queries import GET_NUM_OF_APPLICATIONS_TODAY,GET_NUM_APPLI
 from app.models.profile import Profile
 from app.models.user import User
 from sqlalchemy import text
-"""def get_user_data(data):
+def get_user_data(data):
      con=open_connection()
      try:
-          print("dataaaaaaaaaaaaaaa",data)
           query = text(GET_USER_DETAILS)
-          res = con.execute(query, {"email": data})
+          res = con.execute(query, {"id": data})
           res = res.fetchone()
-          user = User(res[3],"",res[1],res[2],res[5],res[6],res[0],res[7],res[8])
-          close_connection(con)
+          user = User(res[0],res[1],res[2],res[3],res[4],res[5],res[6],res[7],res[8])
           dictUser=vars(user)
           return dictUser
      except Exception as e:
           print(f"Error: {e}")
           # Rollback changes in case of an error
           con.rollback() 
-     return"""
+     return
 
 def get_profile_data(data):
      con=open_connection()

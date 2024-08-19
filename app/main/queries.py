@@ -1,1 +1,1 @@
-GET_USER_DETAILS="""SELECT * FROM users WHERE email = :email"""
+GET_USER_DETAILS="""SELECT * FROM users WHERE id = :id"""
