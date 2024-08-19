@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from flask import jsonify
 import secrets
 
-secret_key = secrets.token_hex(32)
+secret_key = 'your_secret_key'
 def authentication(email, password):
     try:
         con = open_connection()
