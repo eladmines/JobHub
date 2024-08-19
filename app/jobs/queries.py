@@ -11,4 +11,9 @@ LEFT JOIN
     jobs_applicated ON jobs.job_id = jobs_applicated.job_id AND jobs_applicated.user_id = :user_id;
 """
 
+GET_ALL_JOBS_GUEST = """
+SELECT * FROM JOBS 
+   
+"""
+
 

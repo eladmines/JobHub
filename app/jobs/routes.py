@@ -8,9 +8,13 @@ def index():
 
 @jobs_bp.route("/jobs/<user_id>", methods=["GET"])
 def handle_get_request(user_id):
-    if user_id is None:
+    
+    if user_id == None:
         jsonify("Error: user_id is null"),400
+
     jobs,error = get_all_jobs(user_id)
+    
     if error:
         return jsonify({"error":error}),400
+    
     return jsonify(jobs), 200
