@@ -38,6 +38,7 @@ export function sendData(endpoint, sentData, action) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': getUserSession()
         },
         body: JSON.stringify(data),
     })
@@ -139,11 +140,16 @@ export function getCookieValue(name) {
     return null;
 }
 
+
+export function getSessionValue(name){
+    
+}
+
 export function getUserSession(){
-    const userString = sessionStorage.getItem('user');
+    const userString = sessionStorage.getItem('token');
     // Parse the JSON string back into an object
-    const user = JSON.parse(userString);
-    return user;
+    //const user = JSON.parse(userString);
+    return userString;
 }
 
 export function almostReady(){
@@ -165,7 +171,7 @@ export function removeSearchBar(){
 }
 
 export function sendUserId(endpoint){
-    var res=sendGetRequest(`${endpoint}/${getCookieValue('id')}`);
+    var res=sendGetRequest(`${endpoint}/${getUserSession('token')}`);
     return res;
 }
 
@@ -184,3 +190,9 @@ export function removeKeysFromDict(dict,keysToRemove){
             return newObj;
         }, {}));
 };
+
+
+export async function getUserData(endpoint,token){
+    var res = await sendData(endpoint,token,"")
+    return res;
+}
