@@ -1,14 +1,14 @@
 export class Connection {
-    constructor(id, user_id, name, position, company, phone, accounts) {
+    constructor(id, name, position, company, phone, accounts) {
         this.id = id; 
-        this.user_id = user_id;
         this.name = name;
         this.position = position;
         this.company = company;
         this.phone = phone;
-        this.accountsData = accounts;
+        this.accounts = accounts;
     }
-
+}
+/*
     // Getters
     get id() {
         return this._id;
@@ -67,3 +67,4 @@ export class Connection {
         this._accountsData = newAccounts;
     }
 }
+*/
