@@ -1,15 +1,16 @@
 export class ApplicationProcess {
-    constructor(id, jobId, date, interviewer, phone, status, notes) {
+    constructor(id, jobId, date, interviewer, phone, subject, desc) {
         // Initialize private properties
         this.id = id; 
         this.jobId = jobId;
         this.date = date;
         this.interviewer = interviewer;
         this.phone = phone;
-        this.status = status;
-        this.notes = notes;
+        this.subject = subject;
+        this.desc = desc;
     }
-
+}
+/*
     // Getter methods
     get id() {
         return this._id;
@@ -68,3 +69,5 @@ export class ApplicationProcess {
         this._notes = value;
     }
 }
+*/
+
