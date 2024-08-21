@@ -1,11 +1,12 @@
   
 from app.savedjobs.queries import DELETE_SAVED_JOB,GET_ALL_SAVED_JOBS
 from app.models.job import Job
-from app.utils import remove_special_chars,save_query_exec,delete_query_exec,get_query_exec
+from app.utils import remove_special_chars,save_query_exec,delete_query_exec,get_query_exec,get_id_by_token
 from app.savedjobs.queries import SAVE_JOB
 
-def get_saved_jobs(data):
-    data={'user_id':data}
+def get_saved_jobs(jwt):
+    user_id = get_id_by_token(jwt)
+    data={'user_id':user_id}
     rows=get_query_exec(GET_ALL_SAVED_JOBS,data)
     Jobs = []
     for row in rows:
@@ -25,11 +26,13 @@ def get_saved_jobs(data):
     return Jobs,None 
 
 def remove_saved_job(data):
-     data={'user_id':data[0],'job_id':data[1]}
+     user_id = get_id_by_token(data[0])
+     data={'user_id':user_id,'job_id':data[1]}
      delete_query_exec(DELETE_SAVED_JOB,data)
 
 def save_job(data):
-    data={'user_id':data[0],'job_id':data[1]}
+    user_id = get_id_by_token(data[0])
+    data={'user_id':user_id,'job_id':data[1]}
     save_query_exec(SAVE_JOB,data)
 
 

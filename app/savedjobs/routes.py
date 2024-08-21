@@ -36,6 +36,7 @@ def handle_post_request():
 
 @savedjobs_bp.route("/savedjobs/<user_id>/<job_to_delete>", methods=["DELETE"])
 def handle_delete_request(user_id,job_to_delete):
+    print("token",user_id)
     if user_id is None or job_to_delete is None:
         return jsonify("Error: user_id or job_to_delete is null"),400
     data=[user_id,int(job_to_delete)]
