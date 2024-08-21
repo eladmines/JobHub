@@ -1,6 +1,6 @@
 // Import necessary modules and functions
 import { Job } from '../models/job.js';
-import { getCookieValue, sendData, createFormattedDate } from '../utils.js';
+import { getCookieValue, sendData, createFormattedDate,getUserSession} from '../utils.js';
 import { saveJob, deleteSavedJob } from './savedJobs/actions.js';
 import { deleteApplication, saveApp } from './applications/actions.js';
 import {initProcessTable } from "../ApplicationProcess/actions.js";
@@ -117,7 +117,7 @@ export function buildJobContainer(arr, i) {
         event.preventDefault();
         $('#' + cardContent.id).collapse('toggle');
     });
-    var dataToSend = [getCookieValue('id')];
+    var dataToSend = [getUserSession()];
     setupCard(saveButton, job, dataToSend, applyButton, arr[i]['saved'], arr[i]['applied'],applicationProcess);
     
 }
@@ -183,6 +183,11 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
     addSeparator(applyButton);
 
     saveOrRemoveJobButton.addEventListener('click', () => {
+        if (!sessionStorage.getItem('token')){
+            alert("You must be logged in to perform this action.")
+            return;
+        }
+    
         if (saveOrRemoveJobButton.innerHTML == "Save") {
             saveOrRemoveJobButton.innerHTML = "Unsave";
             dataToSend[1] = job.id;
@@ -195,6 +200,10 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
     });
 
     applyButton.addEventListener('click', () => {
+        if (!sessionStorage.getItem('token')){
+            alert("You must be logged in to perform this action.")
+            return;
+        }
         if (applyButton.innerHTML == "Apply") {
             dataToSend[1] = job.id;
             applyButton.innerHTML = `Withdraw application (Applied on ${createFormattedDate()})`;
@@ -206,7 +215,13 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
         }
     });
 
-    applicationProcess.addEventListener('click', () => initProcessTable(job));
+    applicationProcess.addEventListener('click', () => {
+        if (!sessionStorage.getItem('token')){
+            alert("You must be logged in to perform this action.")
+            return;
+        }
+        initProcessTable(job);
+    })
 }
 
 
