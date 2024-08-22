@@ -61,6 +61,7 @@ export function sendDeleteRequest(endpoint) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': getUserSession()
         }
     })
     .then(function (response) {
@@ -98,8 +99,7 @@ export async function deleteData(endpoint,data) {
         console.error("Data is null");
         return false;
     }
-    var [user_id,item_id_to_delete]=data;
-    var res = await sendDeleteRequest(`/${endpoint}/${user_id}/${item_id_to_delete}`);
+    var res = await sendDeleteRequest(`/${endpoint}/${data}`);
     if (res == false){
         console.error("Failed to delete data");
         return false;
