@@ -99,7 +99,7 @@ WHERE
 
 # Get details of a specific process application by user ID and job ID
 GET_PROCESSES_APPLICATION = """
-SELECT * 
+SELECT id,date, interviewer, phone, subject, description
 FROM processes_application 
 WHERE user_id = :user_id 
 AND job_id = :job_id
@@ -114,9 +114,9 @@ WHERE id = :id
 # Save a new process with detailed information
 SAVE_PROCESS = """
 INSERT INTO processes_application 
-    (user_id, job_id, date, interviewer, phone, subject, description, active)
+    (user_id, job_id, date, interviewer, phone, subject, description)
 VALUES 
-    (:user_id, :job_id, TO_DATE(:date, 'DD-MM-YYYY'), :interviewer, :phone, :subject, :description, :active)
+    (:user_id, :job_id, TO_DATE(:date, 'DD-MM-YYYY'), :interviewer, :phone, :subject, :description)
 RETURNING id
 """
 
