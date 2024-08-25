@@ -28,5 +28,12 @@ function assignClickActions(){
     });
 }
 
+function displayNoneLoginLogoutDropMenu(){
+    var session = getUserSession();
+    if (!session){
+        document.getElementById("drop-menu-user").style.visibility="hidden";
+    }
+}
 //Entry point
 initTopBar()
+displayNoneLoginLogoutDropMenu()
