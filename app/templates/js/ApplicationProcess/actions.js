@@ -1,4 +1,4 @@
-import { getCookieValue,sendData,sendGetRequest,removeKeysFromDict,deleteData} from '../utils.js';
+import { getCookieValue,sendData,sendGetRequest,removeKeysFromDict,deleteData, getUserSession} from '../utils.js';
 import {createModal,createTable,createInsertForm,createTableRow,deleteButtonInit} from '../htmlUtils.js';
 import {ApplicationProcess} from '../models/ApplicationProcess.js';
 
@@ -17,10 +17,10 @@ export async function initProcessTable(job){
     const processes = await getProcessApplication(job.id);
     for (let process of processes) {
         var processToInsert = new ApplicationProcess(process["id"],process["job_id"],process["date"],process["interviewer"],process["phone"],process["subject"],process["description"]);
-        var processIdToDelete=processToInsert._id;
-        delete processToInsert._id;
-        delete processToInsert._user_id;
-        delete processToInsert._jobId;
+        var processIdToDelete=processToInsert.id;
+        delete processToInsert.id;
+        delete processToInsert.user_id;
+        delete processToInsert.jobId;
         createTableRow(tbody, processToInsert);
         deleteButtonInit(tbody,deleteProcess,processIdToDelete);
     }
@@ -32,7 +32,7 @@ export async function initProcessTable(job){
 
   
 async function getProcessApplication(applicationId){
-    var userId=getCookieValue('id');
+    var userId=getUserSession();
     var res =  await sendGetRequest(`/app-process/${userId}/${applicationId}`);
     return res;
 }
@@ -48,26 +48,25 @@ export function removeModalContent() {
 
       
 async function addNote(jobId) {
-    var newDate = document.getElementById("newDate").value;
+    var newDate = document.getElementById("newDay-Month-Year").value;
     var newInterviewer = document.getElementById("newInterviewer").value;
     var newPhone = document.getElementById("newPhone").value;
     var newSubject = document.getElementById("newSubject").value;
     var newDescripition = document.getElementById("newDescripition").value;
-    var appProcess = new ApplicationProcess(getCookieValue('id'),jobId,newDate,newInterviewer,newPhone,newSubject,newDescripition);
-    
+    var appProcess = new ApplicationProcess("",jobId,newDate,newInterviewer,newPhone,newSubject,newDescripition);
+    appProcess=[getUserSession(),appProcess]
     var res = await sendData(`/add-process`, appProcess); 
     if (res === false) {
         return false;
     } else {
-        
         var tbody=document.getElementById('table');
-        var processIdToDelete=res[0];
-        delete appProcess._id;
-        delete appProcess._user_id;
-        delete appProcess._jobId;
-        createTableRow(tbody, appProcess);
+        var processIdToDelete=res;
+        delete appProcess[1].id;
+        delete appProcess[1].user_id;
+        delete appProcess[1].jobId;
+        createTableRow(tbody, appProcess[1]);
         deleteButtonInit(tbody,deleteProcess,processIdToDelete);
-        document.getElementById("newDate").value=""
+        document.getElementById("newDay-Month-Year").value=""
         document.getElementById("newInterviewer").value=""
         document.getElementById("newPhone").value=""
         document.getElementById("newSubject").value=""
@@ -76,11 +75,9 @@ async function addNote(jobId) {
     return true;
 }
 
-export function deleteProcess(data) {
-    var userId=getCookieValue('id');
-    var processToDelete=data;
-    data=[userId, processToDelete];
-    var res = deleteData(`delete-processes-applications`,data);
+export function deleteProcess(processToDelete) {
+    var processToDelete;
+    var res = deleteData(`delete-processes-applications`,processToDelete);
     if(res == false){
         console.error("Failed to delete the connection");
         return false;
