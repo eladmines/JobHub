@@ -21,4 +21,4 @@ def handle_post_request():
             return jsonify({"error": "Authentication failed. Incorrect email or password."}), 401
         return loginDetails
     except Exception as e:
-            return {"error": f"An error occurred: {str(e)}"}, 500
+            return jsonify({"error": f"An error occurred: {str(e)}"}), 500

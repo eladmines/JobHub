@@ -21,7 +21,7 @@ def authentication(email, password):
     
     except Exception as e:
         print(f"Error: {e}")
-        return False
+        return jsonify({False})
     
    
 
