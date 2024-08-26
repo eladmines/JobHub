@@ -30,15 +30,14 @@ export async function login() {
             return 0;
         }
             userObj = await authenticateDetails(userObj);
-            if(!userObj){
+            if(!userObj){   
                 alert("Wrong email/password , please try again.");
                 return 0;
             }
             if (userObj) {
-                var userString = JSON.stringify(userObj);
-                sessionStorage.setItem('user', userString);
-                setCookie('id', userObj.id);
-                navigateToPage('/main');
+                var token = userObj.token;
+                sessionStorage.setItem('token', token);
+                navigateToPage('/');
             } 
         }
 
@@ -84,7 +83,7 @@ export function checkEmptyInputsLoginWrapper(user,password){
 }
 
 async function authenticateDetails(user){
-    var res = await sendData('/',user,'autentication');
+    var res = await sendData('/login',user,'autentication');
     return res;
 }
 
