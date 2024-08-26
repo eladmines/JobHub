@@ -1,3 +1,4 @@
+import {getUserSession} from './utils.js'
 /* Send data to a page with the required action */ 
 export  function sendData(page, sentData) {
     let data = {sentData: sentData }; // Wrap data in an object
@@ -5,6 +6,7 @@ export  function sendData(page, sentData) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': getUserSession()
         },
         body: JSON.stringify(data),
     })
