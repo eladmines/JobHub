@@ -10,9 +10,12 @@ def authentication(email, password):
         con = open_connection()
         query = text(USER_AUTHENTICATION)
         result = con.execute(query, {"email": email})
+        print("result",result)
         user = result.fetchone()
+        print("user",user)
         if user:
             decode_password = user[4]
+            print("decode_password", decode_password)
             is_password_correct = check_password(password, decode_password)
             if is_password_correct:
                 token = jwt.encode({ 'user_id': user[0]},SECRET_KEY, algorithm='HS256')
@@ -27,4 +30,7 @@ def authentication(email, password):
 
 def check_password(password: str, hashed: str) -> bool:
     # Check if the provided password matches the hashed password
-    return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+    print("inside check_password", password, hashed)
+    res = bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+    print ("res hash", res)
+    return res
