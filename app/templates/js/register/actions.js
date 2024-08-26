@@ -17,7 +17,7 @@ export async function register(){
         res = await userRegister(user);
     }
     if(res){
-        navigateToPage('/');
+        navigateToPage('/login');
     }
     else{
         alert("Sorry, this email address is already in use. Please use a different email or log in with your existing account.");
