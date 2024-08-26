@@ -1,0 +1,1 @@
+GET_NAME="""SELECT firstname,lastname FROM users WHERE id = :id"""
