@@ -196,3 +196,13 @@ export async function getUserData(endpoint,token){
     var res = await sendData(endpoint,token,"")
     return res;
 }
+
+export function checkLoginAndNavigate(endpoint){
+    var token = sessionStorage.getItem('token');
+    if (token){
+        window.location.href = endpoint;
+    }else{
+        alert("You must be logged in to perform this action.")
+        navigateToPage('/')
+    }
+}
