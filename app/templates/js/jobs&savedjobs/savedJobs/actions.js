@@ -21,9 +21,8 @@ export async function getSavedJobs() {
 };
 
 export async function deleteSavedJob(data) {
-    console.log(data)
     var res = deleteData("savedjobs",data);
-    var job_to_delete=data[1]
+    var job_to_delete=data
     if(res == false){
         console.error("Failed to delete the job");
         return false;

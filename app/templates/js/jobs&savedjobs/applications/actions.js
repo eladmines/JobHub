@@ -30,7 +30,7 @@ export async function getApplications() {
 
 export async function deleteApplication(data) {
     var res = deleteData("applications",data);
-    var application_to_delete=data[1]
+    var application_to_delete=data
     if(res == false){
         console.error("Failed to delete the application");
         return false;
