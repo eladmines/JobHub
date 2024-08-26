@@ -2,15 +2,14 @@
 from sqlalchemy import create_engine
 from config import DATABASE_URL
 
-
 def open_connection():
     engine = create_engine(DATABASE_URL)
     try:
-        with engine.connect() as connection:
-            print("Connected to PostgreSQL RDS!")
-            return engine
+        connection = engine.connect()
+        return connection
     except Exception as e:
         print(f"Error connecting to PostgreSQL RDS: {e}")
+        raise
 
 def close_connection(engine):
     try:
