@@ -1,13 +1,10 @@
-from app.dbConnections import open_connection, close_connection
+from app.dbConnections import open_connection
 from app.login.queries import USER_AUTHENTICATION
 import bcrypt
 from sqlalchemy import text
 import jwt
-from datetime import datetime, timedelta
 from flask import jsonify
-import secrets
-
-secret_key = 'your_secret_key'
+from app.config import SECRET_KEY
 def authentication(email, password):
     try:
         con = open_connection()
@@ -18,8 +15,7 @@ def authentication(email, password):
             decode_password = user[4]
             is_password_correct = check_password(password, decode_password)
             if is_password_correct:
-                token = jwt.encode({ 'user_id': user[0], 'exp': datetime.utcnow() + timedelta(hours=1)},secret_key, algorithm='HS256')
-                print(jsonify({'token': token}))
+                token = jwt.encode({ 'user_id': user[0]},SECRET_KEY, algorithm='HS256')
                 return jsonify({'token': token})
         return False
     

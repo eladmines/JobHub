@@ -3,9 +3,7 @@ from flask import render_template,request, jsonify
 from app.main.actions import get_profile_data,get_user_data
 from app.utils import get_id_by_token
 from app.main import main_bp
-import jwt
 
-secret_key = 'your_secret_key'
 @main_bp.route("/")
 def index():
       return render_template('main.html') 

@@ -25,14 +25,12 @@ def get_saved_jobs(jwt):
         Jobs.append(job)  
     return Jobs,None 
 
-def remove_saved_job(data):
-     user_id = get_id_by_token(data[0])
-     data={'user_id':user_id,'job_id':data[1]}
+def remove_saved_job(user_id,job_to_delete):
+     data={"user_id":user_id,"job_id":job_to_delete}
      delete_query_exec(DELETE_SAVED_JOB,data)
 
-def save_job(data):
-    user_id = get_id_by_token(data[0])
-    data={'user_id':user_id,'job_id':data[1]}
+def save_job(user_id,job_id):
+    data={'user_id':user_id,'job_id':job_id}
     save_query_exec(SAVE_JOB,data)
 
 
