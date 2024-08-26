@@ -1,8 +1,7 @@
  <!-- Sidebar -->
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./main">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon">
             <i class="fas fa-solid fa-user-tie"></i>
            
@@ -15,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="./main">
+        <a class="nav-link" href="/">
             
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -41,7 +40,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
             <a class="collapse-item" href="/jobs">Jobs</a>
-            <a class="collapse-item" href="/savedjobs">Saved jobs</a>
+            <a class="collapse-item"  href="#" onclick="checkLoginAndAct('/savedjobs')">Saved jobs</a>
         </div>
     </div>
 </li>
@@ -57,16 +56,16 @@
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="./applications">All</a>
-            <a class="collapse-item" href="./applications">Active</a>
-            <a class="collapse-item" href="./applications">Inactive</a>
-            <a class="collapse-item" href="./applications">Today</a>
+            <a class="collapse-item" href="#" onclick="checkLoginAndAct('/applications')">All</a>
+            <a class="collapse-item" href="#" onclick="checkLoginAndAct('/applications')">Active</a>
+            <a class="collapse-item" href="#" onclick="checkLoginAndAct('/applications')">Inactive</a>
+            <a class="collapse-item" href="#" onclick="checkLoginAndAct('/applications')">Today</a>
         </div>
     </div>
 </li>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="/connections"  data-target="#collapsePages"
+        <a class="nav-link collapsed" href="#" onclick="checkLoginAndAct('/connections')" data-target="#collapsePages"
                  aria-expanded="true" aria-controls="collapsePages">
             <i class="fa fa-users"></i>
             <span>My connections</span>
@@ -95,3 +94,15 @@
 </ul>
 <!-- End of Sidebar -->
 </section>
+
+
+<script>
+function checkLoginAndAct(endpoint){
+    var token = sessionStorage.getItem('token');
+    if (token){
+        window.location.href = endpoint;
+    }else{
+        alert("You must be logged in to perform this action.")
+    }
+}
+</script>
