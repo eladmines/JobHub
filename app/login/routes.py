@@ -17,10 +17,8 @@ def handle_post_request():
         email=data['sentData']['email']
         password=data['sentData']['password']
         loginDetails=authentication(email,password)
-        print("loginDetails",loginDetails)
         if loginDetails is None:
             return jsonify({"error": "Authentication failed. Incorrect email or password."}), 401
-        print(loginDetails)
         return jsonify({'token':loginDetails})
     except Exception as e:
             return jsonify({"error": f"An error occurred: {str(e)}"}), 500
