@@ -1,4 +1,4 @@
-import { sendGetRequest, getCookieValue,sendData,deleteData} from "../utils.js";
+import { sendGetRequest, getCookieValue,sendData,deleteData, getUserSession} from "../utils.js";
 import { Connection } from "../models/connections.js";
 import {createTableRow,createTable,createInsertForm,deleteButtonInit} from "../htmlUtils.js"
 
@@ -14,10 +14,9 @@ export async function initPage(){
     const connections = await getConnections();
     //Iterate
     for (let connection of connections) {
-        var conn = new Connection(connection['id'],connection['user_id'],connection['name'],connection['position'],connection['company'],connection['phone'],connection['accountsData']);
-        var connectionIdToDelete = conn._id;
-        delete conn._user_id;
-        delete conn._id;
+        var conn = new Connection(connection['id'],connection['name'],connection['position'],connection['company'],connection['phone'],connection['accountsData']);
+        var connectionIdToDelete = conn.id;
+        delete conn.id;
         createTableRow(tbody, conn);
         deleteButtonInit(tbody,deleteConnection,connectionIdToDelete);
        
@@ -29,15 +28,12 @@ export async function initPage(){
 }
 
 export async function getConnections() {
-    const res = await sendGetRequest(`/connections/${getCookieValue('id')}`);
+    const res = await sendGetRequest(`/connections/${getUserSession()}`);
     return res;
 }
 
-function deleteConnection(data) {
-    var userId=getCookieValue('id');
-    var connectionIdToDelete=data;
-    data=[userId, connectionIdToDelete];
-    var res = deleteData(`connections`,data);
+function deleteConnection(connectionIdToDelete) {
+    var res = deleteData('delete-connection',connectionIdToDelete);
     if(res == false){
         console.error("Failed to delete the connection");
         return false;
@@ -54,18 +50,18 @@ async function addConnection() {
     var newPhone = document.getElementById("newPhone").value;
     var newAccounts = document.getElementById("newAccounts").value;
     // Create new Connection object
-    var newConnection = new Connection("-1", getCookieValue('id'),newName, newPosition, newCompany, newPhone,newAccounts);
-
+    var newConnection = new Connection("-1",newName, newPosition, newCompany, newPhone,newAccounts);
+    delete newConnection.id;
+    var token = getUserSession();
+    var data=[token,newConnection]
     // Send data asynchronously
     var res = await sendData("/connections", newConnection); // Assuming sendData returns true/false
-
     // Check result
     if (res === false) {
         return false; // Handle error if sendData failed
     } else {
         var tbody=document.getElementById("table");
-        delete newConnection._user_id;
-        var idConnection=res[0];
+        var idConnection=res;
         delete newConnection._id;
         createTableRow(tbody,newConnection); // Call createNewRow if sendData was successful
         document.getElementById("newName").value="";
