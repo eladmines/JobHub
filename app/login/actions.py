@@ -24,7 +24,7 @@ def authentication(email, password):
             is_password_correct = check_password(password, decode_password)
             if is_password_correct:
                 token = jwt.encode({ 'user_id': user[0]},SECRET_KEY, algorithm='HS256')
-                return jsonify({'token': token})
+                return token
         return False
     
     except Exception as e:
