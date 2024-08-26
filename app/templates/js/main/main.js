@@ -1,3 +1,6 @@
-import { initPage} from './actions.js'
+import { initPage,addLoaderToElements} from './actions.js'
 //Entry point
 initPage()
+addLoaderToElements();
+
+

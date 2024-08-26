@@ -2,12 +2,16 @@ import {almostReady,getUserSession,removeSearchBar,getUserData} from '../utils.j
 import {setLineChart} from '../demo/chart-area-demo.js'
 import {Profile} from '../models/profile-info.js'
 
+
 export async function initPage(){
+    removeSearchBar();
     var token = getUserSession();
-    var details = await getUserData(token);
+    var details;
+    if(token){
+        details = await getUserData('/',token);
+    }
     initUserData(details);
     initProfileData(details);
-    removeSearchBar();
     document.getElementById("generateReport").addEventListener('click',almostReady);
 }
 
@@ -15,9 +19,9 @@ export async function initPage(){
 async function initUserData(details){
     if(!details){
         document.getElementById("role").innerText="Guest"
-        document.getElementById("company").innerText="Unknown";
-        document.getElementById("experience").innerText="Unknown";
-        document.getElementById("skills").innerText="Unknown";
+        document.getElementById("company").innerText="-";
+        document.getElementById("experience").innerText="-";
+        document.getElementById("skills").innerText="-";
     } 
     else{
         document.getElementById("role").innerText=details["role"];
@@ -31,10 +35,10 @@ async function initUserData(details){
 async function initProfileData(details){
     var userSession = getUserSession()
     if(!userSession){
-        document.getElementById("savedjobs-counter").innerText="Unknown";
-        document.getElementById("apply-today").innerText="Unknown";
-        document.getElementById("weekly-goal-percent").innerHTML="Unknown";
-        document.getElementById("weekly-goal-progress-bar").style.width="Unknown";
+        document.getElementById("savedjobs-counter").innerText="-";
+        document.getElementById("apply-today").innerText="-";
+        document.getElementById("weekly-goal-percent").innerHTML="-";
+        document.getElementById("weekly-goal-progress-bar").style.width="-";
         setLineChart([[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0]])
     }
     else{
@@ -46,5 +50,21 @@ async function initProfileData(details){
         setLineChart(userProfile.getArrayOfMonthlyApplicationsCount())
         }
 }
-   
+
+export function addLoaderToElements() {
+    document.addEventListener("DOMContentLoaded", function() {
+        const loadElements = document.getElementsByClassName('loadElement');
+        if (loadElements.length > 0) {
+            const loader = document.createElement('div');
+            loader.className = 'loader';
+            loader.innerHTML = '<span></span>';
+            if (getUserSession()) {
+                Array.from(loadElements).forEach(element => {
+                    element.appendChild(loader.cloneNode(true));
+                });
+            }
+        }
+    });
+}
+
 
