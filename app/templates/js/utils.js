@@ -46,7 +46,7 @@ export function sendData(endpoint, sentData, action) {
         if (response.ok) {
             return response.json();
         } else {
-            console.log("response.json",response.json())
+            console.log(response)
             return false;
         }
     })
