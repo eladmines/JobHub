@@ -76,9 +76,8 @@ export function setLineChart(arrCount) {
         }],
         yAxes: [{
           ticks: {
-            maxTicksLimit: Math.max(arrCount[0][1], arrCount[1][1], arrCount[2][1], arrCount[3][1], arrCount[4][1], arrCount[5][1], arrCount[6][1], arrCount[7][1], arrCount[8][1], arrCount[9][1], arrCount[10][1], arrCount[11][1]),
+            beginAtZero: true,  // Ensure y-axis starts from zero
             padding: 10,
-            // Include a dollar sign in the ticks
             callback: function(value, index, values) {
               return number_format(value);
             }
