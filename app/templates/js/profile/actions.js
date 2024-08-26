@@ -1,4 +1,4 @@
-import {sendData,getUserSession,removeSearchBar,getCookieValue,getUserData} from '../utils.js'
+import {sendData,getUserSession,removeSearchBar,checkLoginAndNavigate,getUserData} from '../utils.js'
 import {User} from '../models/user.js'
 
 async function initPage(){
@@ -29,3 +29,4 @@ initPage();
 removeSearchBar();
 var saveButton = document.getElementById("save-button");
 saveButton.addEventListener('click',changeUserDetails);
+checkLoginAndNavigate();
