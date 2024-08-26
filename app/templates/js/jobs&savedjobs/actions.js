@@ -191,11 +191,11 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
         if (saveOrRemoveJobButton.innerHTML == "Save") {
             saveOrRemoveJobButton.innerHTML = "Unsave";
             dataToSend[1] = job.id;
-            saveJob(dataToSend);
+            saveJob(job.id);
         } else {
             saveOrRemoveJobButton.innerHTML = "Save";
             dataToSend[1] = job.id;
-            deleteSavedJob(dataToSend);
+            deleteSavedJob(job.id);
         }
     });
 
@@ -207,10 +207,10 @@ function setupCard(saveOrRemoveJobButton, job, dataToSend, applyButton, isJobSav
         if (applyButton.innerHTML == "Apply") {
             dataToSend[1] = job.id;
             applyButton.innerHTML = `Withdraw application (Applied on ${createFormattedDate()})`;
-            saveApp(dataToSend);
+            saveApp(job.id);
         } else {
             dataToSend[1] = job.id;
-            deleteApplication(dataToSend);
+            deleteApplication(job.id);
             applyButton.innerHTML = "Apply";
         }
     });
