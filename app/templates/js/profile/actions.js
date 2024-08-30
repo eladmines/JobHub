@@ -29,4 +29,3 @@ initPage();
 removeSearchBar();
 var saveButton = document.getElementById("save-button");
 saveButton.addEventListener('click',changeUserDetails);
-checkLoginAndNavigate();
