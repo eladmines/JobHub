@@ -13,6 +13,7 @@ export function initLoginPage(){
 
 
 export async function login() {
+   
         var username = document.getElementById(INPUT_EMAIL);
         var password = document.getElementById(INPUT_PASSWORD);
         if (!username || !password){
@@ -29,6 +30,7 @@ export async function login() {
             console.error("Create user failed:", error);
             return 0;
         }
+            
             userObj = await authenticateDetails(userObj);
             if(!userObj){   
                 alert("Wrong email/password , please try again.");
@@ -92,6 +94,3 @@ export function forgotPasssowrd(){
     alert("Coming soon...");
 }
 
-export function deleteCookies(){
-    document.cookie = 'id' + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-}
